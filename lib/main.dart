@@ -1,7 +1,17 @@
+import 'package:autism/core/constant/app_colors.dart';
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'core/routing/router.dart';
+
 void main() {
-  runApp(const Autism());
+  runApp(
+    DevicePreview(
+        enabled: !kReleaseMode,
+        builder: (_) => const Autism()),
+
+  );
 }
 
 class Autism extends StatelessWidget {
@@ -10,13 +20,17 @@ class Autism extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
 
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
         useMaterial3: true,
       ),
+
+      routerConfig: AppRouter.router,
+      builder: DevicePreview.appBuilder,
+
       //home: ,
     );
   }
