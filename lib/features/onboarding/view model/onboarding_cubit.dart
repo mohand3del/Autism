@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 part 'onboarding_state.dart';
@@ -10,6 +11,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   }
   int currentIndex = 0;
   late PageController pageController;
+  static OnboardingCubit get(context) => BlocProvider.of(context);
 
   void changeCurrentIndex(int index) {
     currentIndex = index;
@@ -20,8 +22,8 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     currentIndex++;
     pageController.animateToPage(
       currentIndex,
-      duration: const Duration(milliseconds: 900),
-      curve: Curves.easeInOut,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInCubic,
     );
     emit(NextPageState());
   }
