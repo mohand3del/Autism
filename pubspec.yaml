@@ -53,6 +53,9 @@ dependencies:
   build_runner: ^2.4.6
   freezed: ^2.4.6
   retrofit: ^4.1.0
+  font_awesome_flutter: ^10.7.0
+  flutter_spinkit: ^5.2.1
+  get_it: ^7.6.4
 
 dev_dependencies:
 
@@ -97,7 +100,13 @@ flutter:
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter-VariableFont_opsz,wght.ttf
+    - family: Poppins
+      fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/Lato-Bold.ttf
+
 
   #   - family: Trajan Pro
   #     fonts:

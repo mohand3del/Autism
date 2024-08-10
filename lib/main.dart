@@ -3,9 +3,12 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'core/di/di.dart';
 import 'core/routing/router.dart';
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+ await setupGetIt();
   runApp(
     DevicePreview(
         enabled: !kReleaseMode,
@@ -21,6 +24,7 @@ class Autism extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
 
