@@ -1,11 +1,12 @@
 import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/utils/app_styles.dart';
+import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/onboarding_list.dart';
+import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/core/widgets/custom_bottom.dart';
 import 'package:autism/features/onboarding/view%20model/onboarding_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import 'dots_widget.dart';
@@ -38,7 +39,7 @@ class OnBoardingViewBody extends StatelessWidget {
                     child: Image.asset(
                       onBoardingList[index].image!,
                       width: width * 0.9,
-                      height: height * 0.265,
+                      height: height * 0.4,
                     ),
                   ),
                   const Spacer(),
@@ -54,29 +55,24 @@ class OnBoardingViewBody extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          SizedBox(
-                            height: height * 0.035,
-                          ),
+                        verticalSpace(height * 0.035),
                           Text(onBoardingList[index].title!,
                               style: AppStyles.medium20(context)
                                   .copyWith(fontFamily: "Inter")),
-                          SizedBox(
-                            height: height * 0.045,
-                          ),
-                          Text(
-                            onBoardingList[index].textBody!,
-                            style: AppStyles.regular18(context).copyWith(
-                              fontFamily: "Inter",
-                              color: AppColors.textGrey,
+                          verticalSpace(height * 0.045),
+                          Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: context.width*0.05),
+                            child: Text(
+                              onBoardingList[index].textBody!,
+                              style: AppStyles.regular18(context).copyWith(
+                                fontFamily: "Inter",
+                                color: AppColors.textGrey,
+                              ),
                             ),
                           ),
-                          SizedBox(
-                            height: height * 0.038,
-                          ),
+                          verticalSpace(height * 0.038),
                           const DotsWidget(),
-                          SizedBox(
-                            height: height * 0.028,
-                          ),
+                          verticalSpace(height * 0.028),
                           CustomBottom(
                               text:context.read<OnboardingCubit>().currentIndex == onBoardingList.length - 1 ?   "Get Started" :"Next" ,
                               onPressed: () {
