@@ -7,6 +7,7 @@ import 'package:autism/features/splash/presentation/view/widget/animated_autism.
 import 'package:autism/features/splash/presentation/view/widget/animated_logo.dart';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 
 class SplashViewBody extends StatefulWidget {
@@ -40,8 +41,8 @@ with SingleTickerProviderStateMixin{
     );
 
     //Navigate to HomeScreen after 2 seconds
-    Timer(const Duration(seconds: 2), () {
-      //context.go('/HomeScreen');
+    Timer(const Duration(seconds: 3), () {
+      context.go('/onboarding');
     });
   }
 
