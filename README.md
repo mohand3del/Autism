@@ -23,3 +23,6 @@ https://github.com/user-attachments/assets/b6740ec5-7810-41c1-b71d-ccf0d3f210d2
 ## On Boarding Screens
 
 [screencast-Genymotion-2024-08-11_11.28.13.608.webm](https://github.com/user-attachments/assets/f329fc0b-def0-4b31-8578-99bf0a481184)
+
+## Log In Screen
+[screencast-Genymotion-2024-08-11_12.34.02.612.webm](https://github.com/user-attachments/assets/0c8c3146-5ac6-4e5a-a9b1-d35df6b2088a)
