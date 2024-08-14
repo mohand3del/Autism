@@ -6,8 +6,9 @@ import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/core/widgets/custom_back_arrow.dart';
 import 'package:autism/features/auth/verifyCode/presentation/views/widgets/pin_code_field.dart';
+import 'package:autism/features/auth/verifyCode/presentation/views/widgets/verify_bloc_listenar.dart';
 import 'package:flutter/material.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+
 
 
 class VerifyCodeViewBody extends StatelessWidget {
@@ -63,16 +64,17 @@ class VerifyCodeViewBody extends StatelessWidget {
 
                 ),
               ),
-              verticalSpace(context.height * 0.078),
+
 
 
             ],
           ),
-          verticalSpace(context.height * 0.012),
+          verticalSpace(context.height * 0.078),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: PinCodeFields(email: email),
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: PinCodeFields(email: email,),
           ),
+          const VerifyBlocListener(),
 
         ],
       ),

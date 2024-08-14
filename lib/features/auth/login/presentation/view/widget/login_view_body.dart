@@ -22,62 +22,64 @@ class LoginViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-      children: [
+    return  SingleChildScrollView(
+      child: Column(
+        children: [
 
-       Padding(padding: EdgeInsets.only(top:  context.height * 0.2,left: context.width * 0.2,right: context.width * 0.2),
-       child: Text("Log in your account",style: AppStyles.medium24(context).copyWith(
-         fontFamily: "Inter",
-         fontWeight: FontWeight.w500,
+         Padding(padding: EdgeInsets.only(top:  context.height * 0.2,left: context.width * 0.2,right: context.width * 0.2),
+         child: Text("Log in your account",style: AppStyles.medium24(context).copyWith(
+           fontFamily: "Inter",
+           fontWeight: FontWeight.w500,
 
-       ),),
-       ),
-       verticalSpace(context.height * 0.085,),
+         ),),
+         ),
+         verticalSpace(context.height * 0.085,),
 
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: context.width * 0.06),
-          child: const EmailAndPassword(),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: context.width * 0.06),
+            child: const EmailAndPassword(),
 
 
-        ),
-        verticalSpace(context.height * 0.022),
-        const ForgotPasswordRow(),
+          ),
+          verticalSpace(context.height * 0.022),
+          const ForgotPasswordRow(),
 
-        verticalSpace(context.height * 0.077),
-        CustomBottom(text: "Log in", onPressed: (){
-          validateThenDoLogin(context);
-        },),
-        verticalSpace(context.height * 0.063),
-        OrDivider(),
-        verticalSpace( context.height * 0.024),
-        const OAuthWidget(),
-        verticalSpace(context.height * 0.0187),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Don't have an account? ",style: AppStyles.semiBold16(context).copyWith(
-              color: AppColors.black,
-              fontFamily: "Lato"
+          verticalSpace(context.height * 0.077),
+          CustomBottom(text: "Log in", onPressed: (){
+            validateThenDoLogin(context);
+          },),
+          verticalSpace(context.height * 0.063),
+          OrDivider(),
+          verticalSpace( context.height * 0.024),
+          const OAuthWidget(),
+          verticalSpace(context.height * 0.0187),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Don't have an account? ",style: AppStyles.semiBold16(context).copyWith(
+                color: AppColors.black,
+                fontFamily: "Lato"
 
-            ),),
-            GestureDetector(
-              onTap: (){
-               context.go('/signUp');
-              },
-              child: Text("Sign up",style: AppStyles.semiBold16(context).copyWith(
-                  color: AppColors.primaryColor,
-                  fontFamily: "Lato"
               ),),
-            ),
-           const LoginBlocListener()
+              GestureDetector(
+                onTap: (){
+                 context.go('/signUp');
+                },
+                child: Text("Sign up",style: AppStyles.semiBold16(context).copyWith(
+                    color: AppColors.primaryColor,
+                    fontFamily: "Lato"
+                ),),
+              ),
+             const LoginBlocListener()
 
 
-          ],
-        )
+            ],
+          )
 
 
 
-      ],
+        ],
+      ),
     );
   }
   void validateThenDoLogin(BuildContext context) {

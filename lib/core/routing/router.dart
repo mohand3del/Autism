@@ -62,8 +62,13 @@ class AppRouter {
       GoRoute(path: verifyCode,
         builder: (context, state) {
           final String email = state.extra as String;
-          return  BlocProvider(
-              create: (context) => VerifyCubit(getIt()),
+          return  MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => VerifyCubit(getIt()),
+                ),
+                BlocProvider(create: (context) => ForgetCubit(getIt()),),
+              ],
               child: VerifyCodeView(email: email,));
         }
       ),

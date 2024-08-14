@@ -76,7 +76,7 @@ class _VerifyBlocListenerState extends State<VerifyBlocListener> with SingleTick
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Signup Successful'),
+          title: const Text('Verify Successful'),
           content:  SingleChildScrollView(
             child: ListBody(
               children: <Widget>[

@@ -1,3 +1,4 @@
+import 'package:autism/features/auth/verifyCode/view%20model/verify_cubit.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -19,7 +20,7 @@ class ForgetCubit extends Cubit<ForgetState> {
   void emitForgetState ()async {
     emit(const ForgetState.loading());
     final response = await _forgetRepo.forgot(
-        ForgetRequestBody(email: emailController.text)
+        ForgetRequestBody(email: emailController.text),
     );
     response.when(success: (forgotResponseBody) {
       emit(ForgetState.success(forgotResponseBody));
@@ -27,4 +28,5 @@ class ForgetCubit extends Cubit<ForgetState> {
       emit(ForgetState.error(error: error.apiErrorModel.message ?? ''));
     });
   }
+
 }
