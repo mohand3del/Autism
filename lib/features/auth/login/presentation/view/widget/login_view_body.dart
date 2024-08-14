@@ -11,6 +11,7 @@ import 'package:autism/features/auth/login/presentation/view/widget/login_bloc_l
 import 'package:autism/features/auth/login/view%20model/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'forgot_password_row.dart';
 import 'oauth_widget.dart';
@@ -60,7 +61,9 @@ class LoginViewBody extends StatelessWidget {
 
             ),),
             GestureDetector(
-              onTap: (){},
+              onTap: (){
+               context.go('/signUp');
+              },
               child: Text("Sign up",style: AppStyles.semiBold16(context).copyWith(
                   color: AppColors.primaryColor,
                   fontFamily: "Lato"

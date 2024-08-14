@@ -3,12 +3,13 @@ import 'package:json_annotation/json_annotation.dart';
 part 'api_error_model.g.dart';
 @JsonSerializable()
 class ApiErrorModel {
-  final String? error;
+  @JsonKey(name: 'error')
+  final String? message;
   @JsonKey(name: 'statusCode')
   final int? code;
 
   ApiErrorModel({
-    required this.error,
+    required this.message,
     this.code,
   });
 
