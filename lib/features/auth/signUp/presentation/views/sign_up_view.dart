@@ -1,5 +1,7 @@
 
 
+import 'package:autism/core/constant/app_colors.dart';
+import 'package:autism/features/auth/signUp/presentation/views/widgets/sign_up_view_body.dart';
 import 'package:flutter/material.dart';
 
 class SignUpView extends StatelessWidget {
@@ -7,6 +9,8 @@ class SignUpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+        backgroundColor: AppColors.white,
+        body: const SignUpViewBody());
   }
 }

@@ -5,6 +5,7 @@ import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'custom_check_box.dart';
 
@@ -29,7 +30,9 @@ class ForgotPasswordRow extends StatelessWidget {
           ),
           const Spacer(),
           GestureDetector(
-            onTap: (){},
+            onTap: (){
+              context.go('/forgetPass');
+            },
             child: Text("Forgot Password ?",style: AppStyles.medium14(context).copyWith(
               color: AppColors.primaryColor,
             ),

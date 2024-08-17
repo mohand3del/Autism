@@ -43,7 +43,7 @@ class _LoginBlocListenerState extends State<LoginBlocListener> with SingleTicker
             showDialog(
               context: context,
               builder: (context) => Center(
-                child: SpinKitFadingCircle(
+                child: SpinKitFadingCube(
                   color: AppColors.primaryColor,
                   size: 50.0,
                   controller: _animationController,
@@ -80,7 +80,7 @@ class _LoginBlocListenerState extends State<LoginBlocListener> with SingleTicker
         content: Text(
           error,
           style: AppStyles.medium16(context).copyWith(
-            color: AppColors.darkBlue,
+            color: AppColors.black,
             fontFamily: 'Poppins',
           ),
         ),

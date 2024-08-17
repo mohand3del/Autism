@@ -29,12 +29,13 @@ class LoginCubit extends Cubit<LoginState> {
       ),
     );
     response.when(success: (loginResponse) async {
-      //await saveUserToken(loginResponse.userData?.token ?? '');
+      await saveUserToken(loginResponse.token ?? '');
       emit(LoginState.success(loginResponse));
 
     }, failure: (error) {
-      emit(LoginState.error(error: error.apiErrorModel.error.toString() ?? ''));
-      log('Error: ${error.apiErrorModel.error}');
+      emit(LoginState.error(error: error.apiErrorModel.message.toString() ?? ''),
+      );
+      log('Error: ${error.apiErrorModel.message}');
     });
   }
 
