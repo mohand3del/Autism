@@ -23,5 +23,6 @@ class ApiConstants {
   static const String signup = "auth/signUp";
   static const String forgetPassword = "auth/sendPassEmail";
   static const String verifyCode = "auth/activeResetPass";
+  static const String newPassword = "auth/resetPassword";
 
 }
