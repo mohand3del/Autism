@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/di/di.dart';
@@ -9,7 +10,7 @@ import 'package:autism/core/widgets/custom_bottom.dart';
 import 'package:autism/features/auth/forgetPass/view%20model/forget_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../view model/verify_cubit.dart';
@@ -173,6 +174,8 @@ class _PinCodeFieldsState extends State<PinCodeFields> {
               onPressed: () {
                 if (context.read<VerifyCubit>().formKey.currentState!.validate()) {
                   validateTheDoVerify(context);
+
+                  log("email is============================================ ${widget.email}");
                 }
               },
             ),
@@ -185,8 +188,9 @@ class _PinCodeFieldsState extends State<PinCodeFields> {
 
 
   void validateThenDoResend(BuildContext context) {
-
+    context.read<ForgetCubit>().emailController.text = widget.email!;
       context.read<ForgetCubit>().emitForgetState();
+
 
 
   }
@@ -204,8 +208,22 @@ class _PinCodeFieldsState extends State<PinCodeFields> {
         context.read<VerifyCubit>().verifyCode(widget.otpCode!)
             .then((isCodeValid) { // isCodeValid will be true or false
           if (isCodeValid == true) {
+            context.go("/newPassword",extra:widget.email);
 
           } else {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text('Missing OTP Code'),
+                content: Text('Please enter the OTP code sent to your email.'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text('OK'),
+                  ),
+                ],
+              ),
+            );
 
           }
         });

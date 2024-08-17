@@ -4,6 +4,8 @@ import 'package:autism/core/network/dio_factory.dart';
 import 'package:autism/features/auth/forgetPass/view%20model/forget_cubit.dart';
 import 'package:autism/features/auth/login/data/repo/login_repo.dart';
 import 'package:autism/features/auth/login/view%20model/login_cubit.dart';
+import 'package:autism/features/auth/newPassword/data/repo/new_password_repo.dart';
+import 'package:autism/features/auth/newPassword/viewModel/new_password_cubit.dart';
 import 'package:autism/features/auth/signUp/data/repo/sign_up_repo.dart';
 import 'package:autism/features/auth/signUp/view%20model/sign_up_cubit.dart';
 import 'package:autism/features/auth/verifyCode/data/repo/verify_repo.dart';
@@ -39,6 +41,9 @@ Future<void> setupGetIt() async {
   //verify code
   getIt.registerFactory<VerifyCubit>(() => VerifyCubit(getIt()));
   getIt.registerLazySingleton<VerifyRepo>(() => VerifyRepo(getIt()));
+  //new password
+  getIt.registerFactory<NewPasswordCubit>(() => NewPasswordCubit(getIt()));
+  getIt.registerLazySingleton<NewPasswordRepo>(() => NewPasswordRepo(getIt()));
 
 
 

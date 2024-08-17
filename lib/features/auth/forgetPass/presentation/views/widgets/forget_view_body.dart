@@ -54,6 +54,7 @@ class ForgetViewBody extends StatelessWidget {
           verticalSpace(context.height * 0.037),
            CustomBottom(text: "Send Code", onPressed: (){
              validateThenDoForgot(context);
+
            }),
           verticalSpace(context.height * 0.037),
           OrDivider(),
@@ -118,7 +119,8 @@ class ForgetViewBody extends StatelessWidget {
       context.read<ForgetCubit>().emitForgetState();
       context.read<ForgetCubit>().formKey.currentState!.save();
       context.go('/verifyCode',extra: context.read<ForgetCubit>().emailController.text);
-    }
+
+         }
 
   }
 }

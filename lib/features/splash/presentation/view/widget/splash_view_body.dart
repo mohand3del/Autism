@@ -43,6 +43,7 @@ with SingleTickerProviderStateMixin{
     //Navigate to HomeScreen after 2 seconds
     Timer(const Duration(seconds: 3), () {
       context.go('/onboarding');
+      //context.go('/newPassword');
     });
   }
 

@@ -1,5 +1,7 @@
 import 'package:autism/core/network/api_constant.dart';
 import 'package:autism/features/auth/login/data/model/login_response_body.dart';
+import 'package:autism/features/auth/newPassword/data/model/new_password_request_body.dart';
+import 'package:autism/features/auth/newPassword/data/model/new_password_response_body.dart';
 import 'package:autism/features/auth/signUp/data/model/sign_up_request_body.dart';
 import 'package:autism/features/auth/signUp/data/model/sign_up_response.dart';
 import 'package:autism/features/auth/verifyCode/data/model/verify_request_body.dart';
@@ -32,5 +34,9 @@ abstract class ApiService {
   @POST(ApiConstants.verifyCode)
   Future<VerifyResponseBody> verifyCode(
       @Body() VerifyRequestBody verifyCodeRequestBody,);
+  @POST(ApiConstants.newPassword)
+  Future<NewPasswordResponseBody>newPassword(
+      @Body() NewPasswordRequestBody newPasswordRequestBody,
+      );
 }
 
