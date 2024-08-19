@@ -91,4 +91,31 @@ class SharedPrefHelper {
     const flutterSecureStorage = FlutterSecureStorage();
     await flutterSecureStorage.deleteAll();
   }
+// on boarding
+ static  setOnBoardingScreenViewed({required String key, required bool value}) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+   sharedPreferences.setBool(key, value);
+  }
+
+  static Future<bool> getOnBoardingScreenViewed() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getBool('onBoarding') ??
+        false;
+  }
+  //login
+
+  static Future<void> setUserLoggedIn() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setBool('token', true);
+  }
+
+  static Future<bool> isUserLoggedIn() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getBool("token") ?? false;
+  }
+
+ static Future<void> logout() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.remove("token");
+  }
 }

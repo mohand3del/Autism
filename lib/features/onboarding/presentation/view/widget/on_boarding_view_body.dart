@@ -1,4 +1,5 @@
 import 'package:autism/core/constant/app_colors.dart';
+import 'package:autism/core/helper/shared_preferences_helper.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/onboarding_list.dart';
@@ -55,13 +56,14 @@ class OnBoardingViewBody extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                        verticalSpace(height * 0.035),
+                          verticalSpace(height * 0.035),
                           Text(onBoardingList[index].title!,
                               style: AppStyles.medium20(context)
                                   .copyWith(fontFamily: "Inter")),
                           verticalSpace(height * 0.045),
                           Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: context.width*0.05),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: context.width * 0.05),
                             child: Text(
                               onBoardingList[index].textBody!,
                               style: AppStyles.regular18(context).copyWith(
@@ -74,7 +76,12 @@ class OnBoardingViewBody extends StatelessWidget {
                           const DotsWidget(),
                           verticalSpace(height * 0.028),
                           CustomBottom(
-                              text:context.read<OnboardingCubit>().currentIndex == onBoardingList.length - 1 ?   "Get Started" :"Next" ,
+                              text: context
+                                          .read<OnboardingCubit>()
+                                          .currentIndex ==
+                                      onBoardingList.length - 1
+                                  ? "Get Started"
+                                  : "Next",
                               onPressed: () {
                                 if (context
                                         .read<OnboardingCubit>()
@@ -82,7 +89,14 @@ class OnBoardingViewBody extends StatelessWidget {
                                     onBoardingList.length - 1) {
                                   context.read<OnboardingCubit>().nextPage();
                                 } else {
-                                  context.go("/login");
+                                  SharedPrefHelper.setOnBoardingScreenViewed(
+                                          key: 'onBoarding', value: true)
+                                      .then((value) => {
+                                        if (value) {
+                                            context.go('/login')
+                                  }});
+
+                                  //context.go("/login");
                                 }
                               })
                         ],
