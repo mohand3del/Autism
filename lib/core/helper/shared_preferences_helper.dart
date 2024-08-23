@@ -92,12 +92,13 @@ class SharedPrefHelper {
     await flutterSecureStorage.deleteAll();
   }
 // on boarding
- static  setOnBoardingScreenViewed({required String key, required bool value}) async {
+ static Future<bool> setOnBoardingScreenViewed({required String key, required bool value}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
    sharedPreferences.setBool(key, value);
+   return sharedPreferences.setBool(key, value);
   }
 
-  static Future<bool> getOnBoardingScreenViewed() async {
+  static Future<bool?> getOnBoardingScreenViewed() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.getBool('onBoarding') ??
         false;

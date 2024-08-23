@@ -82,14 +82,14 @@ class OnBoardingViewBody extends StatelessWidget {
                                       onBoardingList.length - 1
                                   ? "Get Started"
                                   : "Next",
-                              onPressed: () {
+                              onPressed: ()async {
                                 if (context
                                         .read<OnboardingCubit>()
                                         .currentIndex <
                                     onBoardingList.length - 1) {
                                   context.read<OnboardingCubit>().nextPage();
                                 } else {
-                                  SharedPrefHelper.setOnBoardingScreenViewed(
+                                 await SharedPrefHelper.setOnBoardingScreenViewed(
                                           key: 'onBoarding', value: true)
                                       .then((value) => {
                                         if (value) {
