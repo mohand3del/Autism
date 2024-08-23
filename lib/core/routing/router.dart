@@ -1,5 +1,7 @@
 
 
+
+
 import 'package:autism/core/di/di.dart';
 import 'package:autism/features/auth/forgetPass/presentation/views/forget_view.dart';
 import 'package:autism/features/auth/login/presentation/view/login_view.dart';
@@ -8,6 +10,9 @@ import 'package:autism/features/auth/newPassword/presentation/views/new_password
 import 'package:autism/features/auth/signUp/presentation/views/sign_up_view.dart';
 import 'package:autism/features/auth/signUp/view%20model/sign_up_cubit.dart';
 import 'package:autism/features/auth/verifyCode/presentation/views/verify_code_view.dart';
+import 'package:autism/features/home/presentation/views/home_view.dart';
+import 'package:autism/features/layout/view/layout_view.dart';
+import 'package:autism/features/layout/viewModel/layout_cubit.dart';
 import 'package:autism/features/onboarding/presentation/view/on_boarding_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +30,8 @@ class AppRouter {
   static const forgetPass = '/forgetPass';
   static const verifyCode = '/verifyCode';
   static const newPassword = '/newPassword';
-
+  static const home = "/home";
+  static const layout = "/layout";
 
   static final GoRouter router = GoRouter(
     routes:<RouteBase> [
@@ -90,6 +96,19 @@ class AppRouter {
               child:  NewPasswordView(email: email,)
           );
         }
+      ),
+      GoRoute(path: home,
+        builder: (context,state){
+        return const HomeView();
+        }
+
+      ),
+      GoRoute(path:layout,
+          builder: (context, state) {
+            return  BlocProvider(
+                create: (context) => LayoutCubit(),
+                child: const LayoutView());
+          }
       ),
 
 

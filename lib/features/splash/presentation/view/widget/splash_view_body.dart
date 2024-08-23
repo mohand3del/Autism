@@ -3,6 +3,8 @@
 import 'dart:async';
 
 
+import 'package:autism/core/helper/contants.dart';
+import 'package:autism/core/helper/shared_preferences_helper.dart';
 import 'package:autism/features/splash/presentation/view/widget/animated_autism.dart';
 import 'package:autism/features/splash/presentation/view/widget/animated_logo.dart';
 
@@ -41,8 +43,28 @@ with SingleTickerProviderStateMixin{
     );
 
     //Navigate to HomeScreen after 2 seconds
-    Timer(const Duration(seconds: 3), () {
-      context.go('/onboarding');
+    Timer(const Duration(seconds: 3), () async {
+
+      if(await SharedPrefHelper.getOnBoardingScreenViewed() ?? false){
+        if(SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken)!=null){
+         // Navigator.pushReplacementNamed(context, Routes.layout);
+          context.go('/layout');
+
+        }else{
+         // Navigator.pushReplacementNamed(context, Routes.login);
+          context.go('/login');
+        }
+      }else{
+       // Navigator.pushReplacementNamed(context, Routes.onBoarding);
+        context.go('/onboarding');
+      }
+
+
+
+
+
+       // context.go("/signUp");
+     // context.go('/onboarding');
       //context.go('/newPassword');
     });
   }

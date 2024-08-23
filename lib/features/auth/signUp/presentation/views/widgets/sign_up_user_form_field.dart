@@ -29,10 +29,12 @@ class _SignUpUserFormFieldState extends State<SignUpUserFormField> {
   bool hasMinLength = false;
 
   late TextEditingController passwordController;
+  late TextEditingController passwordConfirmationController;
   @override
   void initState() {
     super.initState();
     passwordController = context.read<SignUpCubit>().passwordController;
+    passwordConfirmationController = context.read<SignUpCubit>().passwordConfirmationController;
     setupPasswordControllerListener();
   }
 
@@ -111,7 +113,7 @@ class _SignUpUserFormFieldState extends State<SignUpUserFormField> {
           prefixIcon: Image.asset("assets/images/lock-on.png",height: 30,width: 30,),
           controller: context.read<SignUpCubit>().passwordConfirmationController,
           hintText: 'Enter Your Confirm Password',
-          isObscureText: isPasswordObscureText,
+          isObscureText: isPasswordConfirmationObscureText,
           suffixIcon: Padding(
             padding:  EdgeInsets.symmetric(vertical: context.height*0.018 ),
             child: GestureDetector(

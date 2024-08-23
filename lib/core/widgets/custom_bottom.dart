@@ -22,7 +22,7 @@ class CustomBottom extends StatelessWidget {
         textColor: AppColors.white,
         padding: const EdgeInsets.only(right: 22, left: 22),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(16),
         ),
         onPressed: onPressed,
 
