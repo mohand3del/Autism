@@ -1,21 +1,18 @@
-import 'package:autism/core/constant/app_colors.dart';
+
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
+import 'package:autism/features/home/data/model/video_response_body.dart';
 import 'package:flutter/material.dart';
 
-class ExploreListViewItem extends StatefulWidget {
-  const ExploreListViewItem({super.key});
+class ExploreListViewItem extends StatelessWidget {
+   const ExploreListViewItem({super.key, this.fullDatum});
+  final FullDatum? fullDatum;
 
-  @override
-  State<ExploreListViewItem> createState() => _ExploreListViewItemState();
-}
-
-class _ExploreListViewItemState extends State<ExploreListViewItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.only(start: 24),
+      padding: const EdgeInsetsDirectional.only(start: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -23,8 +20,8 @@ class _ExploreListViewItemState extends State<ExploreListViewItem> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(16.0),
-                child: Image.asset(
-                  "assets/images/video.png",
+                child: Image.network(
+                  fullDatum?.vedio.thumbnails.medium.url ?? "https://i.ytimg.com/vi/TJuwhCIQQTs/mqdefault.jpg",
                   width: context.width * 320 / 430,
                   height: context.height * 200.0 / 932.0,
                   fit: BoxFit.cover,
@@ -38,7 +35,7 @@ class _ExploreListViewItemState extends State<ExploreListViewItem> {
                 child: Center(
                   child: Icon(
                     Icons.play_circle_fill,
-                    color: Colors.white.withOpacity(0.1),
+                    color: Colors.white.withOpacity(0.7),
                     size: 48.0,
                   ),
                 ),
@@ -46,12 +43,14 @@ class _ExploreListViewItemState extends State<ExploreListViewItem> {
             ],
           ),
           verticalSpace(context.height * 8 / 932),
-          Text(
-            "About Atism 101: Your Beginner Guide",
-            style: AppStyles.regular15(context)
-                .copyWith(fontFamily: "Poppins", color: Color(0xff6A6A6A)),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+          Expanded(
+            child: Text(
+              fullDatum?.vedio.title ?? "About Autism 101: Your Beginner Guide",
+              style: AppStyles.regular13(context)
+                  .copyWith(fontFamily: "Poppins", color: const Color(0xff6A6A6A)),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),

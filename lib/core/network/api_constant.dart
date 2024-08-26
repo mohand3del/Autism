@@ -24,5 +24,7 @@ class ApiConstants {
   static const String forgetPassword = "auth/sendPassEmail";
   static const String verifyCode = "auth/activeResetPass";
   static const String newPassword = "auth/resetPassword";
+  static const String showAllVideo = "home/showAllVideos";
+  static const String showAllChannel = "home/showAllChannels";
 
 }
