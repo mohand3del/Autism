@@ -10,6 +10,10 @@ import 'package:autism/features/auth/signUp/data/repo/sign_up_repo.dart';
 import 'package:autism/features/auth/signUp/view%20model/sign_up_cubit.dart';
 import 'package:autism/features/auth/verifyCode/data/repo/verify_repo.dart';
 import 'package:autism/features/auth/verifyCode/view%20model/verify_cubit.dart';
+import 'package:autism/features/home/data/repo/channel_repo.dart';
+import 'package:autism/features/home/data/repo/video_repo.dart';
+import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
+import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -44,6 +48,15 @@ Future<void> setupGetIt() async {
   //new password
   getIt.registerFactory<NewPasswordCubit>(() => NewPasswordCubit(getIt()));
   getIt.registerLazySingleton<NewPasswordRepo>(() => NewPasswordRepo(getIt()));
+  //video
+  getIt.registerLazySingleton<VideoRepo>(() => VideoRepo(getIt()));
+  getIt.registerFactory<VideoCubit>(() => VideoCubit(getIt()));
+  //channel
+  getIt.registerLazySingleton<ChannelRepo>(() => ChannelRepo(getIt()));
+  getIt.registerFactory<ChannelCubit>(() => ChannelCubit(getIt()));
+
+
+
 
 
 

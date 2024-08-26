@@ -11,6 +11,8 @@ import 'package:autism/features/auth/signUp/presentation/views/sign_up_view.dart
 import 'package:autism/features/auth/signUp/view%20model/sign_up_cubit.dart';
 import 'package:autism/features/auth/verifyCode/presentation/views/verify_code_view.dart';
 import 'package:autism/features/home/presentation/views/home_view.dart';
+import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
+import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
 import 'package:autism/features/layout/view/layout_view.dart';
 import 'package:autism/features/layout/viewModel/layout_cubit.dart';
 import 'package:autism/features/onboarding/presentation/view/on_boarding_view.dart';
@@ -105,8 +107,13 @@ class AppRouter {
       ),
       GoRoute(path:layout,
           builder: (context, state) {
-            return  BlocProvider(
-                create: (context) => LayoutCubit(),
+            return  MultiBlocProvider(
+
+                providers: [
+                  BlocProvider(create: (context) => LayoutCubit(),),
+                  BlocProvider(create: (context) => getIt<VideoCubit>()..getVideos(),),
+                  BlocProvider(create: (context) => getIt<ChannelCubit>()..getChannels(),),
+                ],
                 child: const LayoutView());
           }
       ),
