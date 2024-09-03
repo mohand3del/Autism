@@ -1,0 +1,96 @@
+import 'package:autism/core/helper/contants.dart';
+import 'package:autism/core/utils/app_styles.dart';
+import 'package:autism/core/utils/extentions.dart';
+import 'package:autism/core/utils/spacing.dart';
+import 'package:autism/features/home/data/model/channel_by_id_response_body.dart';
+import 'package:flutter/material.dart';
+
+class ChannelCard extends StatelessWidget {
+  const ChannelCard({Key? key, this.data}) : super(key: key);
+  final FullData? data;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding:  EdgeInsets.symmetric(horizontal: context.width * 24 / 393),
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Circle Avatar with Image
+              CircleAvatar(
+                radius: 30,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(30.0),
+                  child: Image.network(
+                   data?.channel.thumbnails.high.url ?? "https://via.placeholder.com/150",
+                  ),
+                ),
+                // Replace with your image URL
+              ),
+              horizontalSpace(context.width * 12 / 393),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                  Helper.limitWords(data?.channel.title, 2),
+                    style: AppStyles.semiBold18(context).copyWith(
+                      fontFamily: 'Poppins',
+                    )
+                  ),
+                 verticalSpace(context.height * 2 / 852),
+
+                  Text(
+                   "@${data?.channel.title} ",
+                    style: AppStyles.regular12(context).copyWith(
+                      fontFamily: 'Poppins',
+                      color: const Color(0xff828A97),
+                    )
+                  ),
+                  verticalSpace(context.height * 2 / 852),
+                  // Subscriber and Video Count
+                  Row(
+                    children: [
+                      Text(
+                        '${data?.channel.subscriberCount} subscribers • ',
+                        style:  AppStyles.regular14(context).copyWith(
+                          fontFamily: 'Poppins',
+                          color: const Color(0xff828A97),
+                        ),
+
+                      ),
+                       horizontalSpace(context.width * 2 / 393),
+                      Text(
+                        '${data?.channel.videoCount} videos',
+                        style:  AppStyles.regular14(context).copyWith(
+                          fontFamily: 'Poppins',
+                          color: const Color(0xff828A97),
+                        ),
+
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+
+          verticalSpace(context.height * 10 / 852),
+          // Channel Description
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+               Helper.limitWords( '${data?.channel.description}', 10),
+                style: AppStyles.regular14(context).copyWith(
+                  fontFamily: 'Poppins',
+                  color: const Color(0xff828A97),
+                )
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}

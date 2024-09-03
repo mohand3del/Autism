@@ -4,8 +4,9 @@ import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/features/home/presentation/views/widgets/channel/channel_bloc_builder.dart';
-import 'package:autism/features/home/presentation/views/widgets/exploreList/explore_bloc_builder.dart';
+import 'package:autism/features/home/presentation/views/widgets/exploreList/home_explore_bloc_builder.dart';
 import 'package:autism/features/home/presentation/views/widgets/exploreList/explore_row.dart';
+import 'package:autism/features/home/presentation/views/widgets/exploreList/home_explore_list_view.dart';
 import 'package:autism/features/home/presentation/views/widgets/history/history_row.dart';
 import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
@@ -81,6 +82,7 @@ class HomeViewBody extends StatelessWidget {
               verticalSpace(context.height * 20 / 932),
               // ExploreListView(fullData: [],),
               const ExploreBlocBuilder(),
+
               verticalSpace(context.height * 20 / 932),
               const ChannelRow(),
               verticalSpace(context.height * 20 / 932),

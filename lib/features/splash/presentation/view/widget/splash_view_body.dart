@@ -45,25 +45,36 @@ with SingleTickerProviderStateMixin{
     //Navigate to HomeScreen after 2 seconds
     Timer(const Duration(seconds: 3), () async {
 
-      if(await SharedPrefHelper.getOnBoardingScreenViewed() ?? false){
-        if(SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken)!=null){
-         // Navigator.pushReplacementNamed(context, Routes.layout);
-          context.go('/layout');
+      // if(await SharedPrefHelper.getOnBoardingScreenViewed() ?? false){
+      //   if(SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken) !=null){
+      //    // Navigator.pushReplacementNamed(context, Routes.layout);
+      //     context.go('/layout');
+      //
+      //   }else{
+      //    // Navigator.pushReplacementNamed(context, Routes.login);
+      //     context.go('/login');
+      //   }
+      // }else{
+      //  // Navigator.pushReplacementNamed(context, Routes.onBoarding);
+      //   context.go('/onboarding');
+      // }
 
-        }else{
-         // Navigator.pushReplacementNamed(context, Routes.login);
+
+      bool? isOnboardingViewed = await SharedPrefHelper.getOnBoardingScreenViewed();
+
+      if (isOnboardingViewed == true) {
+        String? userToken = await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken);
+
+        if (userToken != null && userToken.isNotEmpty) {
+          context.go('/layout');
+        } else {
           context.go('/login');
         }
-      }else{
-       // Navigator.pushReplacementNamed(context, Routes.onBoarding);
+      } else {
         context.go('/onboarding');
-      }
-
-
-
-
-
-       // context.go("/signUp");
+     }
+      //context.go('/explore');
+      // context.go("/video",extra: '');
      // context.go('/onboarding');
       //context.go('/newPassword');
     });

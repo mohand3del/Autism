@@ -1,19 +1,27 @@
 
-import 'package:autism/core/utils/spacing.dart';
 
-import 'package:autism/features/home/presentation/views/widgets/channel/channel_list_view_shimmer.dart';
-import 'package:autism/features/home/presentation/views/widgets/exploreList/explore_list_view.dart';
+
+import 'package:autism/core/utils/spacing.dart';
+import 'package:autism/features/home/presentation/views/widgets/channel/channel_list_card_item.dart';
+
+
+import 'package:autism/features/home/presentation/views/widgets/exploreList/home_explore_list_view.dart';
 import 'package:autism/features/home/presentation/views/widgets/exploreList/explore_shimmer_loading.dart';
-import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
+import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ExploreBlocBuilder extends StatelessWidget {
-  const ExploreBlocBuilder({super.key});
+import 'channel_card_shimmer.dart';
+import 'channel_skeleton_card.dart';
+import 'custom_skeletoni_channel_list.dart';
+
+class ChannelBuilder extends StatelessWidget {
+  const ChannelBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<VideoCubit, VideoState>(
+    return BlocBuilder<ChannelCubit, ChannelState>(
       buildWhen: (previous, current) =>
       current is Loading || current is Success || current is Error,
       builder: (context, state) {
@@ -22,7 +30,7 @@ class ExploreBlocBuilder extends StatelessWidget {
             return setupLoading();  // Return the loading widget
           },
           success: (data) {
-            return ExploreListView(fullData: data.fullData);  // Return the data view widget
+            return ChannelListCardItem(fullDatum: data.fullData);  // Return the data view widget
           },
           error: (String error) {
             return setupError();  // Return the error widget
@@ -37,13 +45,7 @@ class ExploreBlocBuilder extends StatelessWidget {
 
   Widget setupLoading() {
 
-    return  Column(
-      children: [
-        ExploreShimmerLoding(),
-        verticalSpace(8),
-
-      ],
-    );
+    return  const ChannelSkeletonCard(scrollDirection: Axis.vertical,);
   }
 
   Widget setupError() {

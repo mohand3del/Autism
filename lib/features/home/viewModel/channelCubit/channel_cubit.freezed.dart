@@ -20,7 +20,7 @@ mixin _$ChannelState<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ChannelResponseBody channelResponseBody) success,
+    required TResult Function(T data) success,
     required TResult Function(String error) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$ChannelState<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ChannelResponseBody channelResponseBody)? success,
+    TResult? Function(T data)? success,
     TResult? Function(String error)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$ChannelState<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ChannelResponseBody channelResponseBody)? success,
+    TResult Function(T data)? success,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) =>
@@ -126,7 +126,7 @@ class _$InitialImpl<T> implements _Initial<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ChannelResponseBody channelResponseBody) success,
+    required TResult Function(T data) success,
     required TResult Function(String error) error,
   }) {
     return initial();
@@ -137,7 +137,7 @@ class _$InitialImpl<T> implements _Initial<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ChannelResponseBody channelResponseBody)? success,
+    TResult? Function(T data)? success,
     TResult? Function(String error)? error,
   }) {
     return initial?.call();
@@ -148,7 +148,7 @@ class _$InitialImpl<T> implements _Initial<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ChannelResponseBody channelResponseBody)? success,
+    TResult Function(T data)? success,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
@@ -240,7 +240,7 @@ class _$LoadingImpl<T> implements Loading<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ChannelResponseBody channelResponseBody) success,
+    required TResult Function(T data) success,
     required TResult Function(String error) error,
   }) {
     return loading();
@@ -251,7 +251,7 @@ class _$LoadingImpl<T> implements Loading<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ChannelResponseBody channelResponseBody)? success,
+    TResult? Function(T data)? success,
     TResult? Function(String error)? error,
   }) {
     return loading?.call();
@@ -262,7 +262,7 @@ class _$LoadingImpl<T> implements Loading<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ChannelResponseBody channelResponseBody)? success,
+    TResult Function(T data)? success,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
@@ -320,7 +320,7 @@ abstract class _$$SuccessImplCopyWith<T, $Res> {
           _$SuccessImpl<T> value, $Res Function(_$SuccessImpl<T>) then) =
       __$$SuccessImplCopyWithImpl<T, $Res>;
   @useResult
-  $Res call({ChannelResponseBody channelResponseBody});
+  $Res call({T data});
 }
 
 /// @nodoc
@@ -334,13 +334,13 @@ class __$$SuccessImplCopyWithImpl<T, $Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? channelResponseBody = null,
+    Object? data = freezed,
   }) {
     return _then(_$SuccessImpl<T>(
-      null == channelResponseBody
-          ? _value.channelResponseBody
-          : channelResponseBody // ignore: cast_nullable_to_non_nullable
-              as ChannelResponseBody,
+      freezed == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as T,
     ));
   }
 }
@@ -348,14 +348,14 @@ class __$$SuccessImplCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$SuccessImpl<T> implements Success<T> {
-  const _$SuccessImpl(this.channelResponseBody);
+  const _$SuccessImpl(this.data);
 
   @override
-  final ChannelResponseBody channelResponseBody;
+  final T data;
 
   @override
   String toString() {
-    return 'ChannelState<$T>.success(channelResponseBody: $channelResponseBody)';
+    return 'ChannelState<$T>.success(data: $data)';
   }
 
   @override
@@ -363,12 +363,12 @@ class _$SuccessImpl<T> implements Success<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SuccessImpl<T> &&
-            (identical(other.channelResponseBody, channelResponseBody) ||
-                other.channelResponseBody == channelResponseBody));
+            const DeepCollectionEquality().equals(other.data, data));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, channelResponseBody);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
 
   @JsonKey(ignore: true)
   @override
@@ -381,10 +381,10 @@ class _$SuccessImpl<T> implements Success<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ChannelResponseBody channelResponseBody) success,
+    required TResult Function(T data) success,
     required TResult Function(String error) error,
   }) {
-    return success(channelResponseBody);
+    return success(data);
   }
 
   @override
@@ -392,10 +392,10 @@ class _$SuccessImpl<T> implements Success<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ChannelResponseBody channelResponseBody)? success,
+    TResult? Function(T data)? success,
     TResult? Function(String error)? error,
   }) {
-    return success?.call(channelResponseBody);
+    return success?.call(data);
   }
 
   @override
@@ -403,12 +403,12 @@ class _$SuccessImpl<T> implements Success<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ChannelResponseBody channelResponseBody)? success,
+    TResult Function(T data)? success,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(channelResponseBody);
+      return success(data);
     }
     return orElse();
   }
@@ -452,10 +452,9 @@ class _$SuccessImpl<T> implements Success<T> {
 }
 
 abstract class Success<T> implements ChannelState<T> {
-  const factory Success(final ChannelResponseBody channelResponseBody) =
-      _$SuccessImpl<T>;
+  const factory Success(final T data) = _$SuccessImpl<T>;
 
-  ChannelResponseBody get channelResponseBody;
+  T get data;
   @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<T, _$SuccessImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
@@ -527,7 +526,7 @@ class _$ErrorImpl<T> implements Error<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ChannelResponseBody channelResponseBody) success,
+    required TResult Function(T data) success,
     required TResult Function(String error) error,
   }) {
     return error(this.error);
@@ -538,7 +537,7 @@ class _$ErrorImpl<T> implements Error<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ChannelResponseBody channelResponseBody)? success,
+    TResult? Function(T data)? success,
     TResult? Function(String error)? error,
   }) {
     return error?.call(this.error);
@@ -549,7 +548,7 @@ class _$ErrorImpl<T> implements Error<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ChannelResponseBody channelResponseBody)? success,
+    TResult Function(T data)? success,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
