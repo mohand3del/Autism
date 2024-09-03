@@ -8,62 +8,85 @@ part 'channel_cubit.freezed.dart';
 
 class ChannelCubit extends Cubit<ChannelState> {
   final ChannelRepo _channelRepo;
+  bool _isFetchingData = false;
+  bool _isFirstTime = true;
+  bool _hasMoreData = true;
+  String? _nextPageToken;
+  final List<FullDatum> _allChannels = [];
+
   ChannelCubit(this._channelRepo) : super(const ChannelState.initial());
-  String? _PageToken;
+
+  bool get isFetchingData => _isFetchingData;
+  List<FullDatum> get allChannels => _allChannels;
+  bool get hasMoreData => _hasMoreData;
 
   void getChannels({
     String? search,
-
     bool isLoadMore = false,
   }) async {
-    if (state is Loading) return;
+    if (_isFetchingData) return;
 
-    if (!isLoadMore) {
+    _isFetchingData = true;
+    if (_isFirstTime) {
       emit(const ChannelState.loading());
     }
 
     final response = await _channelRepo.getChannels(
       search: search,
-      pageToken: _PageToken,
-
+      pageToken: _nextPageToken,
     );
 
     response.when(
       success: (data) {
-        _PageToken = data.nextPageToken;
-
-        if (isLoadMore && state is Success<ChannelResponseBody>) {
-          final currentState = state as Success<ChannelResponseBody>;
-          final currentChannels = currentState.channelResponseBody.fullData;
-          final newChannels = data.fullData;
-          final allChannels = List<FullDatum>.from(currentChannels)..addAll(newChannels);
-
-          final updatedResponse = ChannelResponseBody(
-            nextPageToken: data.nextPageToken,
-            prevPageToken: data.prevPageToken,
-            fullData: allChannels,
-          );
-
-          emit(ChannelState.success(updatedResponse));
-        } else {
-          emit(ChannelState.success(data));
-        }
+        _nextPageToken = data.nextPageToken;
+        _hasMoreData = _nextPageToken != null && data.fullData.isNotEmpty;
+        _handleSuccess(data, isLoadMore);
       },
       failure: (error) {
-        emit(ChannelState.error(error.apiErrorModel.message ?? ''));
+        emit(ChannelState.error(error.apiErrorModel.message ?? 'An error occurred'));
       },
     );
+
+    _isFetchingData = false;
+    _isFirstTime = false;
+  }
+
+  void _handleSuccess(ChannelResponseBody data, bool isLoadMore) {
+    if (isLoadMore) {
+      _allChannels.addAll(data.fullData);
+    } else {
+      _allChannels.clear();
+      _allChannels.addAll(data.fullData);
+    }
+
+    emit(ChannelState.success(ChannelResponseBody(
+      nextPageToken: data.nextPageToken,
+      prevPageToken: data.prevPageToken,
+      fullData: _allChannels,
+    )));
   }
 
   void loadMoreChannels({
     String? search,
-
   }) {
-    if (_PageToken != null) {
+    if (_hasMoreData) {
       getChannels(
         search: search,
         isLoadMore: true,
       );
     }
+  }
+
+  void getChannelById({String? channelId}) async {
+    final response = await _channelRepo.getChannelById(channelId: channelId);
+
+    response.when(
+      success: (data) {
+        emit(ChannelState.success(data));
+      },
+      failure: (error) {
+        emit(ChannelState.error(error.apiErrorModel.message ?? 'An error occurred'));
+      },
+    );
   }
 }

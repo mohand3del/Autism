@@ -1,4 +1,5 @@
 
+import 'package:autism/core/helper/contants.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
@@ -8,6 +9,8 @@ import 'package:flutter/material.dart';
 class ExploreListViewItem extends StatelessWidget {
    const ExploreListViewItem({super.key, this.fullDatum});
   final FullDatum? fullDatum;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,7 @@ class ExploreListViewItem extends StatelessWidget {
           verticalSpace(context.height * 8 / 932),
           Expanded(
             child: Text(
-              fullDatum?.vedio.title ?? "About Autism 101: Your Beginner Guide",
+             Helper.limitWords( fullDatum?.vedio.title ?? "About Autism 101: Your Beginner Guide", 5),
               style: AppStyles.regular13(context)
                   .copyWith(fontFamily: "Poppins", color: const Color(0xff6A6A6A)),
               maxLines: 1,

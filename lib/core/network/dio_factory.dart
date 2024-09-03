@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:autism/core/helper/contants.dart';
 import 'package:dio/dio.dart';
 
@@ -14,7 +16,7 @@ class DioFactory {
   static Dio? dio;
 
   static Dio getDio() {
-    Duration timeOut = const Duration(seconds: 30);
+    Duration timeOut = const Duration(seconds: 60);
 
     if (dio == null) {
       dio = Dio();
@@ -35,6 +37,8 @@ class DioFactory {
       'Authorization':
       'Bearer ${await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken)}',
     };
+    //${await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken)}
+    log("token : ${await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken)}");
   }
 
   static void setTokenIntoHeaderAfterLogin(String token) {

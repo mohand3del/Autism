@@ -13,6 +13,7 @@ import 'package:autism/features/auth/verifyCode/view%20model/verify_cubit.dart';
 import 'package:autism/features/home/data/repo/channel_repo.dart';
 import 'package:autism/features/home/data/repo/video_repo.dart';
 import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
+import 'package:autism/features/home/viewModel/exploreVideoCubit/video_by_id_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -54,6 +55,9 @@ Future<void> setupGetIt() async {
   //channel
   getIt.registerLazySingleton<ChannelRepo>(() => ChannelRepo(getIt()));
   getIt.registerFactory<ChannelCubit>(() => ChannelCubit(getIt()));
+
+  //getIt.registerLazySingleton<VideoRepo>(() => VideoRepo(getIt()));
+  getIt.registerFactory<VideoByIdCubit>(() => VideoByIdCubit(getIt()));
 
 
 

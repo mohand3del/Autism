@@ -58,6 +58,9 @@ dependencies:
   get_it: ^7.6.4
   pin_code_fields: ^8.0.1
   shimmer: ^3.0.0
+  youtube_player_flutter: ^9.0.3
+  cached_network_image: ^3.3.1
+  skeletonizer: ^1.4.2
 
 dev_dependencies:
 

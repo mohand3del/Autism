@@ -1,21 +1,21 @@
-import 'dart:developer';
-
+import 'package:autism/core/utils/extentions.dart';
+import 'package:autism/features/home/data/model/video_response_body.dart';
+import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:autism/features/home/data/model/channel_response_body.dart';
-import 'package:autism/features/home/presentation/views/widgets/channel/channel_list_view_item.dart';
-import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
-import 'package:autism/core/utils/extentions.dart';
 import 'package:go_router/go_router.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
-class ChannelListView extends StatefulWidget {
-  const ChannelListView({Key? key, required fullData}) : super(key: key);
+import 'home_explore_list_view_item.dart';
+
+class ExploreListView extends StatefulWidget {
+  const ExploreListView({Key? key, required fullDatum}) : super(key: key);
 
   @override
-  _ChannelListViewState createState() => _ChannelListViewState();
+  _ExploreListViewState createState() => _ExploreListViewState();
 }
 
-class _ChannelListViewState extends State<ChannelListView> {
+class _ExploreListViewState extends State<ExploreListView> {
   late ScrollController _scrollController;
   double? _savedScrollOffset;
 
@@ -26,9 +26,9 @@ class _ChannelListViewState extends State<ChannelListView> {
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent * 0.7) {
-        final cubit = BlocProvider.of<ChannelCubit>(context);
+        final cubit = BlocProvider.of<VideoCubit>(context);
         if (cubit.hasMoreData && !cubit.isFetchingData) {
-          cubit.loadMoreChannels();
+          cubit.loadMoreVideos();
         }
       }
     });
@@ -42,7 +42,7 @@ class _ChannelListViewState extends State<ChannelListView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ChannelCubit, ChannelState>(
+    return BlocListener<VideoCubit, VideoState>(
       listener: (context, state) {
         if (state is Success) {
           // Save current scroll position
@@ -57,21 +57,21 @@ class _ChannelListViewState extends State<ChannelListView> {
         }
       },
       child: SizedBox(
-        height: context.height * 100 / 932,
+        height: context.height * 240 / 932,
         child: Stack(
           children: [
             ListView.builder(
               controller: _scrollController,
               scrollDirection: Axis.horizontal,
               itemCount:
-              BlocProvider.of<ChannelCubit>(context).allChannels.length + 1, // Add 1 for the loading indicator
+                 BlocProvider.of<VideoCubit>(context).allVideos.length + 1, // Add 1 for the loading indicator
               itemBuilder: (context, index) {
-                final channelCubit = BlocProvider.of<ChannelCubit>(context);
-                if (index >= channelCubit.allChannels.length) {
+                final videoCubit = BlocProvider.of<VideoCubit>(context);
+                if (index >= videoCubit.allVideos.length) {
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: channelCubit.isFetchingData
+                      child: videoCubit.isFetchingData
                           ? const CircularProgressIndicator()
                           : const SizedBox.shrink(),
                     ),
@@ -80,13 +80,10 @@ class _ChannelListViewState extends State<ChannelListView> {
 
                 return GestureDetector(
                   onTap: () {
-                    log("=============================" + channelCubit.allChannels[index]!.id.toString());
-                    context.push("/channelInfo", extra: channelCubit.allChannels[index]?.id);
+                    context.push('/video', extra: videoCubit.allVideos[index]);
                   },
-                  child: ChannelListViewItem(
-                    itemIndex: index,
-                    selectedIndex: index, // Adjust this according to your logic
-                    channels: channelCubit.allChannels[index],
+                  child: ExploreListViewItem(
+                    fullDatum: videoCubit.allVideos[index],
                   ),
                 );
               },
@@ -97,3 +94,4 @@ class _ChannelListViewState extends State<ChannelListView> {
     );
   }
 }
+

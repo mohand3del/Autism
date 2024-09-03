@@ -4,6 +4,7 @@ import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ExploreRow extends StatelessWidget {
   const ExploreRow({super.key});
@@ -20,7 +21,9 @@ class ExploreRow extends StatelessWidget {
           ),),
           const Spacer(),
           InkWell(
-            onTap: (){},
+            onTap: (){
+              context.push("/explore");
+            },
             child: Text('See All',style: AppStyles.regular14(context).copyWith(
               fontFamily: "Poppins",
               color: AppColors.primaryColor,

@@ -21,11 +21,10 @@ class CustomBackArrow extends StatelessWidget {
           ),
           child: InkWell(
             onTap: () {
-              if (context.canPop()) {context.pop(); // Pops the route if possible
+              if (context.canPop()) {context.pop();
               } else {
-                // Handle the case where there's nothing to pop
-                // For example, you might want to navigate to a specific route:
-                context.go('/login'); // Replace '/home' with your desired route
+
+                context.go('/login');
               }
             },
             child: Icon(Icons.arrow_back_ios),

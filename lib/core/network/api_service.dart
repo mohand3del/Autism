@@ -6,7 +6,9 @@ import 'package:autism/features/auth/signUp/data/model/sign_up_request_body.dart
 import 'package:autism/features/auth/signUp/data/model/sign_up_response.dart';
 import 'package:autism/features/auth/verifyCode/data/model/verify_request_body.dart';
 import 'package:autism/features/auth/verifyCode/data/model/verify_response_body.dart';
+import 'package:autism/features/home/data/model/channel_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/channel_response_body.dart';
+import 'package:autism/features/home/data/model/video_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/video_response_body.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
@@ -56,4 +58,12 @@ abstract class ApiService {
     @Query("search") String? search,
     @Query("pageToken") String? pageToken,
 });
+  @GET(ApiConstants.getVideoById)
+  Future<VideoByIdResponseBody> getVideoById(
+      {@Query("videoId") String? videoId});
+
+  @GET(ApiConstants.getChannelById)
+  Future<ChannelByIdResponseBody> getChannelById(
+      {@Query("channelId") String? channelId});
+
 }

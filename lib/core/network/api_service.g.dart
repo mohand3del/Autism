@@ -235,6 +235,62 @@ class _ApiService implements ApiService {
     return _value;
   }
 
+  @override
+  Future<VideoByIdResponseBody> getVideoById({String? videoId}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'videoId': videoId};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<VideoByIdResponseBody>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'home/video',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = VideoByIdResponseBody.fromJson(_result.data!);
+    return _value;
+  }
+
+  @override
+  Future<ChannelByIdResponseBody> getChannelById({String? channelId}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'channelId': channelId};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ChannelByIdResponseBody>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'home/channel',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = ChannelByIdResponseBody.fromJson(_result.data!);
+    return _value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||
