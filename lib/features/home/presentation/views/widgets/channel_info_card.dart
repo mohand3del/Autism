@@ -41,7 +41,7 @@ class ChannelCard extends StatelessWidget {
                  verticalSpace(context.height * 2 / 852),
 
                   Text(
-                   "@${data?.channel.title} ",
+                   "${data?.channel.customUrl} ",
                     style: AppStyles.regular12(context).copyWith(
                       fontFamily: 'Poppins',
                       color: const Color(0xff828A97),
@@ -52,12 +52,11 @@ class ChannelCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '${data?.channel.subscriberCount} subscribers • ',
-                        style:  AppStyles.regular14(context).copyWith(
+                        Helper.formatNumber('${data?.channel.subscriberCount}') + ' subscribers • ',
+                        style: AppStyles.regular14(context).copyWith(
                           fontFamily: 'Poppins',
                           color: const Color(0xff828A97),
                         ),
-
                       ),
                        horizontalSpace(context.width * 2 / 393),
                       Text(
@@ -80,12 +79,19 @@ class ChannelCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-               Helper.limitWords( '${data?.channel.description}', 10),
-                style: AppStyles.regular14(context).copyWith(
-                  fontFamily: 'Poppins',
-                  color: const Color(0xff828A97),
-                )
+              Expanded(
+                child: Text(
+                 //Helper.limitWordsV2( '${data?.channel.description}', 15,wordsPerLine: 8),
+                          '${data?.channel.description}',
+                  style: AppStyles.regular14(context).copyWith(
+                    fontFamily: 'Poppins',
+                    color: const Color(0xff828A97),
+                          
+                  ),
+                  maxLines: 6,
+                  softWrap: true, // هذا هو الخيار الافتراضي بالفعل
+                  overflow: TextOverflow.visible,
+                ),
               ),
             ],
           ),

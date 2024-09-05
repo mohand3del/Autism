@@ -35,7 +35,7 @@ class _VideoViewBodyState extends State<VideoViewBody> {
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: widget.fullData?.vedio.id.videoId ?? '',
+      initialVideoId: widget.fullData.vedio.id.videoId ?? '',
       flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: false,
@@ -59,14 +59,17 @@ class _VideoViewBodyState extends State<VideoViewBody> {
       child: SafeArea(
         child: Column(
           children: [
-            YoutubePlayerBuilder(
-              player: YoutubePlayer(
-                controller: _controller,
-                showVideoProgressIndicator: false,
+            SizedBox(
+              height: context.height * 300 / 852,
+              child: YoutubePlayerBuilder(
+                player: YoutubePlayer(
+                  controller: _controller,
+                  showVideoProgressIndicator: false,
+                ),
+                builder: (context, player) {
+                  return player;
+                },
               ),
-              builder: (context, player) {
-                return player;
-              },
             ),
             verticalSpace(context.height * 7 / 852),
             Padding(
@@ -127,10 +130,6 @@ class _VideoViewBodyState extends State<VideoViewBody> {
                       child: CachedNetworkImage(
                         imageUrl:
                             widget.videoData?.channel.thumbnails.high.url ?? '',
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) =>
-                                CircularProgressIndicator(
-                                    value: downloadProgress.progress),
                         errorWidget: (context, url, error) =>
                             const Icon(Icons.error),
                       ),
@@ -160,7 +159,7 @@ class _VideoViewBodyState extends State<VideoViewBody> {
                           ),
                           child: Center(
                            child:  Text(
-                              "550k",
+                              Helper.formatNumber(widget.videoData?.channel.subscriberCount.toString()  ) ?? 'No Subscribers',
                              style: AppStyles.regular16(context).copyWith(
                                fontFamily: "Poppins",
                                color: Colors.white,
@@ -177,7 +176,7 @@ class _VideoViewBodyState extends State<VideoViewBody> {
             ),
             verticalSpace(context.height * 12 / 852),
             DescriptionWidget(  description: widget.videoData?.vedio.description??'No Description',),
-            //verticalSpace(context.height * 12 / 852),
+            verticalSpace(context.height * 12 / 852),
             VideoBlocBuilder(),
           ],
         ),

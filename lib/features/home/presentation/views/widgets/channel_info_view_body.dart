@@ -4,17 +4,19 @@ import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
+import 'package:autism/features/home/data/model/channel_by_id_response_body.dart';
 import 'package:autism/features/home/presentation/views/widgets/channel_info_bloc_builder.dart';
-import 'package:autism/features/home/presentation/views/widgets/channel_info_card.dart';
-import 'package:autism/features/home/presentation/views/widgets/channel_videos_item.dart';
-import 'package:autism/features/home/presentation/views/widgets/channel_videos_list_view.dart';
+import 'package:autism/features/home/presentation/views/widgets/channel_video_bloc_builder.dart';
+
 import 'package:flutter/material.dart';
 
+import 'channel_videos_list_view.dart';
 import 'custom_bar_back_arrow.dart';
 
 class ChannelInfoViewBody extends StatelessWidget {
-  const ChannelInfoViewBody({super.key, this.channelId});
+  const ChannelInfoViewBody({super.key, this.channelId, this.fullData});
   final String? channelId;
+  final FullData ? fullData;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,8 @@ class ChannelInfoViewBody extends StatelessWidget {
         ),
         verticalSpace(context.height * 20 / 852),
         //ChannelVideosItem(),
-        const ChannelVideosListView()
+         //ChannelVideosListView(fullData: ,)
+        Expanded(child: ChannelListBlocBuilder())
 
 
 

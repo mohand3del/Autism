@@ -5,6 +5,7 @@ import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/features/home/data/model/channel_response_body.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ChannelCardItem extends StatelessWidget {
@@ -39,14 +40,10 @@ class ChannelCardItem extends StatelessWidget {
               // Profile Image
               CircleAvatar(
                 radius: 25,
-                backgroundImage: const NetworkImage(
-                  'https://via.placeholder.com/150', // Replace with your image URL
-                ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(25.0), // Same radius as the CircleAvatar
-                  child: FadeInImage.assetNetwork(
-                    placeholder: 'assets/images/Ellipse 22.png', // Replace with a local placeholder image
-                    image: fullDatum?.thumbnails.medium.url ?? 'https://via.placeholder.com/150', // Replace with your image URL
+                  child:CachedNetworkImage(// Replace with a local placeholder image
+                    imageUrl: fullDatum?.thumbnails.medium.url ?? 'https://via.placeholder.com/150', // Replace with your image URL
                     fit: BoxFit.cover, // Adjust fit as needed
                   ),
                 ),

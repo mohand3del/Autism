@@ -1,10 +1,16 @@
+import 'package:autism/core/helper/contants.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
+import 'package:autism/features/home/data/model/channel_by_id_response_body.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class ChannelVideosItem extends StatelessWidget {
-  const ChannelVideosItem({super.key});
+  const ChannelVideosItem({super.key, this.videoData});
+  final Video? videoData;
+
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +21,13 @@ class ChannelVideosItem extends StatelessWidget {
           // Video Thumbnail
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
-            child: Image.asset("assets/images/video.png", // Replace with your image URL
+            child: CachedNetworkImage( // Replace with your image URL
               width: context.width *  170 / 393,
               height: context.height * 100 / 852,
               fit: BoxFit.cover,
-            ),
+              imageUrl: videoData?.thumbnails.high.url ?? "",
+              placeholder: (context, url) =>  Skeletonizer(child: Container()),
+              errorWidget: (context, url, error) => const Icon(Icons.error),),
           ),
           horizontalSpace(context.width * 8 / 393),
           // Video Details
@@ -29,7 +37,7 @@ class ChannelVideosItem extends StatelessWidget {
               children: [
                 // Video Title
                 Text(
-                  'What is autism and how \n can we help them?',
+                 Helper.limitWords( videoData?.title, 10) ?? 'What is autism and how \n can we help them?',
                   style: AppStyles.regular12(context).copyWith(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
@@ -42,7 +50,8 @@ class ChannelVideosItem extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      '1M views • ',
+                    Helper.formatNumber('${videoData?.viewCount}') + 'views •',
+                      //'${videoData?.viewCount}views •',
                       style: AppStyles.regular10(context).copyWith(
                         fontFamily: 'Poppins',
                         color: Color(0xff828A97)
@@ -51,7 +60,7 @@ class ChannelVideosItem extends StatelessWidget {
                     ),
                     horizontalSpace(context.width * 2 / 393),
                     Text(
-                      '2 years ago',
+                      Helper.limitWords(videoData?.publishedAt.toString(), 1),
                       style: AppStyles.regular10(context).copyWith(
                           fontFamily: 'Poppins',
                           color: Color(0xff828A97)

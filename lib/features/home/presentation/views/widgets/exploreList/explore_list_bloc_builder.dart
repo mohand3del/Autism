@@ -5,6 +5,7 @@ import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../recommended_video_skeleton.dart';
 import 'explore_item_list.dart';
 
 class ExploreListBlocBuilder extends StatelessWidget {
@@ -22,9 +23,10 @@ class ExploreListBlocBuilder extends StatelessWidget {
           },
           success: (data) {
             final videoCubit = context.read<VideoCubit>();
+            final updatedVideos = List.from(videoCubit.allVideos)..addAll(data.fullData);
 
             // Merge the new data with the existing data in the Cubi
-            videoCubit.allVideos.addAll(data.fullData);
+           // videoCubit.allVideos.addAll(data.fullData);
 
             return ExploreItemList(fullData: videoCubit.allVideos);  // Return the data view widget with all saved data
           },
@@ -40,12 +42,7 @@ class ExploreListBlocBuilder extends StatelessWidget {
   }
 
   Widget setupLoading() {
-    return Column(
-      children: [
-        ExploreShimmerLoding(),
-        verticalSpace(8),
-      ],
-    );
+    return const RecommendedVideoSkeleton();
   }
 
   Widget setupError() {

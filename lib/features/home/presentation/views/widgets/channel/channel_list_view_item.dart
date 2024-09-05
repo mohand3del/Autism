@@ -6,7 +6,9 @@ import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/features/home/data/model/channel_response_body.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class ChannelListViewItem extends StatelessWidget {
   final int? itemIndex;
@@ -25,14 +27,15 @@ class ChannelListViewItem extends StatelessWidget {
 
         CircleAvatar(
         radius: 25,
-        backgroundImage: const NetworkImage(
-          'https://via.placeholder.com/150', // Replace with your image URL
-        ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(25.0), // Same radius as the CircleAvatar
-          child: FadeInImage.assetNetwork(
-            placeholder: 'assets/images/Ellipse 22.png', // Replace with a local placeholder image
-            image: channels?.thumbnails.medium.url ?? "https://via.placeholder.com/150",
+          child: CachedNetworkImage(
+            placeholder: (context, url) => Skeletonizer(
+                enabled: true,
+                child: Container(
+
+                )),
+            imageUrl: channels?.thumbnails.medium.url ?? "https://via.placeholder.com/150",
             fit: BoxFit.cover,
             height: context.height * 70 / 932,
             width: context.width * 70 / 430,// Adjust fit as needed

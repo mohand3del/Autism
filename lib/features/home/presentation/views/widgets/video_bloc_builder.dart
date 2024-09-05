@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../video_view.dart';
+import 'recommended_video_skeleton.dart';
 
   class VideoBlocBuilder extends StatelessWidget {
   const VideoBlocBuilder({super.key});
@@ -39,13 +40,7 @@ import '../video_view.dart';
 
   Widget setupLoading() {
 
-    return  Column(
-      children: [
-        ExploreShimmerLoding(),
-        verticalSpace(8),
-
-      ],
-    );
+    return  RecommendedVideoSkeleton();
   }
 
   Widget setupError() {
