@@ -32,6 +32,7 @@ class ChannelVideosItem extends StatelessWidget {
           horizontalSpace(context.width * 8 / 393),
           // Video Details
           Expanded(
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

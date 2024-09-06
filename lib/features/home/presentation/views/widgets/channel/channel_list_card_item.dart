@@ -1,10 +1,12 @@
 
 
+import 'package:autism/core/routing/router.dart';
 import 'package:autism/features/home/data/model/channel_response_body.dart';
 import 'package:autism/features/home/presentation/views/widgets/channel/channel_card_item.dart';
 import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ChannelListCardItem extends StatefulWidget {
   const ChannelListCardItem({super.key, required this.fullDatum});
@@ -61,7 +63,9 @@ class _ChannelListCardItemState extends State<ChannelListCardItem> {
           });
         }
       },
-      child: Expanded(child: ListView.builder(
+      child: Expanded(
+
+          child: ListView.builder(
           controller: _scrollController,
           scrollDirection: Axis.vertical,
           itemCount: widget.fullDatum.length + (_hasMoreData ? 1 : 0),
@@ -77,7 +81,11 @@ class _ChannelListCardItemState extends State<ChannelListCardItem> {
                 ),
               );
             }
-        return  ChannelCardItem(fullDatum:widget.fullDatum[index],);
+        return  GestureDetector(
+            onTap: () {
+              context.push("/channelInfo",extra: widget.fullDatum[index].id);
+            },
+            child: ChannelCardItem(fullDatum:widget.fullDatum[index],));
       })),
     );
   }

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:autism/core/helper/contants.dart';
+import 'package:autism/core/routing/router.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
@@ -11,6 +12,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import 'description_widget.dart';
@@ -123,15 +125,20 @@ class _VideoViewBodyState extends State<VideoViewBody> {
               ),
               child: Row(
                 children: [
-                  CircleAvatar(
-                    radius: 22,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(22.0),
-                      child: CachedNetworkImage(
-                        imageUrl:
-                            widget.videoData?.channel.thumbnails.high.url ?? '',
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
+                  GestureDetector(
+                    onTap: () {
+                      context.push('/channelInfo',extra: widget.videoData?.channel.id as String);
+                    },
+                    child: CircleAvatar(
+                      radius: 22,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(22.0),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              widget.videoData?.channel.thumbnails.high.url ?? '',
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                        ),
                       ),
                     ),
                   ),

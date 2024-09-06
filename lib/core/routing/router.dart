@@ -28,6 +28,7 @@ import '../../features/auth/verifyCode/view model/verify_cubit.dart';
 import '../../features/splash/presentation/view/splash_screen.dart';
 
 
+
 class AppRouter {
   static const splash = '/';
   static const onBoarding = '/onboarding';
@@ -154,7 +155,7 @@ class AppRouter {
       GoRoute(
           path: video,
           builder: (context, state) {
-            //final String id;
+
             final fullDatum = state.extra as FullDatum;
 
             return MultiBlocProvider(
@@ -174,11 +175,15 @@ class AppRouter {
           path: channelInfo,
           builder: (context, state) {
            final channelId = state.extra as String;
+
             return BlocProvider(
                 create: (BuildContext context) =>
                 getIt<ChannelCubit>()..getChannelById(channelId: channelId),
                 child:  ChannelInfoView(channelId: channelId,));
           }),
+
+
+
 
     ],
   );

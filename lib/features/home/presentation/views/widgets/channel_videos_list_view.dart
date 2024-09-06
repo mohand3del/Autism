@@ -8,10 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class ChannelVideosListView extends StatefulWidget {
-  const ChannelVideosListView({super.key, required this.videos, this.fullDatum});
+  const ChannelVideosListView({super.key, required this.videos,  this.fullData,});
 
   final List<Video> videos;
-  final FullDatum? fullDatum;
+  final List<FullDatum?>? fullData;
+
 
   @override
   _ChannelVideosListViewState createState() => _ChannelVideosListViewState();
@@ -74,10 +75,11 @@ class _ChannelVideosListViewState extends State<ChannelVideosListView> {
                 ),
               );
             }
+
             return GestureDetector(
                 onTap: () {
 
-                  context.push("/video", extra: widget.videos[index]);
+                  context.push("/video", extra: widget.fullData?[index]);
                 },
                 child: ChannelVideosItem(videoData: widget.videos[index]));
           },

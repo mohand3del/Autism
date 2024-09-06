@@ -16,7 +16,7 @@ class ChannelListBlocBuilder extends StatelessWidget {
       builder: (context, state) {
         return state.maybeWhen(
           loading: () => setupLoading(),
-          success: (data) => ChannelVideosListView(videos: data.fullData.videos),
+          success: (data) => ChannelVideosListView(videos: data.fullData.videos,),
           error: (String error) => setupError(),
           orElse: () => const SizedBox.shrink(),
         );
