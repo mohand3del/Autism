@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:autism/core/helper/contants.dart';
+import 'package:autism/core/routing/router.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
@@ -11,6 +12,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import 'description_widget.dart';
@@ -35,7 +37,7 @@ class _VideoViewBodyState extends State<VideoViewBody> {
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: widget.fullData?.vedio.id.videoId ?? '',
+      initialVideoId: widget.fullData.vedio.id.videoId ?? '',
       flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: false,
@@ -59,14 +61,17 @@ class _VideoViewBodyState extends State<VideoViewBody> {
       child: SafeArea(
         child: Column(
           children: [
-            YoutubePlayerBuilder(
-              player: YoutubePlayer(
-                controller: _controller,
-                showVideoProgressIndicator: false,
+            SizedBox(
+              height: context.height * 300 / 852,
+              child: YoutubePlayerBuilder(
+                player: YoutubePlayer(
+                  controller: _controller,
+                  showVideoProgressIndicator: false,
+                ),
+                builder: (context, player) {
+                  return player;
+                },
               ),
-              builder: (context, player) {
-                return player;
-              },
             ),
             verticalSpace(context.height * 7 / 852),
             Padding(
@@ -120,19 +125,20 @@ class _VideoViewBodyState extends State<VideoViewBody> {
               ),
               child: Row(
                 children: [
-                  CircleAvatar(
-                    radius: 22,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(22.0),
-                      child: CachedNetworkImage(
-                        imageUrl:
-                            widget.videoData?.channel.thumbnails.high.url ?? '',
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) =>
-                                CircularProgressIndicator(
-                                    value: downloadProgress.progress),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
+                  GestureDetector(
+                    onTap: () {
+                      context.push('/channelInfo',extra: widget.videoData?.channel.id as String);
+                    },
+                    child: CircleAvatar(
+                      radius: 22,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(22.0),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              widget.videoData?.channel.thumbnails.high.url ?? '',
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                        ),
                       ),
                     ),
                   ),
@@ -160,7 +166,7 @@ class _VideoViewBodyState extends State<VideoViewBody> {
                           ),
                           child: Center(
                            child:  Text(
-                              "550k",
+                              Helper.formatNumber(widget.videoData?.channel.subscriberCount.toString()  ) ?? 'No Subscribers',
                              style: AppStyles.regular16(context).copyWith(
                                fontFamily: "Poppins",
                                color: Colors.white,
@@ -177,7 +183,7 @@ class _VideoViewBodyState extends State<VideoViewBody> {
             ),
             verticalSpace(context.height * 12 / 852),
             DescriptionWidget(  description: widget.videoData?.vedio.description??'No Description',),
-            //verticalSpace(context.height * 12 / 852),
+            verticalSpace(context.height * 12 / 852),
             VideoBlocBuilder(),
           ],
         ),

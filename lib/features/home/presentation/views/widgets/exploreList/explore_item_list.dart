@@ -4,6 +4,7 @@ import 'package:autism/features/home/presentation/views/widgets/exploreList/expl
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ExploreItemList extends StatefulWidget {
   const ExploreItemList({super.key, required this.fullData});
@@ -77,7 +78,12 @@ class _ExploreItemListState extends State<ExploreItemList> {
                 ),
               );
             }
-            return ExploreItem(fullDatum: widget.fullData[index],);
+            return GestureDetector(
+                onTap: (){
+
+                  context.push('/video', extra: widget.fullData[index]);
+                },
+                child: ExploreItem(fullDatum: widget.fullData[index],));
           },
         ),
       ),

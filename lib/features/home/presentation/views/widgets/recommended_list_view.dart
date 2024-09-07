@@ -5,6 +5,7 @@ import 'package:autism/features/home/presentation/views/widgets/recommended_vide
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class RecommendedListView extends StatefulWidget {
   const RecommendedListView({super.key, required this.fullData});
@@ -74,7 +75,11 @@ class _RecommendedListViewState extends State<RecommendedListView> {
               ),
             );
           }
-          return RecommendedVideoItem(videoData: widget.fullData[index]);
+          return GestureDetector(
+              onTap: (){
+                context.push('/video',extra: widget.fullData[index]);
+              },
+              child: RecommendedVideoItem(videoData: widget.fullData[index]));
         },
       ),
     );

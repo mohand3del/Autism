@@ -43,7 +43,7 @@ class ChannelInfoBlocBuilder extends StatelessWidget {
 
 
   Widget setupLoading() {
-    return CustomSkeletonCardInfo();
+    return const CustomSkeletonCardInfo();
   }
 
   Widget setupError() {

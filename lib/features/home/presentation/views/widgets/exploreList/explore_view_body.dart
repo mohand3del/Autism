@@ -22,7 +22,7 @@ class ExploreViewBody extends StatelessWidget {
           verticalSpace(context.height*28/852),
          const CustomSearchRow(),
           verticalSpace(context.height*28/852),
-          const ExploreListBlocBuilder(),
+          Expanded(child: const ExploreListBlocBuilder()),
 
         ],
       ),

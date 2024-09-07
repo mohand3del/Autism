@@ -25,7 +25,8 @@ class _ChannelListViewState extends State<ChannelListView> {
     _scrollController = ScrollController();
 
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent * 0.7) {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent * 0.7) {
         final cubit = BlocProvider.of<ChannelCubit>(context);
         if (cubit.hasMoreData && !cubit.isFetchingData) {
           cubit.loadMoreChannels();
@@ -64,7 +65,8 @@ class _ChannelListViewState extends State<ChannelListView> {
               controller: _scrollController,
               scrollDirection: Axis.horizontal,
               itemCount:
-              BlocProvider.of<ChannelCubit>(context).allChannels.length + 1, // Add 1 for the loading indicator
+                  BlocProvider.of<ChannelCubit>(context).allChannels.length +
+                      1, // Add 1 for the loading indicator
               itemBuilder: (context, index) {
                 final channelCubit = BlocProvider.of<ChannelCubit>(context);
                 if (index >= channelCubit.allChannels.length) {
@@ -80,8 +82,10 @@ class _ChannelListViewState extends State<ChannelListView> {
 
                 return GestureDetector(
                   onTap: () {
-                    log("=============================" + channelCubit.allChannels[index]!.id.toString());
-                    context.push("/channelInfo", extra: channelCubit.allChannels[index]?.id);
+                    log("=============================" +
+                        channelCubit.allChannels[index].id.toString());
+                    context.push("/channelInfo",
+                        extra: channelCubit.allChannels[index].id);
                   },
                   child: ChannelListViewItem(
                     itemIndex: index,

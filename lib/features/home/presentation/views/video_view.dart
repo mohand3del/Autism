@@ -7,8 +7,8 @@ import 'package:autism/features/home/data/model/video_by_id_response_body.dart';
 import 'package:autism/features/home/presentation/views/widgets/video_view_body.dart';
 
 class VideoView extends StatefulWidget {
-  const VideoView({super.key, required this.fullData});
-  final FullDatum fullData;
+  const VideoView({super.key,  this.fullData});
+  final FullDatum? fullData;
 
   @override
   State<VideoView> createState() => _VideoViewState();
@@ -20,7 +20,7 @@ class _VideoViewState extends State<VideoView> {
   @override
   void initState() {
     super.initState();
-    _videoFuture = context.read<VideoByIdCubit>().getVideoById(videoId: widget.fullData.vedio.id.videoId);
+    _videoFuture = context.read<VideoByIdCubit>().getVideoById(videoId: widget.fullData!.vedio.id.videoId);
   }
 
   @override
@@ -38,7 +38,7 @@ class _VideoViewState extends State<VideoView> {
             return BlocBuilder<VideoByIdCubit, VideoByIdState>(
               builder: (context, state) {
                 if (state is Success) {
-                  return VideoViewBody(fullData: widget.fullData, videoData: state.data.fullData);
+                  return VideoViewBody(fullData: widget.fullData!, videoData: state.data.fullData);
                 } else if (state is Error) {
                   return Center(child: Text(state.error));
                 } else {

@@ -80,6 +80,7 @@ class _ExploreListViewState extends State<ExploreListView> {
 
                 return GestureDetector(
                   onTap: () {
+
                     context.push('/video', extra: videoCubit.allVideos[index]);
                   },
                   child: ExploreListViewItem(
