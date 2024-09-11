@@ -15,8 +15,11 @@ class LayoutView extends StatelessWidget {
       builder: (BuildContext context, Object? state) {
         var cubit=LayoutCubit.get(context);
         return Scaffold(
-          body: cubit.screens[cubit.currentIndex],
-          bottomNavigationBar: const BottomNavBar(),
+          body: IndexedStack(
+            index: cubit.currentIndex,
+            children: cubit.screens,
+          ),
+          bottomNavigationBar: SafeArea(child: const BottomNavBar()),
         );
       },
     );

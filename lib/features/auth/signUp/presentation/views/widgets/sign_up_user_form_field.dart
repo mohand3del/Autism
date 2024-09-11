@@ -1,5 +1,3 @@
-
-
 import 'package:autism/core/network/app_regex.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
@@ -30,11 +28,13 @@ class _SignUpUserFormFieldState extends State<SignUpUserFormField> {
 
   late TextEditingController passwordController;
   late TextEditingController passwordConfirmationController;
+
   @override
   void initState() {
     super.initState();
     passwordController = context.read<SignUpCubit>().passwordController;
-    passwordConfirmationController = context.read<SignUpCubit>().passwordConfirmationController;
+    passwordConfirmationController =
+        context.read<SignUpCubit>().passwordConfirmationController;
     setupPasswordControllerListener();
   }
 
@@ -50,96 +50,138 @@ class _SignUpUserFormFieldState extends State<SignUpUserFormField> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Form(
         key: context.read<SignUpCubit>().formKey,
-        child:Column(
-      children: [
-        AppTextFormField(
-          prefixIcon: Image.asset("assets/images/user.png",height: 30,width: 30,),
-          hintText: 'Enter your full name',
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter a valid name';
-            }
-          },
-          controller: context.read<SignUpCubit>().nameController,
-        ),
-        verticalSpace(context.height*0.02),
-        AppTextFormField(
-          prefixIcon: GestureDetector(
-            onTap: (){},
-            child: Image.asset('assets/images/email_icon.png',height: 30,width: 30,),
-          ),
-
-          hintText: 'Enter Your Email',
-          validator: (value) {
-            if (value == null ||
-                value.isEmpty ||
-                !AppRegex.isEmailValid(value)) {
-              return 'Please enter a valid email';
-            }
-          },
-          controller: context.read<SignUpCubit>().emailController,
-        ),
-        verticalSpace(context.height*0.02),
-        AppTextFormField(
-          prefixIcon: Image.asset("assets/images/lock-on.png",height: 30,width: 30,),
-          controller: context.read<SignUpCubit>().passwordController,
-          hintText: 'Enter Your Password',
-          isObscureText: isPasswordObscureText,
-          suffixIcon: Padding(
-            padding:  EdgeInsets.symmetric(vertical: context.height*0.018 ),
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  isPasswordObscureText = !isPasswordObscureText;
-                });
-              },
-              child:
-              (isPasswordObscureText ?const FaIcon(FontAwesomeIcons.eyeSlash,color: AppColors.lightGrey,) :const FaIcon(FontAwesomeIcons.eye,color: AppColors.lightGrey,)) ,
-
+        child: Column(children: [
+          AppTextFormField(
+            prefixIcon: Image.asset(
+              "assets/images/user.png",
+              height: 30,
+              width: 30,
             ),
+            hintText: 'Enter your full name',
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a valid name';
+              }
+            },
+            controller: context.read<SignUpCubit>().nameController,
           ),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter a valid password';
-            }
-          },
-        ),
-        verticalSpace(context.height*0.02),
-        AppTextFormField(
-          prefixIcon: Image.asset("assets/images/lock-on.png",height: 30,width: 30,),
-          controller: context.read<SignUpCubit>().passwordConfirmationController,
-          hintText: 'Enter Your Confirm Password',
-          isObscureText: isPasswordConfirmationObscureText,
-          suffixIcon: Padding(
-            padding:  EdgeInsets.symmetric(vertical: context.height*0.018 ),
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  isPasswordConfirmationObscureText = !isPasswordConfirmationObscureText;
-                });
-              },
-              child:
-              (isPasswordConfirmationObscureText ?const FaIcon(FontAwesomeIcons.eyeSlash,color: AppColors.lightGrey,) :const FaIcon(FontAwesomeIcons.eye,color: AppColors.lightGrey,)) ,
-
+          verticalSpace(context.height * 0.02),
+          AppTextFormField(
+            prefixIcon: GestureDetector(
+              onTap: () {},
+              child: Image.asset(
+                'assets/images/email_icon.png',
+                height: 30,
+                width: 30,
+              ),
             ),
+            hintText: 'Enter Your Email',
+            validator: (value) {
+              if (value == null ||
+                  value.isEmpty ||
+                  !AppRegex.isEmailValid(value)) {
+                return 'Please enter a valid email';
+              }
+            },
+            controller: context.read<SignUpCubit>().emailController,
           ),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter a valid password';
-            }
-          },
-        ),
+          verticalSpace(context.height * 0.02),
+          AppTextFormField(
+            prefixIcon: Image.asset(
+              "assets/images/lock-on.png",
+              height: 30,
+              width: 30,
+            ),
+            controller: context.read<SignUpCubit>().passwordController,
+            hintText: 'Enter Your Password',
+            isObscureText: isPasswordObscureText,
+            suffixIcon: Padding(
+              padding: EdgeInsets.symmetric(vertical: context.height * 0.018),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isPasswordObscureText = !isPasswordObscureText;
+                  });
+                },
+                child: (isPasswordObscureText
+                    ? const FaIcon(
+                        FontAwesomeIcons.eyeSlash,
+                        color: AppColors.lightGrey,
+                      )
+                    : const FaIcon(
+                        FontAwesomeIcons.eye,
+                        color: AppColors.lightGrey,
+                      )),
+              ),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a valid password';
+              }
+            },
+          ),
+          verticalSpace(context.height * 0.02),
+          AppTextFormField(
+            prefixIcon: Image.asset(
+              "assets/images/lock-on.png",
+              height: 30,
+              width: 30,
+            ),
+            controller:
+                context.read<SignUpCubit>().passwordConfirmationController,
+            hintText: 'Enter Your Confirm Password',
+            isObscureText: isPasswordConfirmationObscureText,
+            suffixIcon: Padding(
+              padding: EdgeInsets.symmetric(vertical: context.height * 0.018),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isPasswordConfirmationObscureText =
+                        !isPasswordConfirmationObscureText;
+                  });
+                },
+                child: (isPasswordConfirmationObscureText
+                    ? const FaIcon(
+                        FontAwesomeIcons.eyeSlash,
+                        color: AppColors.lightGrey,
+                      )
+                    : const FaIcon(
+                        FontAwesomeIcons.eye,
+                        color: AppColors.lightGrey,
+                      )),
+              ),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a valid password';
+              }
+              if (!hasUppercase) {
+                return 'Password must contain at least one uppercase letter';
+              }
+              if (!hasLowercase) {
+                return 'Password must contain at least one lowercase letter';
+              }
+              if (!hasSpecialCharacters) {
+                return 'Password must contain at least one special character';
+              }
+              if (!hasNumber) {
+                return 'Password must contain at least one number';
+              }
+              if (!hasMinLength) {
+                return 'Password must be at least 8 characters long';
+              }
 
-
-
-
-      ]
-   ));
+              return null; // If all conditions are met, return null (i.e., valid password)
+            },
+          ),
+        ]));
   }
+
   @override
   void dispose() {
     passwordController.dispose();

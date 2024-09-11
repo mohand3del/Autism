@@ -19,6 +19,11 @@ class AppTextFormField extends StatelessWidget {
   final Function(String?) validator;
   final void Function(String)? onFieldSubmitted;
 
+  final List<String>? autofillHints;
+
+  final TextInputType? keyboardType;
+
+
   final Widget? prefixIcon;
   const AppTextFormField({
     super.key,
@@ -33,7 +38,7 @@ class AppTextFormField extends StatelessWidget {
     this.backgroundColor,
     this.controller,
     required this.validator,
-    this.prefixIcon, this.onFieldSubmitted,
+    this.prefixIcon, this.onFieldSubmitted, this.autofillHints, this.keyboardType,
   });
 
   @override
@@ -42,7 +47,8 @@ class AppTextFormField extends StatelessWidget {
      // height: context.height* 0.06,
       width: context.width * 0.87,
       child: TextFormField(
-
+        autofillHints: autofillHints,
+        keyboardType: keyboardType,
         controller: controller,
         decoration: InputDecoration(
           isDense: true,

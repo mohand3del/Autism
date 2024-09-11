@@ -53,6 +53,8 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
       child: Column(
         children: [
           AppTextFormField(
+            autofillHints: const [AutofillHints.email],
+            keyboardType: TextInputType.emailAddress,
             prefixIcon: GestureDetector(
               onTap: (){},
               child: Image.asset('assets/images/email_icon.png',height: 30,width: 30,),
@@ -70,6 +72,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
           ),
           verticalSpace(context.height*0.02),
           AppTextFormField(
+            keyboardType: TextInputType.visiblePassword,
             prefixIcon: Image.asset("assets/images/lock-on.png",height: 30,width: 30,),
             controller: context.read<LoginCubit>().passwordController,
             hintText: 'Enter Your Password',

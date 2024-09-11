@@ -46,13 +46,15 @@ class ExploreListViewItem extends StatelessWidget {
             ],
           ),
           verticalSpace(context.height * 8 / 932),
-          Expanded(
+          Container(
+            width: context.width * 320 / 430,
             child: Text(
-             Helper.limitWords( fullDatum?.vedio.title ?? "About Autism 101: Your Beginner Guide", 5),
+              fullDatum?.vedio.title ?? "About Autism 101: Your Beginner Guide",
               style: AppStyles.regular13(context)
                   .copyWith(fontFamily: "Poppins", color: const Color(0xff6A6A6A)),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
+              softWrap: false,
             ),
           ),
         ],

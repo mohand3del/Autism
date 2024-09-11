@@ -19,55 +19,57 @@ class SignUpViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-                top: context.height * 0.12,
-                left: context.width * 0.2,
-                right: context.width * 0.2),
-            child: Text(
-              "Create new account",
-              style: AppStyles.medium24(context).copyWith(
-                fontFamily: "Inter",
-                fontWeight: FontWeight.w500,
+      child: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  top: context.height * 50/852,
+                  ),
+              child: Text(
+                "Create new account",
+                style: AppStyles.medium24(context).copyWith(
+                  fontFamily: "Inter",
+                  fontWeight: FontWeight.w600,
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
-          ),
-          verticalSpace(
-            context.height * 0.085,
-          ),
-          const SignUpUserFormField(),
-          verticalSpace(context.height * 0.07),
-          CustomBottom(text: "Sign Up", onPressed: () {
-            validateThenDoSignup(context);
-          }),
-          verticalSpace(context.height * 0.055),
-          OrDivider(),
-          verticalSpace(context.height * 0.024),
-          const OAuthWidget(),
-          verticalSpace(context.height * 0.0187),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Already have an account? ",
-                style: AppStyles.semiBold16(context)
-                    .copyWith(color: AppColors.black, fontFamily: "Lato"),
-              ),
-              GestureDetector(
-                onTap: (){
-                  context.go('/login');
-                },
-                child: Text("Login",style: AppStyles.semiBold16(context).copyWith(
-                    color: AppColors.primaryColor,
-                    fontFamily: "Lato"
-                ),),
-              ),
-              const SignupBlocListener(),
-            ],
-          ),
-        ],
+            verticalSpace(
+              context.height * 72 / 852,
+            ),
+            const SignUpUserFormField(),
+            verticalSpace(context.height * 0.07),
+            CustomBottom(text: "Sign Up", onPressed: () {
+              validateThenDoSignup(context);
+            }),
+            verticalSpace(context.height * 0.055),
+            OrDivider(),
+            verticalSpace(context.height * 0.024),
+            const OAuthWidget(),
+            verticalSpace(context.height * 0.0187),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Already have an account? ",
+                  style: AppStyles.semiBold16(context)
+                      .copyWith(color: AppColors.black, fontFamily: "Lato"),
+                ),
+                GestureDetector(
+                  onTap: (){
+                    context.go('/login');
+                  },
+                  child: Text("Login",style: AppStyles.semiBold16(context).copyWith(
+                      color: AppColors.primaryColor,
+                      fontFamily: "Lato"
+                  ),),
+                ),
+                const SignupBlocListener(),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -45,18 +45,21 @@ class ExploreItem extends StatelessWidget {
 
               horizontalSpace(context.width * 10 / 393),
               // The text
-              Expanded(
+              Container(
+                width: context.width * 280 / 393,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      Helper.limitWords(
+
                           fullDatum?.vedio.title ??
                               "About Autism 101: Your Beginner Guide",
-                          5),
+
                       style: AppStyles.medium15(context).copyWith(
                         fontFamily: 'Poppins',
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     Row(
                       children: [

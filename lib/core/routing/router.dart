@@ -19,6 +19,11 @@ import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dar
 import 'package:autism/features/layout/view/layout_view.dart';
 import 'package:autism/features/layout/viewModel/layout_cubit.dart';
 import 'package:autism/features/onboarding/presentation/view/on_boarding_view.dart';
+import 'package:autism/features/test/presentation/view/choose_test_view.dart';
+import 'package:autism/features/test/presentation/view/on_boarding_test_view.dart';
+import 'package:autism/features/test/presentation/view/tell_us_about_view.dart';
+import 'package:autism/features/test/presentation/view/widget/onboarding_test.dart';
+import 'package:autism/features/test/viewModel/test_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -43,6 +48,9 @@ class AppRouter {
   static const String channel = "/channel";
   static const String video = "/video";
   static const String channelInfo = "/channelInfo";
+  static const String onboardingTest = "/onboardingTest";
+  static const String chooseTest = "/chooseTest";
+  static const String tellAbout = "/tellAbout";
 
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
@@ -181,6 +189,24 @@ class AppRouter {
                 getIt<ChannelCubit>()..getChannelById(channelId: channelId),
                 child:  ChannelInfoView(channelId: channelId,));
           }),
+      GoRoute(path: chooseTest, builder: (context, state) {
+
+        return BlocProvider(create: (BuildContext context) {
+
+          return TestingCubit();
+        },
+        child: const ChooseTestView());
+      }),
+      GoRoute(
+        path: onboardingTest,
+        builder: (context, state) {
+          return const OnBoardingTestView();
+        },
+      ),
+      GoRoute(path: tellAbout, builder: (context, state) {
+
+        return const TellUsAboutView();
+      })
 
 
 
