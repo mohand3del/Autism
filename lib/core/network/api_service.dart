@@ -8,9 +8,11 @@ import 'package:autism/features/auth/verifyCode/data/model/verify_request_body.d
 import 'package:autism/features/auth/verifyCode/data/model/verify_response_body.dart';
 import 'package:autism/features/home/data/model/channel_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/channel_response_body.dart';
+import 'package:autism/features/home/data/model/history_response_body.dart';
 import 'package:autism/features/home/data/model/video_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/video_response_body.dart';
 import 'package:dio/dio.dart';
+import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
 import '../../features/auth/forgetPass/data/model/forget_request_body.dart';
@@ -28,23 +30,23 @@ abstract class ApiService {
 
   @POST(ApiConstants.signup)
   Future<SignUpResponse> signup(
-    @Body() SignUpRequestBody signupRequestBody,
-  );
+      @Body() SignUpRequestBody signupRequestBody,
+      );
 
   @POST(ApiConstants.forgetPassword)
   Future<ForgetResponseBody> forgetPassword(
-    @Body() ForgetRequestBody forgetPasswordRequestBody,
-  );
+      @Body() ForgetRequestBody forgetPasswordRequestBody,
+      );
 
   @POST(ApiConstants.verifyCode)
   Future<VerifyResponseBody> verifyCode(
-    @Body() VerifyRequestBody verifyCodeRequestBody,
-  );
+      @Body() VerifyRequestBody verifyCodeRequestBody,
+      );
 
   @POST(ApiConstants.newPassword)
   Future<NewPasswordResponseBody> newPassword(
-    @Body() NewPasswordRequestBody newPasswordRequestBody,
-  );
+      @Body() NewPasswordRequestBody newPasswordRequestBody,
+      );
 
   @GET(ApiConstants.showAllVideo)
   Future<VideoResponseBody> showAllVideos({
@@ -57,7 +59,7 @@ abstract class ApiService {
   Future<ChannelResponseBody> showAllChannels({
     @Query("search") String? search,
     @Query("pageToken") String? pageToken,
-});
+  });
   @GET(ApiConstants.getVideoById)
   Future<VideoByIdResponseBody> getVideoById(
       {@Query("videoId") String? videoId});
@@ -65,5 +67,7 @@ abstract class ApiService {
   @GET(ApiConstants.getChannelById)
   Future<ChannelByIdResponseBody> getChannelById(
       {@Query("channelId") String? channelId});
+  @GET(ApiConstants.getHistory)
+  Future<HistoryResponseBody> getHistory();
 
 }

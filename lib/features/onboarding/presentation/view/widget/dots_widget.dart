@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DotsWidget extends StatelessWidget {
-  const DotsWidget({super.key});
+  const DotsWidget({super.key, required this.listLength});
+  final List listLength ;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +21,9 @@ class DotsWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ...List.generate(
-              onBoardingList.length,
+              listLength.length,
                   (index) => AnimatedContainer(
-                duration: const Duration(milliseconds: 100),
+                duration: const Duration(milliseconds: 50),
                 margin: EdgeInsets.only(right: w * 0.022),
                 height: h * 0.012,
                 width: cubit.currentIndex == index ? w * 0.025 : w * 0.025,

@@ -5,6 +5,7 @@ import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/onboarding_list.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/core/widgets/custom_bottom.dart';
+import 'package:autism/features/onboarding/data/model/onboarding_model.dart';
 import 'package:autism/features/onboarding/view%20model/onboarding_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,7 @@ class OnBoardingViewBody extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           return PageView.builder(
+            physics: NeverScrollableScrollPhysics(),
             controller: context.read<OnboardingCubit>().pageController,
             onPageChanged: (int index) {
               context.read<OnboardingCubit>().changeCurrentIndex(index);
@@ -55,25 +57,23 @@ class OnBoardingViewBody extends StatelessWidget {
                     ),
                     child: SingleChildScrollView(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           verticalSpace(height * 0.035),
                           Text(onBoardingList[index].title!,
+                              textAlign: TextAlign.center,
                               style: AppStyles.medium20(context)
                                   .copyWith(fontFamily: "Inter")),
                           verticalSpace(height * 0.045),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: context.width * 0.05),
-                            child: Text(
-                              onBoardingList[index].textBody!,
-                              style: AppStyles.regular18(context).copyWith(
-                                fontFamily: "Inter",
-                                color: AppColors.textGrey,
-                              ),
+                          Text(
+                            onBoardingList[index].textBody!,
+                            style: AppStyles.regular18(context).copyWith(
+                              fontFamily: "Inter",
+                              color: AppColors.textGrey,
                             ),
                           ),
                           verticalSpace(height * 0.038),
-                          const DotsWidget(),
+                           DotsWidget(listLength: onBoardingList,),
                           verticalSpace(height * 0.028),
                           CustomBottom(
                               text: context

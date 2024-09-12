@@ -59,7 +59,7 @@ with SingleTickerProviderStateMixin{
       //   context.go('/onboarding');
       // }
 
-
+     //
       bool? isOnboardingViewed = await SharedPrefHelper.getOnBoardingScreenViewed();
 
       if (isOnboardingViewed == true) {
@@ -73,9 +73,11 @@ with SingleTickerProviderStateMixin{
       } else {
         context.go('/onboarding');
      }
-      //context.go('/explore');
-      // context.go("/video",extra: '');
-     // context.go('/onboarding');
+
+
+   //  context.go('/test');
+     // context.go("/video",extra: '');
+      //context.go('/onboarding');
       //context.go('/newPassword');
     });
   }

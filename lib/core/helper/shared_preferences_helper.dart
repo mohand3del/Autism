@@ -103,6 +103,17 @@ class SharedPrefHelper {
     return sharedPreferences.getBool('onBoarding') ??
         false;
   }
+  // on boarding test
+  static Future<bool?> getOnBoardingTestScreenViewed() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getBool('onBoardingTest');
+  }
+  static Future<bool> setOnBoardingTestScreenViewed({required String key, required bool value}) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.setBool(key, value);
+  }
+
+
   //login
 
   static Future<void> setUserLoggedIn() async {

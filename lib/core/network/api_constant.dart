@@ -28,5 +28,6 @@ class ApiConstants {
   static const String showAllChannel = "home/showAllChannels";
   static const String getVideoById = "home/video";
   static const String getChannelById = "home/channel";
+  static const String getHistory = "home/showAllHistory";
 
 }

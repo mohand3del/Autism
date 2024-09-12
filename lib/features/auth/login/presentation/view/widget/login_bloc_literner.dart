@@ -55,7 +55,7 @@ class _LoginBlocListenerState extends State<LoginBlocListener> with SingleTicker
           },
           success: (loginResponse) {
             //context.pop();
-            context.go('/home');
+            context.go('/layout');
 
           },
           error: (error) {

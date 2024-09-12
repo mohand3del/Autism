@@ -210,10 +210,10 @@ packages:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "99e066ce75c89d6b29903d788a7bb9369cf754f7b24bf70bf4b6d6d6b26853b9"
+      sha256: "7856d364b589d1f08986e140938578ed36ed948581fbc3bc9aef1805039ac5ab"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.3.6"
+    version: "2.3.7"
   device_frame:
     dependency: transitive
     description:
@@ -538,6 +538,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.2"
+  im_stepper:
+    dependency: "direct main"
+    description:
+      name: im_stepper
+      sha256: "84ca411f7c4666cb8762a6dd6eec0353c96c67f674124614263875d0570ca634"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.1+1"
   intl:
     dependency: transitive
     description:
@@ -610,6 +618,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.0"
+  logger:
+    dependency: "direct main"
+    description:
+      name: logger
+      sha256: "697d067c60c20999686a0add96cf6aba723b3aa1f83ecf806a8097231529ec32"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.4.0"
   logging:
     dependency: transitive
     description:
@@ -830,18 +846,18 @@ packages:
     dependency: "direct main"
     description:
       name: retrofit
-      sha256: "479cc534c2d83296dac6ae16933dd77e7a52bb54cf7e75e6eb83ee51928c8465"
+      sha256: "3c9885ef3dbc5dc4b3fb0a40c972ab52e4dad04d52dac9bba24dfa76cf100451"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.3.0"
+    version: "4.4.1"
   retrofit_generator:
     dependency: "direct main"
     description:
       name: retrofit_generator
-      sha256: "0e5045314ddc250f75b8ec38794129b32b51bd82e0f67157cb948488187d502d"
+      sha256: f20982392512587b1cce6cd34e3cf953a01a3fe8f82e4c34e10afe65e70c3556
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "9.0.0"
+    version: "9.1.2"
   rxdart:
     dependency: transitive
     description:
@@ -999,6 +1015,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.11.1"
+  step_progress_indicator:
+    dependency: "direct main"
+    description:
+      name: step_progress_indicator
+      sha256: b51bb1fcfc78454359f0658c5a2c21548c3825ebf76e826308e9ca10f383bbb8
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.2"
   stream_channel:
     dependency: transitive
     description:

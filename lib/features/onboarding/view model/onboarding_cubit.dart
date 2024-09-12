@@ -22,7 +22,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     currentIndex++;
     pageController.animateToPage(
       currentIndex,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 70),
       curve: Curves.easeInCubic,
     );
     emit(NextPageState());

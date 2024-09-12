@@ -24,7 +24,7 @@ class Helper {
       limitedWords.insert(i, '\n');
     }
 
-    return limitedWords.join(' ');
+    return limitedWords.join(' ') + '...';
   }
 
 
@@ -65,5 +65,35 @@ class Helper {
 
     return limitedWords.join(' ') + '...';
   }
+
+  static String limitChars(String? text, int charLimit, {int charsPerLine = 10}) {
+    if (text == null || text.isEmpty) {
+      return "";
+    }
+
+    // Check if the text exceeds the char limit
+    bool isTruncated = text.length > charLimit;
+
+    // Truncate the text to the character limit
+    String limitedText = isTruncated ? text.substring(0, charLimit) : text;
+
+    // Insert line breaks after every 'charsPerLine' characters
+    StringBuffer formattedText = StringBuffer();
+    for (int i = 0; i < limitedText.length; i++) {
+      formattedText.write(limitedText[i]);
+      // Add a line break after reaching the limit of characters per line
+      if ((i + 1) % charsPerLine == 0) {
+        formattedText.write('\n');
+      }
+    }
+
+    // Add ellipsis if the text was truncated
+    if (isTruncated) {
+      formattedText.write('...');
+    }
+
+    return formattedText.toString();
+  }
+
 
 }
