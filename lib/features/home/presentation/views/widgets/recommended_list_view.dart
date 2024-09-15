@@ -77,7 +77,7 @@ class _RecommendedListViewState extends State<RecommendedListView> {
           }
           return GestureDetector(
               onTap: (){
-                context.push('/video',extra: widget.fullData[index]);
+                context.push('/video',extra: widget.fullData[index]?.vedio.id.videoId.toString());
               },
               child: RecommendedVideoItem(videoData: widget.fullData[index]));
         },

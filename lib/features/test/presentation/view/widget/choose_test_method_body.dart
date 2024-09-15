@@ -3,6 +3,7 @@ import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/core/widgets/custom_bottom.dart';
+import 'package:autism/features/test/presentation/view/tell_us_about_view.dart';
 import 'package:autism/features/test/presentation/view/widget/test_view_body.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,7 @@ class _MethodSelectionPageState extends State<MethodSelectionPage> {
 
   final List<String> _selectedMethods = [];
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +28,10 @@ class _MethodSelectionPageState extends State<MethodSelectionPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Divider(),
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: context.width * 20 / 852),
+              child: Divider(),
+            ),
             verticalSpace(context.height * 20 / 852),
             Padding(
               padding: const EdgeInsets.only(left: 16.0),
@@ -107,7 +112,7 @@ class _MethodSelectionPageState extends State<MethodSelectionPage> {
               child: CustomBottom(text: "Continue", onPressed: () {
 
                 if (_selectedMethods.isEmpty) {
-                  // عرض رسالة تنبيه إذا لم يتم اختيار أي طريقة
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Please select at least one method!'),
@@ -115,11 +120,11 @@ class _MethodSelectionPageState extends State<MethodSelectionPage> {
                     ),
                   );
                 } else {
-                  // الانتقال إلى الشاشة التالية إذا تم اختيار طريقة
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => TestViewBody(
+                      builder: (context) => TellUsAboutView(
                         totalFormQuestions: 10,
                         selectedMethods: _selectedMethods,
                       ),

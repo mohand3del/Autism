@@ -1,9 +1,11 @@
 import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/helper/shared_preferences_helper.dart';
 import 'package:autism/core/utils/extentions.dart';
+import 'package:autism/features/test/viewModel/tell_about_cubit/tell_about_cubit.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/di/di.dart';
 import 'core/helper/contants.dart';
@@ -27,23 +29,26 @@ class Autism extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return BlocProvider(
+      create: (context) => TellAboutCubit(getIt()),
+      child: MaterialApp.router(
 
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
 
-      theme: ThemeData(
+        theme: ThemeData(
 
-        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
-        useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
+          useMaterial3: true,
+
+        ),
+
+        routerConfig: AppRouter.router,
+
+
+        builder: DevicePreview.appBuilder,
 
       ),
-
-      routerConfig: AppRouter.router,
-
-
-      builder: DevicePreview.appBuilder,
-
     );
   }
 }

@@ -94,6 +94,17 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   String? _selectedOption;
 
   @override
+  void didUpdateWidget(covariant QuestionWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Reset selected option when the question changes
+    if (widget.questionText != oldWidget.questionText) {
+      setState(() {
+        _selectedOption = null;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(

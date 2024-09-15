@@ -6,24 +6,33 @@ import 'package:autism/features/auth/newPassword/presentation/views/new_password
 import 'package:autism/features/auth/signUp/presentation/views/sign_up_view.dart';
 import 'package:autism/features/auth/signUp/view%20model/sign_up_cubit.dart';
 import 'package:autism/features/auth/verifyCode/presentation/views/verify_code_view.dart';
+import 'package:autism/features/home/data/model/channel_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/video_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/video_response_body.dart';
 import 'package:autism/features/home/presentation/views/channel_info_view.dart';
 import 'package:autism/features/home/presentation/views/channel_view.dart';
 import 'package:autism/features/home/presentation/views/explore_view.dart';
+import 'package:autism/features/home/presentation/views/history_view.dart';
 import 'package:autism/features/home/presentation/views/home_view.dart';
 import 'package:autism/features/home/presentation/views/video_view.dart';
 import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_by_id_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
+import 'package:autism/features/home/viewModel/historyCubit/history_cubit.dart';
 import 'package:autism/features/layout/view/layout_view.dart';
 import 'package:autism/features/layout/viewModel/layout_cubit.dart';
 import 'package:autism/features/onboarding/presentation/view/on_boarding_view.dart';
+import 'package:autism/features/test/presentation/view/autism_result_view.dart';
 import 'package:autism/features/test/presentation/view/choose_test_view.dart';
+import 'package:autism/features/test/presentation/view/non_autism_view.dart';
 import 'package:autism/features/test/presentation/view/on_boarding_test_view.dart';
 import 'package:autism/features/test/presentation/view/tell_us_about_view.dart';
+import 'package:autism/features/test/presentation/view/test_result_view.dart';
+import 'package:autism/features/test/presentation/view/waiting_view.dart';
 import 'package:autism/features/test/presentation/view/widget/onboarding_test.dart';
+import 'package:autism/features/test/viewModel/tell_about_cubit/tell_about_cubit.dart';
 import 'package:autism/features/test/viewModel/test_cubit.dart';
+import 'package:autism/features/test/viewModel/test_result_cubit/test_result_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -31,8 +40,6 @@ import '../../features/auth/forgetPass/view model/forget_cubit.dart';
 import '../../features/auth/newPassword/viewModel/new_password_cubit.dart';
 import '../../features/auth/verifyCode/view model/verify_cubit.dart';
 import '../../features/splash/presentation/view/splash_screen.dart';
-
-
 
 class AppRouter {
   static const splash = '/';
@@ -51,6 +58,11 @@ class AppRouter {
   static const String onboardingTest = "/onboardingTest";
   static const String chooseTest = "/chooseTest";
   static const String tellAbout = "/tellAbout";
+  static const String history = "/history";
+  static const String waiting = "/waiting";
+  static const String autismTestResult = "/autismTestResult";
+  static const String nonAutismTestResult = "/nonAutismTestResult";
+  static const String testResult = "/testResult";
 
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
@@ -142,6 +154,8 @@ class AppRouter {
               BlocProvider(
                 create: (context) => getIt<ChannelCubit>()..getChannels(),
               ),
+              BlocProvider(
+                  create: (context) => getIt<HistoryCubit>()..getHistory()),
             ], child: const LayoutView());
           }),
       GoRoute(
@@ -161,56 +175,88 @@ class AppRouter {
                 child: const ChannelView());
           }),
       GoRoute(
-          path: video,
-          builder: (context, state) {
-
-            final fullDatum = state.extra as FullDatum;
-
+        path: video,
+        builder: (context, state) {
+          final videoId = state.extra as String?;
+          if (videoId != null) {
             return MultiBlocProvider(
-                providers: [
-                  BlocProvider(
-                    create: (BuildContext context) => getIt<VideoByIdCubit>(),
-                  ),
-                  BlocProvider(
-                    create: (context) => getIt<VideoCubit>()..getVideos(),
-                  ),
-                ],
-                child: VideoView(
-                  fullData: fullDatum,
-                ));
-          }),
+              providers: [
+                BlocProvider(
+                  create: (BuildContext context) => getIt<VideoByIdCubit>(),
+                ),
+                BlocProvider(
+                  create: (context) => getIt<VideoCubit>()..getVideos(),
+                ),
+              ],
+              child: VideoView(
+                videoId: videoId,  // تمرير id للفيديو
+              ),
+            );
+          } else {
+            return Scaffold(
+              body: Center(
+                child: Text('No video ID provided!'),
+              ),
+            );
+          }
+        },
+      ),
+
       GoRoute(
           path: channelInfo,
           builder: (context, state) {
-           final channelId = state.extra as String;
+            final channelId = state.extra as String;
 
             return BlocProvider(
                 create: (BuildContext context) =>
-                getIt<ChannelCubit>()..getChannelById(channelId: channelId),
-                child:  ChannelInfoView(channelId: channelId,));
+                    getIt<ChannelCubit>()..getChannelById(channelId: channelId),
+                child: ChannelInfoView(
+                  channelId: channelId,
+                ));
           }),
-      GoRoute(path: chooseTest, builder: (context, state) {
-
-        return BlocProvider(create: (BuildContext context) {
-
-          return TestingCubit();
-        },
-        child: const ChooseTestView());
-      }),
+      GoRoute(
+          path: chooseTest,
+          builder: (context, state) {
+            return BlocProvider(
+                create: (BuildContext context) {
+                  return TestingCubit();
+                },
+                child: const ChooseTestView());
+          }),
       GoRoute(
         path: onboardingTest,
         builder: (context, state) {
           return const OnBoardingTestView();
         },
       ),
-      GoRoute(path: tellAbout, builder: (context, state) {
-
-        return const TellUsAboutView();
-      })
-
-
-
-
+      GoRoute(
+          path: tellAbout,
+          builder: (context, state) {
+            return BlocProvider<TellAboutCubit>(
+                create: (BuildContext context) => TellAboutCubit(getIt()),
+                child: const TellUsAboutView());
+          }),
+      GoRoute(
+          path: history,
+          builder: (context, state) {
+            return BlocProvider(
+                create: (BuildContext context) => getIt<HistoryCubit>()..getHistory(),
+                child: const HistoryView());
+          }),
+      GoRoute(path: waiting, builder: (context, state) {
+        return WaitingView();
+      }),
+      GoRoute(path: autismTestResult, builder: (context, state) {
+        return const AutismResultView();
+      }),
+      GoRoute(path: nonAutismTestResult, builder: (context, state) {
+        return const NonAutismView();
+      }),
+      GoRoute(path: testResult, builder: (context, state) {
+        return BlocProvider(
+            create: (BuildContext context) => getIt<TestResultCubit>()..getTestResult(),
+            child: const TestResultView());
+      }),
     ],
   );
 }

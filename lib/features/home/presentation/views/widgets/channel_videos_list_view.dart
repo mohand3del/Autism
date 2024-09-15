@@ -1,6 +1,5 @@
-import 'package:autism/core/utils/extentions.dart';
+
 import 'package:autism/features/home/data/model/channel_by_id_response_body.dart';
-import 'package:autism/features/home/data/model/video_response_body.dart';
 import 'package:autism/features/home/presentation/views/widgets/channel_videos_item.dart';
 import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,7 @@ class ChannelVideosListView extends StatefulWidget {
   const ChannelVideosListView({super.key, required this.videos,  this.fullData,});
 
   final List<Video> videos;
-  final List<FullDatum?>? fullData;
+  final List<FullData>? fullData;
 
 
   @override
@@ -79,7 +78,7 @@ class _ChannelVideosListViewState extends State<ChannelVideosListView> {
             return GestureDetector(
                 onTap: () {
 
-                  context.push("/video", extra: widget.fullData?[index]);
+                  context.push("/video", extra: widget.videos[index].id.toString());
                 },
                 child: ChannelVideosItem(videoData: widget.videos[index]));
           },

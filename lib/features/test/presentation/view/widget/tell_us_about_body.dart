@@ -1,20 +1,30 @@
 import 'package:autism/core/constant/app_colors.dart';
+import 'package:autism/core/di/di.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/core/widgets/custom_bottom.dart';
 import 'package:autism/core/widgets/custom_text_field.dart';
+import 'package:autism/features/test/presentation/view/widget/tell_about_bloc_listeiner.dart';
+import 'package:autism/features/test/presentation/view/widget/test_view_body.dart';
+import 'package:autism/features/test/viewModel/tell_about_cubit/tell_about_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TellUsAboutBody extends StatefulWidget {
-  const TellUsAboutBody({super.key});
+  const TellUsAboutBody(
+      {super.key, this.totalFormQuestions, required this.selectedMethods,});
+
+  final int? totalFormQuestions;
+  final List<String> selectedMethods;
+
 
   @override
   State<TellUsAboutBody> createState() => _TellUsAboutBodyState();
 }
 
 class _TellUsAboutBodyState extends State<TellUsAboutBody> {
-  final _formKey = GlobalKey<FormState>();
+
 
   String? selectedRelation;
   String? selectedGender;
@@ -25,7 +35,7 @@ class _TellUsAboutBodyState extends State<TellUsAboutBody> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Form(
-      key: _formKey,
+      key: context.read<TellAboutCubit>().formKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 26),
         child: Column(
@@ -40,7 +50,7 @@ class _TellUsAboutBodyState extends State<TellUsAboutBody> {
             SizedBox(
               width: double.infinity,
               child: AppTextFormField(
-
+                  controller: context.read<TellAboutCubit>().nameController,
                   hintText: 'Name',
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -81,7 +91,7 @@ class _TellUsAboutBodyState extends State<TellUsAboutBody> {
             customDropdownButton(
               hint: 'Age',
               value: selectedAge,
-              items: ['20-30', '30-40', '40-50', '50+'],
+              items: ['1-3', '4-6', '7-10'],
               onChanged: (value) {
                 setState(() {
                   selectedAge = value;
@@ -102,7 +112,29 @@ class _TellUsAboutBodyState extends State<TellUsAboutBody> {
               },
             ),
             verticalSpace(context.height * 140 / 852),
-            CustomBottom(text: 'Continue', onPressed: () {})
+            TellAboutBlocListener(
+              totalFormQuestions: widget.totalFormQuestions ?? 10,
+              selectedMethods: widget.selectedMethods,
+            ),
+            CustomBottom(
+                text: 'Continue',
+                onPressed: () {
+                  if (context.read<TellAboutCubit>().formKey.currentState!.validate()) {
+
+                    context.read<TellAboutCubit>().emitTellAboutStates(
+                          relation: selectedRelation!,
+                          gender: selectedGender!,
+                          age: selectedAge!,
+                          location: selectedLocation!,
+                      name: context.read<TellAboutCubit>().nameController.text,
+                      selectedMethods: widget.selectedMethods.join(', '),
+
+                        );
+
+
+                  }
+                }),
+
           ],
         ),
       ),
@@ -159,6 +191,4 @@ class _TellUsAboutBodyState extends State<TellUsAboutBody> {
       ),
     );
   }
-
-
 }

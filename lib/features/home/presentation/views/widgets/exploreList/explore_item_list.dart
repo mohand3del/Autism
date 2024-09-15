@@ -81,7 +81,7 @@ class _ExploreItemListState extends State<ExploreItemList> {
             return GestureDetector(
                 onTap: (){
 
-                  context.push('/video', extra: widget.fullData[index]);
+                  context.push('/video', extra: widget.fullData[index]?.vedio.id.videoId.toString());
                 },
                 child: ExploreItem(fullDatum: widget.fullData[index],));
           },
