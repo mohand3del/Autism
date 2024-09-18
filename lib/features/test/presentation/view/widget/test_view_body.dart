@@ -1,6 +1,9 @@
+import 'package:autism/core/di/di.dart';
+import 'package:autism/features/test/viewModel/form_cubit/form_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:autism/features/test/presentation/view/widget/question_section.dart';
 import 'package:autism/features/test/presentation/view/widget/image_method_section.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
@@ -41,7 +44,6 @@ class _TestViewBodyState extends State<TestViewBody> {
 
   @override
   Widget build(BuildContext context) {
-
     int totalSteps = hasFormMethod ? 2 : 1;
 
     return Scaffold(
@@ -53,7 +55,8 @@ class _TestViewBodyState extends State<TestViewBody> {
             ),
             verticalSpace(context.height * 20 / 852),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: context.width * 16 / 393),
+              padding: EdgeInsets.symmetric(
+                  horizontal: context.width * 16 / 393),
               child: StepProgressIndicator(
                 totalSteps: totalSteps,
                 currentStep: _currentStep,
@@ -67,40 +70,45 @@ class _TestViewBodyState extends State<TestViewBody> {
             verticalSpace(context.height * 8 / 852),
             Expanded(
               child: _currentStep == 1 && hasFormMethod
-                  ? QuestionSection(
-                currentFormStep: _currentFormStep,
-                totalFormQuestions: widget.totalFormQuestions,
-                onBackStep: () {
-                  setState(() {
-                    if (_currentFormStep > 1) {
-                      _currentFormStep--;
-                    }
-                  });
-                },
-                onNextStep: () {
-                  setState(() {
-                    if (_currentFormStep < widget.totalFormQuestions) {
-                      _currentFormStep++;
-                    } else {
-                      _currentStep = 2;
-                      _currentImageStep = 1;
-                    }
-                  });
-                },
-                onSubmit: () {
-                  setState(() {
-                    if (_currentFormStep < widget.totalFormQuestions) {
-                      _currentFormStep++;
-                    } else {
-                      _currentStep = 2;
-                      _currentImageStep = 1;
-                    }
-                  });
-                },
+                  ? BlocProvider(
+                create: (context) => FormCubit(getIt()),
+                child: QuestionSection(
+                  selectedMethods: widget.selectedMethods,
+                  hasMoreMethods: hasFormMethod,
+                  currentFormStep: _currentFormStep,
+                  totalFormQuestions: widget.totalFormQuestions,
+                  onBackStep: () {
+                    setState(() {
+                      if (_currentFormStep > 1) {
+                        _currentFormStep--;
+                      }
+                    });
+                  },
+                  onNextStep: () {
+                    setState(() {
+                      if (_currentFormStep < widget.totalFormQuestions) {
+                        _currentFormStep++;
+                      } else {
+                        _currentStep = 2;
+                        _currentImageStep = 1;
+                      }
+                    });
+                  },
+                  onSubmit: () {
+                    setState(() {
+                      if (_currentFormStep < widget.totalFormQuestions) {
+                        _currentFormStep++;
+                      } else {
+                        _currentStep = 2;
+                        _currentImageStep = 1;
+                      }
+                    });
+                  },
+                ),
               )
                   : ImageMethodSection(
-                currentImageStep: _currentImageStep ,
-                selectedMethods: widget.selectedMethods,
+                currentImageStep: _currentImageStep,
+                selectedMethods: widget.selectedMethods.where((method) => method != 'Form').toList(),
                 onNextStep: () {
                   setState(() {
                     if (_currentImageStep <
@@ -121,8 +129,6 @@ class _TestViewBodyState extends State<TestViewBody> {
     );
   }
 }
-
-
 
 
 // import 'package:flutter/material.dart';+

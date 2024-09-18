@@ -29,5 +29,8 @@ class ApiConstants {
   static const String getVideoById = "home/video";
   static const String getChannelById = "home/channel";
   static const String getHistory = "home/showAllHistory";
+  static const String tellAbout = "testing/userData";
+  static const String form = "testing/form";
+  static const String testResult = "testing/testResult";
 
 }

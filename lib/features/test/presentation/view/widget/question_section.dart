@@ -1,28 +1,48 @@
 import 'dart:developer';
 import 'package:autism/core/constant/app_colors.dart';
+import 'package:autism/core/routing/router.dart';
 import 'package:autism/core/utils/app_styles.dart';
+import 'package:autism/features/test/viewModel/form_cubit/form_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/core/widgets/custom_bottom.dart';
 import 'package:autism/features/test/presentation/view/widget/questions_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:autism/core/utils/questions_list.dart';
 
-class QuestionSection extends StatelessWidget {
+class QuestionSection extends StatefulWidget {
   final int currentFormStep;
   final int totalFormQuestions;
   final VoidCallback onNextStep;
   final VoidCallback onBackStep;
   final VoidCallback onSubmit;
+  final bool hasMoreMethods;
+  final List<String> selectedMethods;
 
   const QuestionSection({
     required this.currentFormStep,
     required this.totalFormQuestions,
     required this.onNextStep,
     required this.onBackStep,
-    required this.onSubmit,
+    required this.onSubmit, required this.hasMoreMethods, required this.selectedMethods,
   });
+
+  @override
+  _QuestionSectionState createState() => _QuestionSectionState();
+}
+
+class _QuestionSectionState extends State<QuestionSection> {
+  final Map<int, String> _answers = {}; // لتخزين الإجابات
+
+  void _onOptionSelected(int questionIndex, String selectedOption) {
+    setState(() {
+      _answers[questionIndex] = selectedOption; // تخزين الإجابة
+    });
+    log('Selected Option for Q${questionIndex + 1}: $selectedOption');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +51,8 @@ class QuestionSection extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: context.width * 16 / 393),
           child: StepProgressIndicator(
-            totalSteps: totalFormQuestions,
-            currentStep: currentFormStep,
+            totalSteps: widget.totalFormQuestions,
+            currentStep: widget.currentFormStep,
             size: 6,
             padding: 4,
             selectedColor: Colors.blue,
@@ -41,39 +61,67 @@ class QuestionSection extends StatelessWidget {
         ),
         verticalSpace(context.height * 60 / 852),
         QuestionWidget(
-          questionText: getQuestions[currentFormStep - 1].question,
-          options: getQuestions[currentFormStep - 1].options,
+          questionText: getQuestions[widget.currentFormStep - 1].question,
+          options: getQuestions[widget.currentFormStep - 1].options,
           onOptionSelected: (selectedOption) {
-            log('=============> Selected Option: $selectedOption');
+            _onOptionSelected(widget.currentFormStep - 1, selectedOption);
           },
         ),
         _buildNavigationButtons(context),
         verticalSpace(context.height * 20 / 852),
-        if  (currentFormStep == totalFormQuestions)
+        if (widget.currentFormStep == widget.totalFormQuestions)
           SizedBox(
             width: context.width * 353 / 393,
             child: CustomBottom(
               text: "Send",
-              onPressed: onSubmit,
+              onPressed: () {
+                // هنا يمكنك جمع الإجابات من _answers وتمريرها إلى Cubit
+                final answers = List.generate(
+                  widget.totalFormQuestions,
+                      (index) => _answers[index] ?? '',
+                );
+
+
+                context.read<FormCubit>().submitForm(
+                  q1: answers[0],
+                  q2: answers[1],
+                  q3: answers[2],
+                  q4: answers[3],
+                  q5: answers[4],
+                  q6: answers[5],
+                  q7: answers[6],
+                  q8: answers[7],
+                  q9: answers[8],
+                  q10: answers[9],
+                ).then((_){
+                  if (widget.selectedMethods.length > 1) {
+
+                    widget.onNextStep();
+                  } else {
+
+                 context.go('/testResult');
+                  }
+                });
+              },
             ),
           ),
       ],
     );
   }
 
-  // Build navigation buttons (Back, Next, Submit, Continue)
+  // بناء أزرار التنقل (Back, Next, Submit, Continue)
   Widget _buildNavigationButtons(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.width * 24 / 393),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Back Button (hide if first step)
-          if (currentFormStep > 1)
+
+          if (widget.currentFormStep > 1)
             SizedBox(
               width: context.width * 110 / 393,
               height: context.height * 0.06,
-              child:  MaterialButton(
+              child: MaterialButton(
                 color: AppColors.white,
                 textColor: AppColors.white,
                 padding: const EdgeInsets.only(right: 22, left: 22),
@@ -81,30 +129,26 @@ class QuestionSection extends StatelessWidget {
                   side: const BorderSide(color: AppColors.primaryColor),
                   borderRadius: BorderRadius.circular(16),
                 ),
-                onPressed: onBackStep,
-
+                onPressed: widget.onBackStep,
                 child: Text(
                   "Back",
                   style: AppStyles.medium22(context).copyWith(
                     color: AppColors.primaryColor,
                     fontFamily: "Poppins",
-
                   ),
                 ),
+              ),
             ),
-          ),
           const Spacer(),
-          if (currentFormStep < totalFormQuestions)
+          if (widget.currentFormStep < widget.totalFormQuestions)
             SizedBox(
               width: context.width * 110 / 393,
               child: CustomBottom(
                 text: "Next",
-                onPressed: onNextStep,
+                onPressed: widget.onNextStep,
               ),
             ),
           verticalSpace(context.height * 20 / 852),
-
-
         ],
       ),
     );

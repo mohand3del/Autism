@@ -16,6 +16,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'channel/channle_row.dart';
 import 'custom_home_app_bar.dart';
 import 'history/history_list_view.dart';
+import 'history/home_history_bloc_builder.dart';
 
 
 class HomeViewBody extends StatelessWidget {
@@ -53,7 +54,8 @@ class HomeViewBody extends StatelessWidget {
               verticalSpace(context.height * 20 / 932),
               const HistoryRow(),
               verticalSpace(context.height * 20 / 932),
-              const HistoryListView(),
+              //const HistoryListView(),
+              const HomeHistoryBlocBuilder(),
 
 
             ],

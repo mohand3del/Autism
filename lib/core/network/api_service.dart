@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:autism/core/network/api_constant.dart';
+import 'package:autism/core/network/response_model.dart';
 import 'package:autism/features/auth/login/data/model/login_response_body.dart';
 import 'package:autism/features/auth/newPassword/data/model/new_password_request_body.dart';
 import 'package:autism/features/auth/newPassword/data/model/new_password_response_body.dart';
@@ -11,6 +14,11 @@ import 'package:autism/features/home/data/model/channel_response_body.dart';
 import 'package:autism/features/home/data/model/history_response_body.dart';
 import 'package:autism/features/home/data/model/video_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/video_response_body.dart';
+import 'package:autism/features/test/data/model/form_request_body.dart';
+import 'package:autism/features/test/data/model/form_response_body.dart';
+import 'package:autism/features/test/data/model/tell_about_request_body.dart';
+import 'package:autism/features/test/data/model/tell_about_response_body.dart';
+import 'package:autism/features/test/data/model/test_result_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
@@ -69,5 +77,24 @@ abstract class ApiService {
       {@Query("channelId") String? channelId});
   @GET(ApiConstants.getHistory)
   Future<HistoryResponseBody> getHistory();
+  @POST(ApiConstants.tellAbout)
+  Future<TellAboutResponseBody> tellAbout(
+      @Body() TellAboutRequestBody tellAboutRequestBody
+      );
+  @POST("testing/childFace")
+  Future<ApiResponse> uploadChildFace(@Part(name: "file") File file);
+
+  @POST("testing/drawing")
+  Future<ApiResponse> uploadDrawing(@Part(name: "file") File file);
+
+  @POST("testing/coloring")
+  Future<ApiResponse> uploadColoring(@Part(name: "file") File file);
+
+  @POST("testing/handWriting")
+  Future<ApiResponse> uploadHandWriting(@Part(name: "file") File file);
+  @POST(ApiConstants.form)
+  Future<FormResponseBody> sendForm(@Body() FormRequestBody formRequestBody);
+  @GET(ApiConstants.testResult)
+  Future<TestResultResponse>getTestResult();
 
 }
