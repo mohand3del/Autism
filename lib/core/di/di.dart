@@ -17,6 +17,8 @@ import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_by_id_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
 import 'package:autism/features/home/viewModel/historyCubit/history_cubit.dart';
+import 'package:autism/features/resource/data/repo/resource_repo.dart';
+import 'package:autism/features/resource/viewModel/resource_cubit.dart';
 import 'package:autism/features/test/data/repo/form_repo.dart';
 import 'package:autism/features/test/data/repo/tell_about_repo.dart';
 import 'package:autism/features/test/data/repo/test_result_repo.dart';
@@ -81,6 +83,9 @@ Future<void> setupGetIt() async {
   //test
   getIt.registerFactory<TestResultCubit>(() => TestResultCubit(getIt()));
   getIt.registerLazySingleton<TestResultRepo>(() => TestResultRepo(getIt()));
+  //resources
+  getIt.registerLazySingleton<ResourceRepo>(() => ResourceRepo(getIt()));
+  getIt.registerFactory<ResourceCubit>(() => ResourceCubit(getIt()));
 
 
 

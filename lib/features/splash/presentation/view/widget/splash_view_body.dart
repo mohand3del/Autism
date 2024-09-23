@@ -74,7 +74,7 @@ with SingleTickerProviderStateMixin{
         context.go('/onboarding');
      }
 
-
+     // context.go('/resource');
    // context.go('/nonAutismTestResult');
       //context.go('/autismTest');
       //context.go('/autismResult');

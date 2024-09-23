@@ -22,6 +22,8 @@ import 'package:autism/features/home/viewModel/historyCubit/history_cubit.dart';
 import 'package:autism/features/layout/view/layout_view.dart';
 import 'package:autism/features/layout/viewModel/layout_cubit.dart';
 import 'package:autism/features/onboarding/presentation/view/on_boarding_view.dart';
+import 'package:autism/features/resource/presentation/view/resource_view.dart';
+import 'package:autism/features/resource/viewModel/resource_cubit.dart';
 import 'package:autism/features/test/presentation/view/autism_result_view.dart';
 import 'package:autism/features/test/presentation/view/choose_test_view.dart';
 import 'package:autism/features/test/presentation/view/non_autism_view.dart';
@@ -63,6 +65,7 @@ class AppRouter {
   static const String autismTestResult = "/autismTestResult";
   static const String nonAutismTestResult = "/nonAutismTestResult";
   static const String testResult = "/testResult";
+  static const String resources = "/resource";
 
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
@@ -256,6 +259,11 @@ class AppRouter {
         return BlocProvider(
             create: (BuildContext context) => getIt<TestResultCubit>()..getTestResult(),
             child: const TestResultView());
+      }),
+      GoRoute(path: resources, builder: (context, state) {
+        return BlocProvider(
+            create: (BuildContext context) => getIt<ResourceCubit>()..fetchResources(),
+            child: const ResourceView());
       }),
     ],
   );

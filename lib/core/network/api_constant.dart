@@ -32,5 +32,6 @@ class ApiConstants {
   static const String tellAbout = "testing/userData";
   static const String form = "testing/form";
   static const String testResult = "testing/testResult";
+  static const String showAllResource = "resource/showAllWebsites";
 
 }
