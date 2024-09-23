@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:autism/core/helper/shared_preferences_helper.dart';
 import 'package:autism/features/home/presentation/views/home_view.dart';
+import 'package:autism/features/resource/presentation/view/resource_view.dart';
 import 'package:autism/features/test/presentation/view/choose_test_view.dart';
 import 'package:autism/features/test/presentation/view/on_boarding_test_view.dart';
 import 'package:bloc/bloc.dart';
@@ -71,9 +72,10 @@ class LayoutCubit extends Cubit<LayoutStates> {
   bool? isOnboardingViewed;
   final List<Widget> screens = [
     const HomeView(),
-    const ChooseTestView(), // Placeholder, will be replaced later
-    Column(),         // Placeholder for future implementation
-    Column(),         // Placeholder for future implementation
+    const ChooseTestView(),
+    const Column(),    // Placeholder, will be replaced later
+    const ResourceView(),         // Placeholder for future implementation
+       // Placeholder for future implementation
   ];
 
   int currentIndex = 0;
@@ -93,7 +95,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
   /// Update the second screen based on whether onboarding was viewed
   void _updateSecondScreen() {
     if (isOnboardingViewed == true) {
-      screens[1] = ChooseTestView();
+      screens[1] = const ChooseTestView();
       log("ChooseTestView has been assigned to screens[1]");
     } else {
       screens[1] = const OnBoardingTestView();

@@ -14,6 +14,7 @@ import 'package:autism/features/home/data/model/channel_response_body.dart';
 import 'package:autism/features/home/data/model/history_response_body.dart';
 import 'package:autism/features/home/data/model/video_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/video_response_body.dart';
+import 'package:autism/features/resource/data/model/recource_response_body.dart';
 import 'package:autism/features/test/data/model/form_request_body.dart';
 import 'package:autism/features/test/data/model/form_response_body.dart';
 import 'package:autism/features/test/data/model/tell_about_request_body.dart';
@@ -96,5 +97,10 @@ abstract class ApiService {
   Future<FormResponseBody> sendForm(@Body() FormRequestBody formRequestBody);
   @GET(ApiConstants.testResult)
   Future<TestResultResponse>getTestResult();
+
+  @GET(ApiConstants.showAllResource)
+  Future<ResourceResponseBody> showAllWebsites(
+      {@Query("page") int? page,
+  });
 
 }
