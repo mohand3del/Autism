@@ -45,19 +45,19 @@ with SingleTickerProviderStateMixin{
     //Navigate to HomeScreen after 2 seconds
     Timer(const Duration(seconds: 3), () async {
 
-     //  bool? isOnboardingViewed = await SharedPrefHelper.getOnBoardingScreenViewed();
-     //
-     //  if (isOnboardingViewed == true) {
-     //    String? userToken = await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken);
-     //
-     //    if (userToken != null && userToken.isNotEmpty) {
-     //      context.go('/layout');
-     //    } else {
-     //      context.go('/login');
-     //    }
-     //  } else {
-     //    context.go('/onboarding');
-     // }
+      bool? isOnboardingViewed = await SharedPrefHelper.getOnBoardingScreenViewed();
+
+      if (isOnboardingViewed == true) {
+        String? userToken = await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken);
+
+        if (userToken != null && userToken.isNotEmpty) {
+          context.go('/layout');
+        } else {
+          context.go('/login');
+        }
+      } else {
+        context.go('/onboarding');
+     }
 
      // context.go('/createPost');
    // context.go('/nonAutismTestResult');
@@ -68,7 +68,7 @@ with SingleTickerProviderStateMixin{
       //context.go('/register');
       //context.go('/forgotPassword');
      // context.go("/video",extra: '');
-      context.go('/onboarding');
+     // context.go('/onboarding');
       //context.go('/newPassword');
     });
   }

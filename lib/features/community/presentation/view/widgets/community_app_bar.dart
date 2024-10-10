@@ -2,7 +2,9 @@ import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
+import 'package:autism/features/home/presentation/views/widgets/custom_bar_back_arrow.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CommunityAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CommunityAppBar({super.key});
@@ -82,36 +84,41 @@ class CommunityAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
 
                   // Search Bar
-                  Container(
-                    height: context.height * 40 / 852,
-                    width: context.width * 222 / 393,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(28.0),
-                      border: Border.all(color: AppColors.formFieldBorder),
-                      color: Colors.white,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal:14),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text("Add Post?",
-                          style: AppStyles.regular14(context).copyWith(
-                            color: AppColors.black,
-                            fontFamily: 'Inter',
+                  InkWell(
+                    onTap: () {
+                      context.push('/createPost');
+                    },
+                    child: Container(
+                      height: context.height * 40 / 852,
+                      width: context.width * 222 / 393,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(28.0),
+                        border: Border.all(color: AppColors.formFieldBorder),
+                        color: Colors.white,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal:14),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text("Add Post?",
+                            style: AppStyles.regular14(context).copyWith(
+                              color: AppColors.black,
+                              fontFamily: 'Inter',
+
+                            ),
 
                           ),
-
                         ),
                       ),
+                      // Add any other desired properties for the container
                     ),
-                    // Add any other desired properties for the container
                   ),
 
 
                   IconButton(
                     icon:   Image.asset('assets/images/search_icon.png'),
                     onPressed: () {
-                      // Handle filter icon click
+                      context.push('/search');
                     },
                   ),
                 ],

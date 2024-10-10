@@ -9,6 +9,7 @@ import 'package:autism/features/auth/verifyCode/presentation/views/verify_code_v
 import 'package:autism/features/community/presentation/view/comment_view.dart';
 import 'package:autism/features/community/presentation/view/community_view.dart';
 import 'package:autism/features/community/presentation/view/create_post_view.dart';
+import 'package:autism/features/community/presentation/view/search_view.dart';
 import 'package:autism/features/home/presentation/views/channel_info_view.dart';
 import 'package:autism/features/home/presentation/views/channel_view.dart';
 import 'package:autism/features/home/presentation/views/explore_view.dart';
@@ -68,6 +69,7 @@ class AppRouter {
   static const String community = "/community";
   static const String comment = "/comment";
   static const String createPost = "/createPost";
+  static const String search = "/search";
 
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
@@ -268,13 +270,16 @@ class AppRouter {
             child: const ResourceView());
       }),
       GoRoute(path: community, builder: (context, state) {
-        return CommunityView();
+        return const CommunityView();
       }),
       GoRoute(path: comment, builder: (context, state) {
         return const CommentView();
       }),
       GoRoute(path: createPost, builder: (context, state) {
-        return CreatePostView();
+        return const CreatePostView();
+      }),
+      GoRoute(path: search, builder: (context, state) {
+        return const SearchView();
       }),
     ],
   );
