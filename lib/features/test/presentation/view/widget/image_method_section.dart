@@ -86,7 +86,7 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
               imageMethods[imageMethodIndex], context) : Column(
             children: [
               verticalSpace(context.height * 20 / 852),
-              Container(
+              SizedBox(
                 height: context.height * 500 / 852,
                 width: context.width * 350 / 393,
 

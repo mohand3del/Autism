@@ -6,7 +6,7 @@ import 'package:autism/features/home/data/model/channel_by_id_response_body.dart
 import 'package:flutter/material.dart';
 
 class ChannelCard extends StatelessWidget {
-  const ChannelCard({Key? key, this.data}) : super(key: key);
+  const ChannelCard({super.key, this.data});
   final FullData? data;
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class ChannelCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        Helper.formatNumber('${data?.channel.subscriberCount}') + ' subscribers • ',
+                        '${Helper.formatNumber('${data?.channel.subscriberCount}')} subscribers • ',
                         style: AppStyles.regular14(context).copyWith(
                           fontFamily: 'Poppins',
                           color: const Color(0xff828A97),

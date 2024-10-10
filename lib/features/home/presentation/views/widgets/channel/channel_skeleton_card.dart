@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import 'channel_card_item.dart';
-import 'channel_list_card_item.dart';
 
 class ChannelSkeletonCard extends StatelessWidget {
   const ChannelSkeletonCard({super.key, required this.scrollDirection,});

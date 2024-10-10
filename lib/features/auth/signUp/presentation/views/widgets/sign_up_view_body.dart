@@ -44,7 +44,7 @@ class SignUpViewBody extends StatelessWidget {
               validateThenDoSignup(context);
             }),
             verticalSpace(context.height * 0.055),
-            OrDivider(),
+            const OrDivider(),
             verticalSpace(context.height * 0.024),
             const OAuthWidget(),
             verticalSpace(context.height * 0.0187),

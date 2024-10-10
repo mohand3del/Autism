@@ -1,15 +1,13 @@
 import 'package:autism/core/utils/extentions.dart';
-import 'package:autism/features/home/data/model/video_response_body.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 import 'home_explore_list_view_item.dart';
 
 class ExploreListView extends StatefulWidget {
-  const ExploreListView({Key? key, required fullDatum}) : super(key: key);
+  const ExploreListView({super.key, required fullDatum});
 
   @override
   _ExploreListViewState createState() => _ExploreListViewState();

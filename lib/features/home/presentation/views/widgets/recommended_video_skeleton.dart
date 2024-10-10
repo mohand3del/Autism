@@ -14,7 +14,7 @@ class RecommendedVideoSkeleton extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: 10,
-        itemBuilder: (context, index) => Skeletonizer(
+        itemBuilder: (context, index) => const Skeletonizer(
             enabled: true,
             child: RecommendedVideoItem(videoData: null,)) );
 

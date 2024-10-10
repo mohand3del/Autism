@@ -19,7 +19,7 @@ class VerifyCubit extends Cubit<VerifyState> {
 
 
   void emitVerifyState ()async {
-    emit(VerifyState.loading());
+    emit(const VerifyState.loading());
     final response = await _verifyRepo.verify(
       VerifyRequestBody(email:emailController,code:codeController),
     );

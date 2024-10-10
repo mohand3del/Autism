@@ -62,7 +62,7 @@ class ResourceListItem extends StatelessWidget {
                   width: context.width * 200 / 393,
                   child:  Text(
                    data?.title ?? '',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(0xFF000000),
                       fontSize: 16,
                       fontFamily: 'Poppins',
@@ -79,7 +79,7 @@ class ResourceListItem extends StatelessWidget {
                   width: context.width * 200 / 393,
                   child:  Text(
                    data?.source ?? '',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(0xFF000000),
                       fontSize: 12,
                       fontFamily: 'Poppins',
@@ -97,7 +97,7 @@ class ResourceListItem extends StatelessWidget {
                   width: context.width * 200 / 393,
                   child:   Text(
                     data?.link ?? '',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: AppColors.primaryColor,
                       fontSize: 12,
                       fontFamily: 'Poppins',

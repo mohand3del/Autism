@@ -80,7 +80,7 @@ class QuestionWidget extends StatefulWidget {
   final List<String> options;
   final void Function(String) onOptionSelected;
 
-  QuestionWidget({
+  const QuestionWidget({super.key, 
     required this.questionText,
     required this.options,
     required this.onOptionSelected,
@@ -123,13 +123,13 @@ class _QuestionWidgetState extends State<QuestionWidget> {
           children: [
             Text(
               widget.questionText,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 16),
-            ...widget.options.map((option) => _buildOption(option)).toList(),
+            const SizedBox(height: 16),
+            ...widget.options.map((option) => _buildOption(option)),
           ],
         ),
       ),
@@ -162,7 +162,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             Expanded(
               child: Text(
                 option,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),

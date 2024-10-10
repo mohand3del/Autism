@@ -11,7 +11,7 @@ class OnBoardingTestView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (context) =>  OnboardingCubit(),
-      child: Scaffold(
+      child: const Scaffold(
           backgroundColor: AppColors.white,
           body: TestOnBoarding()),
 

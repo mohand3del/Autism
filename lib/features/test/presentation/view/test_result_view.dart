@@ -17,7 +17,7 @@ class TestResultView extends StatelessWidget {
       backgroundColor: AppColors.white,
       body:  BlocProvider(
           create: (context) => TestResultCubit(getIt())..getTestResult(),
-          child: TestResultViewBody()),
+          child: const TestResultViewBody()),
     );
   }
 }

@@ -48,7 +48,7 @@ class _HistoryListViewItemState extends State<HistoryListViewItem> {
             ],
           ),
           verticalSpace(context.height * 8 / 932),
-          Container(
+          SizedBox(
             width:context.width * 252 / 430,
             child: Text(
               widget.historyData?.title ?? "About Atism 101: Your Beginner Guide ",

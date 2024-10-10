@@ -10,7 +10,7 @@ class CustomSkeletonCardInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Skeletonizer(
+    return const Skeletonizer(
         enabled: true,
         child: ChannelCard());
   }

@@ -1,12 +1,12 @@
 import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
-import 'package:autism/core/utils/spacing.dart';
 import 'package:flutter/material.dart';
 
-import 'oauth_widget.dart';
 
 class OrDivider extends StatelessWidget {
+  const OrDivider({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(

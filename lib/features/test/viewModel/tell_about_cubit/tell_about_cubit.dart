@@ -1,5 +1,4 @@
 import 'package:autism/features/test/data/model/tell_about_request_body.dart';
-import 'package:autism/features/test/data/model/tell_about_response_body.dart';
 import 'package:autism/features/test/data/repo/tell_about_repo.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';

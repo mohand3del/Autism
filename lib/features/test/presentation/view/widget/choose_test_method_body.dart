@@ -4,7 +4,6 @@ import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/core/widgets/custom_bottom.dart';
 import 'package:autism/features/test/presentation/view/tell_us_about_view.dart';
-import 'package:autism/features/test/presentation/view/widget/test_view_body.dart';
 import 'package:flutter/material.dart';
 
 class MethodSelectionPage extends StatefulWidget {
@@ -30,7 +29,7 @@ class _MethodSelectionPageState extends State<MethodSelectionPage> {
           children: [
             Padding(
               padding:  EdgeInsets.symmetric(horizontal: context.width * 20 / 852),
-              child: Divider(),
+              child: const Divider(),
             ),
             verticalSpace(context.height * 20 / 852),
             Padding(
@@ -50,7 +49,7 @@ class _MethodSelectionPageState extends State<MethodSelectionPage> {
                 itemCount: _methods.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16.0),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -88,13 +87,13 @@ class _MethodSelectionPageState extends State<MethodSelectionPage> {
                               },
                               activeColor: Colors.blue,
                               shape: RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.grey),
+                                side: const BorderSide(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(5),
                               ),
                             ),
                             Text(
                               _methods[index],
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey,
                               ),
@@ -114,7 +113,7 @@ class _MethodSelectionPageState extends State<MethodSelectionPage> {
                 if (_selectedMethods.isEmpty) {
 
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text('Please select at least one method!'),
                       backgroundColor: Colors.red,
                     ),

@@ -10,7 +10,6 @@ import 'package:autism/features/home/presentation/views/widgets/channel_video_bl
 
 import 'package:flutter/material.dart';
 
-import 'channel_videos_list_view.dart';
 import 'custom_bar_back_arrow.dart';
 
 class ChannelInfoViewBody extends StatelessWidget {
@@ -43,7 +42,7 @@ class ChannelInfoViewBody extends StatelessWidget {
         verticalSpace(context.height * 20 / 852),
         //ChannelVideosItem(),
          //ChannelVideosListView(fullData: ,)
-        Expanded(child: ChannelListBlocBuilder())
+        const Expanded(child: ChannelListBlocBuilder())
 
 
 

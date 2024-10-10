@@ -10,10 +10,10 @@ import 'package:autism/features/home/presentation/views/widgets/video_view_body.
 
 class VideoView extends StatefulWidget {
   const VideoView({
-    Key? key,
+    super.key,
 
     this.videoData, this.videoId, this.channelData,
-  }) : super(key: key);
+  });
 
   final Channel? channelData;
   final Vedio? videoData;
@@ -45,7 +45,7 @@ class _VideoViewState extends State<VideoView> {
         future: _videoFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
@@ -62,7 +62,7 @@ class _VideoViewState extends State<VideoView> {
                     );
 
               } else {
-                  return Center(child: Text('Unexpected state'));
+                  return const Center(child: Text('Unexpected state'));
                 }
               },
             );

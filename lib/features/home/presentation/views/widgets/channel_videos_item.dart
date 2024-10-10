@@ -51,11 +51,11 @@ class ChannelVideosItem extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                    Helper.formatNumber('${videoData?.viewCount}') + 'views •',
+                    '${Helper.formatNumber('${videoData?.viewCount}')}views •',
                       //'${videoData?.viewCount}views •',
                       style: AppStyles.regular10(context).copyWith(
                         fontFamily: 'Poppins',
-                        color: Color(0xff828A97)
+                        color: const Color(0xff828A97)
                       ),
 
                     ),
@@ -64,7 +64,7 @@ class ChannelVideosItem extends StatelessWidget {
                       Helper.limitWords(videoData?.publishedAt.toString(), 1),
                       style: AppStyles.regular10(context).copyWith(
                           fontFamily: 'Poppins',
-                          color: Color(0xff828A97)
+                          color: const Color(0xff828A97)
                       ),
 
                     ),

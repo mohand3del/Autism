@@ -26,7 +26,7 @@ class ExploreItem extends StatelessWidget {
         Container(
           width: 393,
           color: Colors.white.withOpacity(0.7),
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10.0),
           child: Row(
             children: <Widget>[
               // The icon (optional)
@@ -45,7 +45,7 @@ class ExploreItem extends StatelessWidget {
 
               horizontalSpace(context.width * 10 / 393),
               // The text
-              Container(
+              SizedBox(
                 width: context.width * 280 / 393,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

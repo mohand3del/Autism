@@ -6,7 +6,7 @@ class ExploreBottomSheet extends StatelessWidget {
   void _showFilterBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
       ),
       isScrollControlled: true,
@@ -32,58 +32,58 @@ class ExploreBottomSheet extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 24.0),
-              Text(
+              const SizedBox(height: 24.0),
+              const Text(
                 "Filter",
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 24.0),
-              Text(
+              const SizedBox(height: 24.0),
+              const Text(
                 "Video Category",
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              SizedBox(height: 12.0),
+              const SizedBox(height: 12.0),
               _buildRadioButton("People & Blogs", "category", context),
               _buildRadioButton("Education", "category", context),
               _buildRadioButton("Science & Technology", "category", context),
               _buildRadioButton("Non profits & Autism", "category", context),
               _buildRadioButton("Documentary", "category", context),
-              SizedBox(height: 24.0),
-              Text(
+              const SizedBox(height: 24.0),
+              const Text(
                 "Video Duration",
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              SizedBox(height: 12.0),
+              const SizedBox(height: 12.0),
               _buildRadioButton("Short", "duration", context),
               _buildRadioButton("Medium", "duration", context),
               _buildRadioButton("Long", "duration", context),
-              SizedBox(height: 24.0),
+              const SizedBox(height: 24.0),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context);
                     // Handle Apply action
                   },
-                  child: Text(
-                    "Apply",
-                    style: TextStyle(fontSize: 16.0),
-                  ),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                     padding:
-                    EdgeInsets.symmetric(horizontal: 64.0, vertical: 12.0),
+                    const EdgeInsets.symmetric(horizontal: 64.0, vertical: 12.0),
                     backgroundColor: Colors.blue,
+                  ),
+                  child: const Text(
+                    "Apply",
+                    style: TextStyle(fontSize: 16.0),
                   ),
                 ),
               ),
@@ -101,7 +101,7 @@ class ExploreBottomSheet extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () => _showFilterBottomSheet(context),
-          child: Text('Show Filter'),
+          child: const Text('Show Filter'),
         ),
       ),
     );
@@ -112,7 +112,7 @@ Widget _buildRadioButton(String title, String groupValue, BuildContext context) 
   return RadioListTile<String>(
     title: Text(
       title,
-      style: TextStyle(
+      style: const TextStyle(
         fontFamily: 'Poppins',
         fontSize: 14.0,
         color: Colors.black,
@@ -124,7 +124,7 @@ Widget _buildRadioButton(String title, String groupValue, BuildContext context) 
       // معالجة التغيير هنا
     },
     activeColor: Colors.blue,
-    visualDensity: VisualDensity(horizontal: -4, vertical: -4), // تقليص حجم الراديو
+    visualDensity: const VisualDensity(horizontal: -4, vertical: -4), // تقليص حجم الراديو
     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap, // تقليص منطقة النقر
   );
 }

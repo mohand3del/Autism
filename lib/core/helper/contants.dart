@@ -24,7 +24,7 @@ class Helper {
       limitedWords.insert(i, '\n');
     }
 
-    return limitedWords.join(' ') + '...';
+    return '${limitedWords.join(' ')}...';
   }
 
 
@@ -33,9 +33,9 @@ class Helper {
     int number = int.tryParse(numberString ?? '') ?? 0;
 
     if (number >= 1000000) {
-      return (number / 1000000).toStringAsFixed(1) + 'M'; // M للمليون
+      return '${(number / 1000000).toStringAsFixed(1)}M'; // M للمليون
     } else if (number >= 1000) {
-      return (number / 1000).toStringAsFixed(1) + 'K'; // K للألف
+      return '${(number / 1000).toStringAsFixed(1)}K'; // K للألف
     } else {
       return number.toString();
     }
@@ -63,7 +63,7 @@ class Helper {
     }
 
 
-    return limitedWords.join(' ') + '...';
+    return '${limitedWords.join(' ')}...';
   }
 
   static String limitChars(String? text, int charLimit, {int charsPerLine = 10}) {

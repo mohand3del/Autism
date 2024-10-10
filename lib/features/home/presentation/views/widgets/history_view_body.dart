@@ -18,7 +18,7 @@ class HistoryViewBody extends StatelessWidget {
         children: [
           const CustomBarBackArrow(title: "History", icon: FontAwesomeIcons.trashCan, ),
           verticalSpace(context.height*24/852),
-          Expanded(child: HistoryBlocBuilder()),
+          const Expanded(child: HistoryBlocBuilder()),
 
 
         ],

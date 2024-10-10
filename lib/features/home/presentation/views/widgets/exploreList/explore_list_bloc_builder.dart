@@ -1,6 +1,4 @@
 
-import 'package:autism/core/utils/spacing.dart';
-import 'package:autism/features/home/presentation/views/widgets/exploreList/explore_shimmer_loading.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

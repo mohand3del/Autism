@@ -2,14 +2,12 @@
 import 'dart:developer';
 
 import 'package:autism/core/constant/app_colors.dart';
-import 'package:autism/core/di/di.dart';
 import 'package:autism/core/network/app_regex.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/core/widgets/custom_bottom.dart';
 
 import 'package:autism/core/widgets/custom_text_field.dart';
-import 'package:autism/features/auth/forgetPass/view%20model/forget_cubit.dart';
 import 'package:autism/features/auth/newPassword/viewModel/new_password_cubit.dart';
 
 import 'package:flutter/material.dart';
@@ -42,7 +40,7 @@ class _ConfirmPasswordWidgetState extends State<ConfirmPasswordWidget> {
     super.initState();
     passwordController = context.read<NewPasswordCubit>().passwordController;
     setupPasswordControllerListener();
-    if (widget.email != null && widget.email.isNotEmpty) {
+    if (widget.email.isNotEmpty) {
       context.read<NewPasswordCubit>().emailController = widget.email;
     }
   }

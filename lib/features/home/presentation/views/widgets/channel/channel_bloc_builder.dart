@@ -1,7 +1,6 @@
 
 
 import 'package:autism/features/home/presentation/views/widgets/channel/channel_list_view.dart';
-import 'package:autism/features/home/presentation/views/widgets/channel/channel_list_view_shimmer.dart';
 import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +36,7 @@ class ChannelBlocBuilder extends StatelessWidget {
 
 
   Widget setupLoading() {
-    return  CustomSkeletonChannelList(scrollDirection: Axis.horizontal,);
+    return  const CustomSkeletonChannelList(scrollDirection: Axis.horizontal,);
   }
 
   Widget setupError() {

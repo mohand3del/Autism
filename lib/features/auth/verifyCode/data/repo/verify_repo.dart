@@ -7,7 +7,7 @@ import 'package:autism/features/auth/verifyCode/data/model/verify_request_body.d
 import 'package:autism/features/auth/verifyCode/data/model/verify_response_body.dart';
 
 class VerifyRepo{
-  ApiService _apiService;
+  final ApiService _apiService;
 
   VerifyRepo(this._apiService);
 

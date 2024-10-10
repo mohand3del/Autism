@@ -61,7 +61,7 @@ class ChannelCardItem extends StatelessWidget {
                     )
                   ),
                   Text(
-                    Helper.limitWords("${fullDatum?.customUrl ?? "Autism"}", 2),
+                    Helper.limitWords(fullDatum?.customUrl ?? "Autism", 2),
                     style: AppStyles.regular12(context).copyWith(
                       fontFamily: 'Poppins',
                       color: Colors.grey,

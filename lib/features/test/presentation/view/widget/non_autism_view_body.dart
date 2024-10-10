@@ -1,7 +1,6 @@
 
 
 import 'package:autism/core/constant/app_colors.dart';
-import 'package:autism/core/routing/router.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
@@ -16,7 +15,7 @@ class NonAutismViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return  SafeArea(child: Column(
       children: [
-        CustomBarBackArrow(title: 'Test Result'),
+        const CustomBarBackArrow(title: 'Test Result'),
         verticalSpace(context.height * 62 / 851),
         Image.asset('assets/images/non_autism.png',
             width: context.width * 150 / 393,

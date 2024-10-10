@@ -60,7 +60,7 @@ class _TellAboutBlocListenerState extends State<TellAboutBlocListener> with Sing
             setupSuccessState(context, 'Operation completed successfully!');
 
             // بعد إظهار الرسالة، الانتقال إلى الصفحة التالية
-            Future.delayed(Duration(seconds: 1), () {
+            Future.delayed(const Duration(seconds: 1), () {
               Navigator.push(
                 context,
                 MaterialPageRoute(

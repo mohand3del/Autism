@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:autism/core/helper/contants.dart';
 import 'package:autism/core/utils/app_styles.dart';
@@ -22,8 +21,7 @@ class VideoViewBody extends StatefulWidget {
   final Channel? channelData;
 
   const VideoViewBody(
-      {Key? key,this.videoId, this.videoData, this.channelData})
-      : super(key: key);
+      {super.key,this.videoId, this.videoData, this.channelData});
 
   @override
   State<VideoViewBody> createState() => _VideoViewBodyState();
@@ -179,7 +177,7 @@ class _VideoViewBodyState extends State<VideoViewBody> {
             verticalSpace(context.height * 12 / 852),
             DescriptionWidget(  description: widget.videoData?.description??'No Description',),
             verticalSpace(context.height * 12 / 852),
-            VideoBlocBuilder(),
+            const VideoBlocBuilder(),
           ],
         ),
       ),

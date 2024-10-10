@@ -1,7 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 
 part 'onboarding_state.dart';
 
@@ -22,8 +20,8 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     currentIndex++;
     pageController.animateToPage(
       currentIndex,
-      duration: const Duration(milliseconds: 70),
-      curve: Curves.easeInCubic,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.linear,
     );
     emit(NextPageState());
   }

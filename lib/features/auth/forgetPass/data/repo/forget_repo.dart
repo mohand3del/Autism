@@ -10,7 +10,7 @@ import '../model/forget_request_body.dart';
 import '../model/forget_response_body.dart';
 
 class ForgetRepo {
-  ApiService _apiService;
+  final ApiService _apiService;
 
   ForgetRepo(this._apiService);
   Future<ApiResult<ForgetResponseBody>> forgot(ForgetRequestBody forgotRequestBody)async{
