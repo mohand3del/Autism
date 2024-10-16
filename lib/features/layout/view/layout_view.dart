@@ -19,7 +19,7 @@ class LayoutView extends StatelessWidget {
             index: cubit.currentIndex,
             children: cubit.screens,
           ),
-          bottomNavigationBar: SafeArea(child: const BottomNavBar()),
+          bottomNavigationBar: const SafeArea(child: BottomNavBar()),
         );
       },
     );

@@ -2,14 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:autism/features/home/data/model/channel_response_body.dart';
 import 'package:autism/features/home/presentation/views/widgets/channel/channel_list_view_item.dart';
 import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:go_router/go_router.dart';
 
 class ChannelListView extends StatefulWidget {
-  const ChannelListView({Key? key, required fullData}) : super(key: key);
+  const ChannelListView({super.key, required fullData});
 
   @override
   _ChannelListViewState createState() => _ChannelListViewState();
@@ -82,8 +81,7 @@ class _ChannelListViewState extends State<ChannelListView> {
 
                 return GestureDetector(
                   onTap: () {
-                    log("=============================" +
-                        channelCubit.allChannels[index].id.toString());
+                    log("=============================${channelCubit.allChannels[index].id}");
                     context.push("/channelInfo",
                         extra: channelCubit.allChannels[index].id);
                   },

@@ -1,7 +1,6 @@
 import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/helper/shared_preferences_helper.dart';
 import 'package:autism/core/utils/extentions.dart';
-import 'package:autism/features/resource/data/repo/resource_repo.dart';
 import 'package:autism/features/test/viewModel/tell_about_cubit/tell_about_cubit.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
@@ -11,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/di/di.dart';
 import 'core/helper/contants.dart';
 import 'core/routing/router.dart';
-import 'features/resource/viewModel/resource_cubit.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();

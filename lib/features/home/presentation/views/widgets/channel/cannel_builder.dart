@@ -1,20 +1,15 @@
 
 
 
-import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/features/home/presentation/views/widgets/channel/channel_list_card_item.dart';
 
 
-import 'package:autism/features/home/presentation/views/widgets/exploreList/home_explore_list_view.dart';
-import 'package:autism/features/home/presentation/views/widgets/exploreList/explore_shimmer_loading.dart';
 import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'channel_card_shimmer.dart';
 import 'channel_skeleton_card.dart';
-import 'custom_skeletoni_channel_list.dart';
 
 class ChannelBuilder extends StatelessWidget {
   const ChannelBuilder({super.key});

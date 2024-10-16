@@ -1,14 +1,13 @@
 import 'dart:developer';
 
 import 'package:autism/core/helper/shared_preferences_helper.dart';
+import 'package:autism/features/community/presentation/view/community_view.dart';
 import 'package:autism/features/home/presentation/views/home_view.dart';
 import 'package:autism/features/resource/presentation/view/resource_view.dart';
 import 'package:autism/features/test/presentation/view/choose_test_view.dart';
 import 'package:autism/features/test/presentation/view/on_boarding_test_view.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 
 import 'layout_state.dart';
 
@@ -73,7 +72,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
   final List<Widget> screens = [
     const HomeView(),
     const ChooseTestView(),
-    const Column(),    // Placeholder, will be replaced later
+    const CommunityView(),    // Placeholder, will be replaced later
     const ResourceView(),         // Placeholder for future implementation
        // Placeholder for future implementation
   ];

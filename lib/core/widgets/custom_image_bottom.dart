@@ -16,8 +16,8 @@ class CustomImageBottom extends StatelessWidget {
     required this.galleryImagePath,
     required this.onCameraPressed,
     required this.onGalleryPressed,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

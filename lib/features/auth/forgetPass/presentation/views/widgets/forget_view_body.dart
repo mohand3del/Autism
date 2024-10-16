@@ -57,7 +57,7 @@ class ForgetViewBody extends StatelessWidget {
 
            }),
           verticalSpace(context.height * 0.037),
-          OrDivider(),
+          const OrDivider(),
           verticalSpace(context.height * 0.025),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

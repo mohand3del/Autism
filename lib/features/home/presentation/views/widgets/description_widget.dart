@@ -28,7 +28,7 @@ class _DescriptionWidgetState extends State<DescriptionWidget> {
       child: SizedBox(
         width: double.infinity,
         child: Container(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             color: Colors.grey[200], // Background color
             borderRadius: BorderRadius.circular(15.0),
@@ -49,13 +49,13 @@ class _DescriptionWidgetState extends State<DescriptionWidget> {
                 _isExpanded
                     ? widget.description
                     : widget.description.length > 50
-                    ? widget.description.substring(0, 30) + '...'
+                    ? '${widget.description.substring(0, 30)}...'
                     : widget.description,
                 maxLines: _isExpanded ? null : 2, // Expanded shows full text
                 overflow:
                 _isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
                 style: AppStyles.regular12(context).copyWith(
-                  color: Color(0xff828A97),
+                  color: const Color(0xff828A97),
                   fontFamily: 'Poppins',
                 ),
               ),
@@ -63,7 +63,7 @@ class _DescriptionWidgetState extends State<DescriptionWidget> {
                 onTap: _toggleExpanded,
                 child: Text(
                   _isExpanded ? 'less...' : 'more...',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.blue,
                     fontWeight: FontWeight.bold,
                   ),

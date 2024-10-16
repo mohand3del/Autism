@@ -13,7 +13,7 @@ class TestViewBody extends StatefulWidget {
   final int totalFormQuestions;
   final List<String> selectedMethods;
 
-  TestViewBody({
+  const TestViewBody({super.key, 
     required this.totalFormQuestions,
     required this.selectedMethods,
   });

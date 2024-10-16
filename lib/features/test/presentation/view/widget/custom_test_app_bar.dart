@@ -2,6 +2,7 @@ import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key, this.title});
@@ -35,26 +36,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
 
-          Spacer(
+          const Spacer(
             flex: 1,
           ),
           Text(
            title ?? "User",
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
 
-          Spacer(
+          const Spacer(
             flex: 10,
           ),
           IconButton(
-            icon: Icon(
-              Icons.access_time,
-              color: Colors.black,
-            ),
+            icon:  Center(child: SvgPicture.asset('assets/images/test_history_icon.svg')),
             onPressed: () {
               // Action when clock icon is pressed
             },
@@ -65,5 +63,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(56); // Standard AppBar height
+  Size get preferredSize => const Size.fromHeight(56); // Standard AppBar height
 }

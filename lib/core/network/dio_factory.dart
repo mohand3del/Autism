@@ -1,15 +1,11 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:autism/core/helper/contants.dart';
-import 'package:autism/core/network/response_model.dart';
 import 'package:dio/dio.dart';
-import 'package:http_parser/http_parser.dart';
 
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../helper/shared_preferences_helper.dart';
-import 'api_service.dart';
 
 
 

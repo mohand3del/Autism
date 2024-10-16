@@ -34,7 +34,7 @@ class _ChannelInfoViewState extends State<ChannelInfoView> {
         future: _channelFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
@@ -45,7 +45,7 @@ class _ChannelInfoViewState extends State<ChannelInfoView> {
                 } else if (state is Error) {
                   return Center(child: Text(state.error));
                 } else {
-                  return Center(child: Text('Unexpected state'));
+                  return const Center(child: Text('Unexpected state'));
                 }
               },
             );

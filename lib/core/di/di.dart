@@ -24,7 +24,6 @@ import 'package:autism/features/test/data/repo/tell_about_repo.dart';
 import 'package:autism/features/test/data/repo/test_result_repo.dart';
 import 'package:autism/features/test/viewModel/form_cubit/form_cubit.dart';
 import 'package:autism/features/test/viewModel/tell_about_cubit/tell_about_cubit.dart';
-import 'package:autism/features/test/viewModel/test_cubit.dart';
 import 'package:autism/features/test/viewModel/test_result_cubit/test_result_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';

@@ -96,7 +96,7 @@ class _PinCodeFieldsState extends State<PinCodeFields> {
                 inactiveBorderWidth: 1.5,
                 selectedBorderWidth: 1.5,
               ),
-              animationDuration: Duration(milliseconds: 300),
+              animationDuration: const Duration(milliseconds: 300),
               backgroundColor: Colors.white,
 
               // enableActiveFill: true,
@@ -135,7 +135,7 @@ class _PinCodeFieldsState extends State<PinCodeFields> {
                     fontFamily: "Inter",
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
                   "I didn't receive any code.",
                   style: AppStyles.medium14(context).copyWith(
@@ -214,12 +214,12 @@ class _PinCodeFieldsState extends State<PinCodeFields> {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: Text('Missing OTP Code'),
-                content: Text('Please enter the OTP code sent to your email.'),
+                title: const Text('Missing OTP Code'),
+                content: const Text('Please enter the OTP code sent to your email.'),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context),
-                    child: Text('OK'),
+                    child: const Text('OK'),
                   ),
                 ],
               ),
@@ -232,12 +232,12 @@ class _PinCodeFieldsState extends State<PinCodeFields> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Missing OTP Code'),
-            content: Text('Please enter the OTP code sent to your email.'),
+            title: const Text('Missing OTP Code'),
+            content: const Text('Please enter the OTP code sent to your email.'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           ),

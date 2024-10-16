@@ -1,12 +1,10 @@
 import 'package:autism/core/constant/app_colors.dart';
-import 'package:autism/core/di/di.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/core/widgets/custom_bottom.dart';
 import 'package:autism/core/widgets/custom_text_field.dart';
 import 'package:autism/features/test/presentation/view/widget/tell_about_bloc_listeiner.dart';
-import 'package:autism/features/test/presentation/view/widget/test_view_body.dart';
 import 'package:autism/features/test/viewModel/tell_about_cubit/tell_about_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -178,7 +176,7 @@ class _TellUsAboutBodyState extends State<TellUsAboutBody> {
               value: item,
               child: Text(
                 item,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             );
           }).toList(),

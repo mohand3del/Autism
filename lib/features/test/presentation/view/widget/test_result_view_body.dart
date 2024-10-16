@@ -16,12 +16,12 @@ class TestResultViewBody extends StatelessWidget {
       buildWhen: (previous, current) => current is TestResultLoading || current is TestResultSuccess || current is TestResultError,
         builder: (context, state) {
       return state.when(
-        loading: () => WaitingView(),
+        loading: () => const WaitingView(),
         success: (autism) {
-          return autism ? AutismResultView() : NonAutismView();
+          return autism ? const AutismResultView() : const NonAutismView();
         },
         error: (String error) => setupError(),
-        initial: () => WaitingView(),
+        initial: () => const WaitingView(),
 
       );
 

@@ -10,7 +10,7 @@ class ExploreShimmerLoding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.only(start: 10),
+      padding: const EdgeInsetsDirectional.only(start: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -15,7 +15,7 @@ class AutismResultViewBody extends StatelessWidget {
     return SafeArea(child:
         Column(
           children: [
-            CustomBarBackArrow(title: 'Test Result'),
+            const CustomBarBackArrow(title: 'Test Result'),
             verticalSpace(context.height * 42 / 851),
             Image.asset('assets/images/have_autism.png',
                 width: context.width * 175 / 393,
@@ -53,7 +53,7 @@ class AutismResultViewBody extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                       Center(
-                        child: Image(image: AssetImage('assets/images/download.png'),
+                        child: Image(image: const AssetImage('assets/images/download.png'),
                           width: context.width * 20 / 393,
                           height: context.height * 20 / 851,
                         ),

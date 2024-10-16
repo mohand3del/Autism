@@ -44,7 +44,7 @@ class ResourceBlocBuilder extends StatelessWidget {
 
   Widget setupLoading() {
 
-    return  ResourceShimmer();
+    return  const ResourceShimmer();
   }
 
   Widget setupError() {

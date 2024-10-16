@@ -53,7 +53,7 @@ class LoginViewBody extends StatelessWidget {
               validateThenDoLogin(context);
             },),
             verticalSpace(context.height * 0.063),
-            OrDivider(),
+            const OrDivider(),
             verticalSpace( context.height * 0.024),
             const OAuthWidget(),
             verticalSpace(context.height * 0.0187),

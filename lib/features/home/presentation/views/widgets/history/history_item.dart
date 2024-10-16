@@ -29,7 +29,7 @@ class HistoryItem extends StatelessWidget {
         Container(
           width: 393,
           color: Colors.white.withOpacity(0.7),
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10.0),
           child: Row(
             children: <Widget>[
               // The icon (optional)
@@ -37,7 +37,7 @@ class HistoryItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(25.0),
                 // Same radius as the CircleAvatar
                 child: CachedNetworkImage(
-                  placeholder: (context, url) => CircularProgressIndicator(),
+                  placeholder: (context, url) => const CircularProgressIndicator(),
                   imageUrl: channel?.thumbnails.high.url ?? "",
                   fit: BoxFit.cover,
                   height: context.height * 50 / 932,
@@ -47,7 +47,7 @@ class HistoryItem extends StatelessWidget {
 
               horizontalSpace(context.width * 10 / 393),
               // The text
-              Container(
+              SizedBox(
                 width: context.width * 280 / 393,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

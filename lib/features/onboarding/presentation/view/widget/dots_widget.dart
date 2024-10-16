@@ -1,5 +1,4 @@
 import 'package:autism/core/constant/app_colors.dart';
-import 'package:autism/core/utils/onboarding_list.dart';
 import 'package:autism/features/onboarding/view%20model/onboarding_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

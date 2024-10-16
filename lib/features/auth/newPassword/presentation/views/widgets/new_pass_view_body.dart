@@ -1,6 +1,5 @@
 
 
-import 'package:autism/core/di/di.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';

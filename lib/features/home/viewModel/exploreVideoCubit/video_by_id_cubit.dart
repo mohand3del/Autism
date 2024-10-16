@@ -12,7 +12,7 @@ class VideoByIdCubit extends Cubit<VideoByIdState> {
 
 
   Future<void> getVideoById({String? videoId}) async {
-    emit(VideoByIdState.loading());
+    emit(const VideoByIdState.loading());
     final response = await _videoRepo.getVideoById(videoId: videoId);
     response.when(
       success: (data) {

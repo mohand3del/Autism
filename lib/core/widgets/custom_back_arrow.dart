@@ -27,7 +27,7 @@ class CustomBackArrow extends StatelessWidget {
                 context.go('/login');
               }
             },
-            child: Icon(Icons.arrow_back_ios),
+            child: const Icon(Icons.arrow_back_ios),
           ),
         ),
       ],

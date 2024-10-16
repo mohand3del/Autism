@@ -16,7 +16,7 @@ class ResourceView extends StatelessWidget {
       backgroundColor: AppColors.white,
       body: BlocProvider(
           create: (context) => getIt<ResourceCubit>()..fetchResources(),
-          child: ResourceViewBody()),
+          child: const ResourceViewBody()),
     );
   }
 }

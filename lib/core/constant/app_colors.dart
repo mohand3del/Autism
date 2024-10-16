@@ -12,4 +12,6 @@ abstract class AppColors {
    static const Color textGrey = Color(0xff9A9A9A);
    static const Color dotGray = Color(0xffCDCDCD);
    static const Color darkGrey = Color(0xff575757);
+   static const Color formFieldBorder = Color(0xff989898);
+   static const Color dividerColor = Color(0xffDADADA);
 }

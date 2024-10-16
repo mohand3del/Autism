@@ -3,6 +3,7 @@ import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class CustomHomeAppBar extends StatelessWidget {
   const CustomHomeAppBar({super.key, required this.name});
@@ -17,7 +18,7 @@ class CustomHomeAppBar extends StatelessWidget {
           SizedBox(
             height: context.height * 50 / 852,
             width: context.width * 50 / 393,
-            child:  CircleAvatar(
+            child:  const CircleAvatar(
               radius: 54,
               backgroundImage: AssetImage('assets/images/userImage.png'),
             ),
@@ -43,12 +44,10 @@ class CustomHomeAppBar extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          GestureDetector(
-            child: const FaIcon(
-              FontAwesomeIcons.youtube,
-              color: AppColors.black,
-              size: 40,
-            ),
+          IconButton(
+          icon : Center(child: SvgPicture.asset("assets/images/fav_video_icon.svg")),
+            color: AppColors.black, onPressed: () {  },
+
           ),
         ],
       ),

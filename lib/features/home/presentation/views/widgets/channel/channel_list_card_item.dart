@@ -1,6 +1,5 @@
 
 
-import 'package:autism/core/routing/router.dart';
 import 'package:autism/features/home/data/model/channel_response_body.dart';
 import 'package:autism/features/home/presentation/views/widgets/channel/channel_card_item.dart';
 import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';

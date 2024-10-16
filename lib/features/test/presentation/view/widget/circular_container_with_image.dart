@@ -1,4 +1,3 @@
-import 'package:autism/core/routing/router.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:flutter/material.dart';
 
@@ -7,8 +6,8 @@ class CircularContainerWithImage extends StatelessWidget {
 
   const CircularContainerWithImage({
     required this.imageProvider,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

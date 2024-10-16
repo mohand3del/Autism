@@ -6,9 +6,10 @@ import 'package:autism/features/auth/newPassword/presentation/views/new_password
 import 'package:autism/features/auth/signUp/presentation/views/sign_up_view.dart';
 import 'package:autism/features/auth/signUp/view%20model/sign_up_cubit.dart';
 import 'package:autism/features/auth/verifyCode/presentation/views/verify_code_view.dart';
-import 'package:autism/features/home/data/model/channel_by_id_response_body.dart';
-import 'package:autism/features/home/data/model/video_by_id_response_body.dart';
-import 'package:autism/features/home/data/model/video_response_body.dart';
+import 'package:autism/features/community/presentation/view/comment_view.dart';
+import 'package:autism/features/community/presentation/view/community_view.dart';
+import 'package:autism/features/community/presentation/view/create_post_view.dart';
+import 'package:autism/features/community/presentation/view/search_view.dart';
 import 'package:autism/features/home/presentation/views/channel_info_view.dart';
 import 'package:autism/features/home/presentation/views/channel_view.dart';
 import 'package:autism/features/home/presentation/views/explore_view.dart';
@@ -31,7 +32,6 @@ import 'package:autism/features/test/presentation/view/on_boarding_test_view.dar
 import 'package:autism/features/test/presentation/view/tell_us_about_view.dart';
 import 'package:autism/features/test/presentation/view/test_result_view.dart';
 import 'package:autism/features/test/presentation/view/waiting_view.dart';
-import 'package:autism/features/test/presentation/view/widget/onboarding_test.dart';
 import 'package:autism/features/test/viewModel/tell_about_cubit/tell_about_cubit.dart';
 import 'package:autism/features/test/viewModel/test_cubit.dart';
 import 'package:autism/features/test/viewModel/test_result_cubit/test_result_cubit.dart';
@@ -66,6 +66,10 @@ class AppRouter {
   static const String nonAutismTestResult = "/nonAutismTestResult";
   static const String testResult = "/testResult";
   static const String resources = "/resource";
+  static const String community = "/community";
+  static const String comment = "/comment";
+  static const String createPost = "/createPost";
+  static const String search = "/search";
 
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
@@ -196,7 +200,7 @@ class AppRouter {
               ),
             );
           } else {
-            return Scaffold(
+            return const Scaffold(
               body: Center(
                 child: Text('No video ID provided!'),
               ),
@@ -247,7 +251,7 @@ class AppRouter {
                 child: const HistoryView());
           }),
       GoRoute(path: waiting, builder: (context, state) {
-        return WaitingView();
+        return const WaitingView();
       }),
       GoRoute(path: autismTestResult, builder: (context, state) {
         return const AutismResultView();
@@ -264,6 +268,18 @@ class AppRouter {
         return BlocProvider(
             create: (BuildContext context) => getIt<ResourceCubit>()..fetchResources(),
             child: const ResourceView());
+      }),
+      GoRoute(path: community, builder: (context, state) {
+        return const CommunityView();
+      }),
+      GoRoute(path: comment, builder: (context, state) {
+        return const CommentView();
+      }),
+      GoRoute(path: createPost, builder: (context, state) {
+        return const CreatePostView();
+      }),
+      GoRoute(path: search, builder: (context, state) {
+        return const SearchView();
       }),
     ],
   );

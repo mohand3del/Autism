@@ -1,6 +1,4 @@
-import 'dart:developer';
 
-import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
@@ -9,7 +7,6 @@ import 'package:autism/core/widgets/custom_text_field.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class CustomSearchRow extends StatefulWidget {
   const CustomSearchRow({super.key});

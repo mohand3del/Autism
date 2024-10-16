@@ -1,5 +1,4 @@
 
-import 'package:autism/core/helper/contants.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
@@ -46,7 +45,7 @@ class ExploreListViewItem extends StatelessWidget {
             ],
           ),
           verticalSpace(context.height * 8 / 932),
-          Container(
+          SizedBox(
             width: context.width * 320 / 430,
             child: Text(
               fullDatum?.vedio.title ?? "About Autism 101: Your Beginner Guide",
