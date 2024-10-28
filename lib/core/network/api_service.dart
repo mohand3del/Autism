@@ -9,6 +9,7 @@ import 'package:autism/features/auth/signUp/data/model/sign_up_request_body.dart
 import 'package:autism/features/auth/signUp/data/model/sign_up_response.dart';
 import 'package:autism/features/auth/verifyCode/data/model/verify_request_body.dart';
 import 'package:autism/features/auth/verifyCode/data/model/verify_response_body.dart';
+import 'package:autism/features/community/data/model/show_post_response.dart';
 import 'package:autism/features/home/data/model/channel_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/channel_response_body.dart';
 import 'package:autism/features/home/data/model/history_response_body.dart';
@@ -101,6 +102,9 @@ abstract class ApiService {
   @GET(ApiConstants.showAllResource)
   Future<ResourceResponseBody> showAllWebsites(
       {@Query("page") int? page,
+        @Query("number") int? number = 20,
   });
+  @GET(ApiConstants.showAllCommunity)
+  Future<ShowPostsResponse> showAllPosts();
 
 }

@@ -41,7 +41,7 @@ class NonAutismViewBody extends StatelessWidget {
             ),
             GestureDetector(
               onTap: (){
-                context.go('/test');
+                context.go('/chooseTest');
               },
               child: Text("Repeat test ",
                 style: AppStyles.medium14(context).copyWith(

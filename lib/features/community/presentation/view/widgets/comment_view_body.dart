@@ -14,9 +14,9 @@ class CommentViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Column(
       children: [
-        CommunityPost(),
-        CommentTree(),
-        Spacer(),
+        const CommunityPost(),
+        const CommentTree(),
+        const Spacer(),
         AddCommentField(onCommentSubmit: (value){},),
 
       ],
