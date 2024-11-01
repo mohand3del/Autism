@@ -34,5 +34,6 @@ class ApiConstants {
   static const String testResult = "testing/testResult";
   static const String showAllResource = "resource/showAllWebsites";
   static const String showAllCommunity = "community/showAllPosts";
+  static const String createPost = "community/createPost";
 
 }

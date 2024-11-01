@@ -1,42 +1,30 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'show_post_response.dart';
+part of 'create_post_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ShowPostsResponse _$ShowPostsResponseFromJson(Map<String, dynamic> json) =>
-    ShowPostsResponse(
-      data: (json['data'] as List<dynamic>)
-          .map((e) => Datum.fromJson(e as Map<String, dynamic>))
-          .toList(),
+CreatePostResponse _$CreatePostResponseFromJson(Map<String, dynamic> json) =>
+    CreatePostResponse(
+      newPost: NewPost.fromJson(json['newPost'] as Map<String, dynamic>),
+      message: json['message'] as String,
     );
 
-Map<String, dynamic> _$ShowPostsResponseToJson(ShowPostsResponse instance) =>
+Map<String, dynamic> _$CreatePostResponseToJson(CreatePostResponse instance) =>
     <String, dynamic>{
-      'data': instance.data,
+      'newPost': instance.newPost,
+      'message': instance.message,
     };
 
-Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
-      post: Post.fromJson(json['post'] as Map<String, dynamic>),
-      user: User.fromJson(json['user'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
-      'post': instance.post,
-      'user': instance.user,
-    };
-
-Post _$PostFromJson(Map<String, dynamic> json) => Post(
-      id: json['_id'] as String,
+NewPost _$NewPostFromJson(Map<String, dynamic> json) => NewPost(
       userId: json['userId'] as String,
       category: json['category'] as String,
       postType: json['postType'] as String,
       method: json['method'] as String,
       text: json['text'] as String,
-      images:
-          (json['images'] as List<dynamic>).map((e) => e as String).toList(),
+      images: json['images'] as List<dynamic>,
       comments: json['comments'] as List<dynamic>,
       reactions: json['reactions'] as List<dynamic>,
       outerViewCount: (json['outerViewCount'] as num).toInt(),
@@ -49,13 +37,13 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
       celebratesNumber: (json['celebratesNumber'] as num).toInt(),
       insightfulsNumber: (json['insightfulsNumber'] as num).toInt(),
       funnysNumber: (json['funnysNumber'] as num).toInt(),
+      id: json['_id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       v: (json['__v'] as num).toInt(),
     );
 
-Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
-      '_id': instance.id,
+Map<String, dynamic> _$NewPostToJson(NewPost instance) => <String, dynamic>{
       'userId': instance.userId,
       'category': instance.category,
       'postType': instance.postType,
@@ -74,27 +62,8 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'celebratesNumber': instance.celebratesNumber,
       'insightfulsNumber': instance.insightfulsNumber,
       'funnysNumber': instance.funnysNumber,
+      '_id': instance.id,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
       '__v': instance.v,
-    };
-
-User _$UserFromJson(Map<String, dynamic> json) => User(
-      id: json['_id'] as String,
-      name: json['name'] as String,
-      email: json['email'] as String,
-      gender: json['gender'] as String,
-      image: json['image'] as String,
-      type: json['type'] as String,
-      dateOfBirth: DateTime.parse(json['dateOfBirth'] as String),
-    );
-
-Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
-      '_id': instance.id,
-      'name': instance.name,
-      'email': instance.email,
-      'gender': instance.gender,
-      'image': instance.image,
-      'type': instance.type,
-      'dateOfBirth': instance.dateOfBirth.toIso8601String(),
     };

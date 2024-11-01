@@ -1,43 +1,27 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'show_post_response.g.dart';
 
+part 'create_post_response.g.dart';
 
 @JsonSerializable()
-class ShowPostsResponse {
-  @JsonKey(name: "data")
-  List<Datum> data;
+class CreatePostResponse {
+  @JsonKey(name: "newPost")
+  NewPost newPost;
+  @JsonKey(name: "message")
+  String message;
 
-  ShowPostsResponse({
-    required this.data,
+  CreatePostResponse({
+    required this.newPost,
+    required this.message,
   });
 
-  factory ShowPostsResponse.fromJson(Map<String, dynamic> json) => _$ShowPostsResponseFromJson(json);
+  factory CreatePostResponse.fromJson(Map<String, dynamic> json) => _$CreatePostResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ShowPostsResponseToJson(this);
+  Map<String, dynamic> toJson() => _$CreatePostResponseToJson(this);
 }
 
 @JsonSerializable()
-class Datum {
-  @JsonKey(name: "post")
-  Post post;
-  @JsonKey(name: "user")
-  User user;
-
-  Datum({
-    required this.post,
-    required this.user,
-  });
-
-  factory Datum.fromJson(Map<String, dynamic> json) => _$DatumFromJson(json);
-
-  Map<String, dynamic> toJson() => _$DatumToJson(this);
-}
-
-@JsonSerializable()
-class Post {
-  @JsonKey(name: "_id")
-  String id;
+class NewPost {
   @JsonKey(name: "userId")
   String userId;
   @JsonKey(name: "category")
@@ -49,7 +33,7 @@ class Post {
   @JsonKey(name: "text")
   String text;
   @JsonKey(name: "images")
-  List<String> images;
+  List<dynamic> images;
   @JsonKey(name: "comments")
   List<dynamic> comments;
   @JsonKey(name: "reactions")
@@ -74,6 +58,8 @@ class Post {
   int insightfulsNumber;
   @JsonKey(name: "funnysNumber")
   int funnysNumber;
+  @JsonKey(name: "_id")
+  String id;
   @JsonKey(name: "createdAt")
   DateTime createdAt;
   @JsonKey(name: "updatedAt")
@@ -81,8 +67,7 @@ class Post {
   @JsonKey(name: "__v")
   int v;
 
-  Post({
-    required this.id,
+  NewPost({
     required this.userId,
     required this.category,
     required this.postType,
@@ -101,44 +86,13 @@ class Post {
     required this.celebratesNumber,
     required this.insightfulsNumber,
     required this.funnysNumber,
+    required this.id,
     required this.createdAt,
     required this.updatedAt,
     required this.v,
   });
 
-  factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
+  factory NewPost.fromJson(Map<String, dynamic> json) => _$NewPostFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PostToJson(this);
-}
-
-@JsonSerializable()
-class User {
-  @JsonKey(name: "_id")
-  String id;
-  @JsonKey(name: "name")
-  String name;
-  @JsonKey(name: "email")
-  String email;
-  @JsonKey(name: "gender")
-  String gender;
-  @JsonKey(name: "image")
-  String image;
-  @JsonKey(name: "type")
-  String type;
-  @JsonKey(name: "dateOfBirth")
-  DateTime dateOfBirth;
-
-  User({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.gender,
-    required this.image,
-    required this.type,
-    required this.dateOfBirth,
-  });
-
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  Map<String, dynamic> toJson() => _$NewPostToJson(this);
 }

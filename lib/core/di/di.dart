@@ -10,7 +10,9 @@ import 'package:autism/features/auth/signUp/data/repo/sign_up_repo.dart';
 import 'package:autism/features/auth/signUp/view%20model/sign_up_cubit.dart';
 import 'package:autism/features/auth/verifyCode/data/repo/verify_repo.dart';
 import 'package:autism/features/auth/verifyCode/view%20model/verify_cubit.dart';
+import 'package:autism/features/community/data/repo/create_post_repo.dart';
 import 'package:autism/features/community/data/repo/show_all_posts_repo.dart';
+import 'package:autism/features/community/viewModel/create_post_cubit/create_post_cubit.dart';
 import 'package:autism/features/community/viewModel/show_all_post_cubit.dart';
 import 'package:autism/features/home/data/repo/channel_repo.dart';
 import 'package:autism/features/home/data/repo/history_repo.dart';
@@ -90,6 +92,10 @@ Future<void> setupGetIt() async {
   //community
   getIt.registerLazySingleton<  ShowAllPostsRepo>(() => ShowAllPostsRepo(getIt()));
   getIt.registerFactory<ShowAllPostCubit>(() => ShowAllPostCubit(getIt()));
+
+  //create post
+   getIt.registerLazySingleton<CreatePostRepo>(() => CreatePostRepo(getIt()));
+   getIt.registerFactory<CreatePostCubit>(() => CreatePostCubit(getIt()));
 
 
 

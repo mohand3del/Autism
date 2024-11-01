@@ -1,6 +1,7 @@
 import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
+import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/features/community/data/model/show_post_response.dart';
 import 'package:autism/features/community/presentation/view/comment_view.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +89,8 @@ class _CommunityPostState extends State<CommunityPost> {
                                   fontSize: 16,
                                 ),
                               ),
-                              const SizedBox(width: 4),
+                              //const SizedBox(width: 4),
+                              horizontalSpace(context.width * 4 / 393),
                               const Icon(
                                 Icons.verified,
                                 color: Colors.blue,
@@ -126,7 +128,7 @@ class _CommunityPostState extends State<CommunityPost> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
+                verticalSpace(context.height * 10 / 851),
 
                 // Post content text
                  Padding(
@@ -136,7 +138,7 @@ class _CommunityPostState extends State<CommunityPost> {
                     style: const TextStyle(fontSize: 14),
                   ),
                 ),
-                const SizedBox(height: 10),
+                verticalSpace(context.height * 10 / 851),
 
                 // Show reactions row when like is long-pressed
                 if (showReactions)
@@ -207,7 +209,7 @@ class _CommunityPostState extends State<CommunityPost> {
                       ),
                       const Spacer(),
                       Text(
-                       '${widget.data?.post.commentsNumber.toString()} comments ' ?? '3 comments ',
+                       '${widget.data?.post.commentsCount.toString()} comments ' ?? '3 comments ',
                         style: AppStyles.regular13(context).copyWith(
                           fontFamily: 'Inter',
                           color: AppColors.lightGrey,

@@ -10,6 +10,7 @@ import 'package:autism/features/community/presentation/view/comment_view.dart';
 import 'package:autism/features/community/presentation/view/community_view.dart';
 import 'package:autism/features/community/presentation/view/create_post_view.dart';
 import 'package:autism/features/community/presentation/view/search_view.dart';
+import 'package:autism/features/community/viewModel/create_post_cubit/create_post_cubit.dart';
 import 'package:autism/features/community/viewModel/show_all_post_cubit.dart';
 import 'package:autism/features/home/presentation/views/channel_info_view.dart';
 import 'package:autism/features/home/presentation/views/channel_view.dart';

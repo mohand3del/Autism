@@ -3,6 +3,7 @@
 
 
 
+import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/features/community/data/model/show_post_response.dart';
 import 'package:autism/features/community/presentation/view/widgets/community_post_list_view.dart';
 import 'package:autism/features/community/presentation/view/widgets/community_post_shimmer_loading.dart';
@@ -31,7 +32,12 @@ class ShowAllPostsBlocBuilder extends StatelessWidget {
 
         return CommunityPostListView(data:showPostResponse.data,);
       }, error: (String error) {
-        return const SizedBox();
+        return  Column(
+          children: [
+            Center(child: Text('Error:$error',
+            style: AppStyles.regular20(context),)),
+          ],
+        );
       });
     });
   }

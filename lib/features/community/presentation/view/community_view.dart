@@ -16,7 +16,7 @@ class CommunityView extends StatelessWidget {
   Widget build(BuildContext context) {
     return  BlocProvider(
       create:(BuildContext context) => getIt<ShowAllPostCubit>()..showAllPosts(),
-      child: Scaffold(
+      child: const Scaffold(
         backgroundColor: AppColors.white,
         appBar: CommunityAppBar(),
         body: CommunityViewBody(),

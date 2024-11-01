@@ -12,10 +12,10 @@ class CommunityPostListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(child: ListView.builder(
-        itemCount: data!.length,
+        itemCount: data?.length,
         itemBuilder: (context, index) {
       return  CommunityPost(
-        data: data![index],
+        data: data?[index],
       );
     }));
   }
