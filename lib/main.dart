@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/di/di.dart';
 import 'core/helper/contants.dart';
 import 'core/routing/router.dart';
+import 'features/resource/viewModel/resource_cubit.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,8 +33,8 @@ class Autism extends StatelessWidget {
     return MultiBlocProvider(providers:[
 
       BlocProvider(create: (context) => TellAboutCubit(getIt()),),
-    // BlocProvider(
-    // create: (BuildContext context) => getIt<ResourceCubit>()..fetchResources(),),
+    BlocProvider(
+    create: (BuildContext context) => getIt<ResourceCubit>()..fetchResources(),),
 
 
 
@@ -42,7 +43,8 @@ class Autism extends StatelessWidget {
       child: MaterialApp.router(
 
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        
+        title: 'Autism',
 
         theme: ThemeData(
 

@@ -10,6 +10,8 @@ import 'package:autism/features/community/presentation/view/comment_view.dart';
 import 'package:autism/features/community/presentation/view/community_view.dart';
 import 'package:autism/features/community/presentation/view/create_post_view.dart';
 import 'package:autism/features/community/presentation/view/search_view.dart';
+import 'package:autism/features/community/viewModel/create_post_cubit/create_post_cubit.dart';
+import 'package:autism/features/community/viewModel/show_all_post_cubit.dart';
 import 'package:autism/features/home/presentation/views/channel_info_view.dart';
 import 'package:autism/features/home/presentation/views/channel_view.dart';
 import 'package:autism/features/home/presentation/views/explore_view.dart';
@@ -163,6 +165,10 @@ class AppRouter {
               ),
               BlocProvider(
                   create: (context) => getIt<HistoryCubit>()..getHistory()),
+              BlocProvider(
+                  create: (context) => getIt<ResourceCubit>()..fetchResources()),
+
+
             ], child: const LayoutView());
           }),
       GoRoute(
@@ -270,7 +276,9 @@ class AppRouter {
             child: const ResourceView());
       }),
       GoRoute(path: community, builder: (context, state) {
-        return const CommunityView();
+        return BlocProvider(
+            create: (BuildContext context) => getIt<ShowAllPostCubit>()..showAllPosts(),
+            child: const CommunityView());
       }),
       GoRoute(path: comment, builder: (context, state) {
         return const CommentView();

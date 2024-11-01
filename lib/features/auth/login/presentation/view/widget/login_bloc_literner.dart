@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quickalert/quickalert.dart';
 
 class LoginBlocListener extends StatefulWidget {
   const LoginBlocListener({super.key});
@@ -71,35 +72,42 @@ class _LoginBlocListenerState extends State<LoginBlocListener> with SingleTicker
 
   void setupErrorState(BuildContext context, String error) {
     context.pop();
-    showDialog(
+    // showDialog(
+    //   context: context,
+    //   builder: (context) => AlertDialog(
+    //     icon: const Icon(
+    //       Icons.error,
+    //       color: Colors.red,
+    //       size: 32,
+    //     ),
+    //     content: Text(
+    //       error,
+    //       style: AppStyles.medium16(context).copyWith(
+    //         color: AppColors.black,
+    //         fontFamily: 'Poppins',
+    //       ),
+    //     ),
+    //     actions: [
+    //       TextButton(
+    //         onPressed: () {
+    //           context.pop();
+    //         },
+    //         child: Text(
+    //           'Got it',
+    //           style: AppStyles.semiBold16(context).copyWith(
+    //             color: AppColors.primaryColor,
+    //           ),
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // );
+
+    QuickAlert.show(
       context: context,
-      builder: (context) => AlertDialog(
-        icon: const Icon(
-          Icons.error,
-          color: Colors.red,
-          size: 32,
-        ),
-        content: Text(
-          error,
-          style: AppStyles.medium16(context).copyWith(
-            color: AppColors.black,
-            fontFamily: 'Poppins',
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              context.pop();
-            },
-            child: Text(
-              'Got it',
-              style: AppStyles.semiBold16(context).copyWith(
-                color: AppColors.primaryColor,
-              ),
-            ),
-          ),
-        ],
-      ),
+      type: QuickAlertType.error,
+      title: 'Oops...',
+      text: 'Sorry, $error',
     );
   }
 

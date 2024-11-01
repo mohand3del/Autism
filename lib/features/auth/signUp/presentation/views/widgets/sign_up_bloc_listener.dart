@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quickalert/quickalert.dart';
 
 class SignupBlocListener extends StatefulWidget {
   const SignupBlocListener({super.key});
@@ -67,69 +68,89 @@ class _SignupBlocListenerState extends State<SignupBlocListener> with SingleTick
     );
   }
 
-  void showSuccessDialog(BuildContext context,String message) {
-    showDialog(
+  // void showSuccessDialog(BuildContext context,String message) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: const Text('Signup Successful'),
+  //         content:  SingleChildScrollView(
+  //           child: ListBody(
+  //             children: <Widget>[
+  //               Text(message,style: AppStyles.medium16(context).copyWith(
+  //                 color: AppColors.black,
+  //                 fontFamily: 'Poppins',
+  //               ),),
+  //             ],
+  //           ),
+  //         ),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             style: TextButton.styleFrom(
+  //               foregroundColor: Colors.white, backgroundColor: Colors.blue, disabledForegroundColor: Colors.grey.withOpacity(0.38),
+  //             ),
+  //             onPressed: () {
+  //              context.go('/login');
+  //             },
+  //             child: const Text('Continue'),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
+
+
+  void showSuccessDialog(BuildContext context, String message) {
+    QuickAlert.show(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Signup Successful'),
-          content:  SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(message,style: AppStyles.medium16(context).copyWith(
-                  color: AppColors.black,
-                  fontFamily: 'Poppins',
-                ),),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.blue, disabledForegroundColor: Colors.grey.withOpacity(0.38),
-              ),
-              onPressed: () {
-               context.go('/login');
-              },
-              child: const Text('Continue'),
-            ),
-          ],
-        );
+      type: QuickAlertType.success,
+      title: 'Signup Successful',
+      text: message,
+      confirmBtnText: 'Continue',
+      confirmBtnColor: Colors.blue,
+      onConfirmBtnTap: () {
+        context.go('/login');
       },
     );
   }
-
   void setupErrorState(BuildContext context, String error) {
     context.pop();
-    showDialog(
+    // showDialog(
+    //   context: context,
+    //   builder: (context) => AlertDialog(
+    //     icon: const Icon(
+    //       Icons.error,
+    //       color: Colors.red,
+    //       size: 32,
+    //     ),
+    //     content: Text(
+    //       error,
+    //       style: AppStyles.medium16(context).copyWith(
+    //         color: AppColors.black,
+    //         fontFamily: 'Poppins',
+    //       ),
+    //     ),
+    //     actions: [
+    //       TextButton(
+    //         onPressed: () {
+    //           context.pop();
+    //         },
+    //         child: Text(
+    //           'Got it',
+    //           style: AppStyles.semiBold16(context).copyWith(
+    //             color: AppColors.primaryColor,
+    //           ),
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // );
+    QuickAlert.show(
       context: context,
-      builder: (context) => AlertDialog(
-        icon: const Icon(
-          Icons.error,
-          color: Colors.red,
-          size: 32,
-        ),
-        content: Text(
-          error,
-          style: AppStyles.medium16(context).copyWith(
-            color: AppColors.black,
-            fontFamily: 'Poppins',
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              context.pop();
-            },
-            child: Text(
-              'Got it',
-              style: AppStyles.semiBold16(context).copyWith(
-                color: AppColors.primaryColor,
-              ),
-            ),
-          ),
-        ],
-      ),
+      type: QuickAlertType.error,
+      title: 'Oops...',
+      text: 'Sorry, $error',
     );
   }
 }

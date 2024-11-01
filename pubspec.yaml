@@ -68,6 +68,7 @@ dependencies:
   http_parser: ^4.0.2
   webview_flutter: ^4.9.0
   comment_tree: ^0.3.0
+  quickalert: ^1.1.0
 
 dev_dependencies:
 
