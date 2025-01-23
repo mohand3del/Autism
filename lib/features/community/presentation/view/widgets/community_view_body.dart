@@ -11,7 +11,8 @@ class CommunityViewBody extends StatelessWidget {
     return const Column(
       children: [
        // CommunityPostListView()
-        ShowAllPostsBlocBuilder()
+        ShowAllPostsBlocBuilder(),
+        
       ],
 
     );

@@ -164,7 +164,9 @@ class AppRouter {
                 create: (context) => getIt<ChannelCubit>()..getChannels(),
               ),
               BlocProvider(
-                  create: (context) => getIt<HistoryCubit>()..getHistory()),
+                  create: (context) => getIt<HistoryCubit>()..getHistory(
+                    0
+                  )),
               BlocProvider(
                   create: (context) => getIt<ResourceCubit>()..fetchResources()),
 
@@ -202,7 +204,7 @@ class AppRouter {
                 ),
               ],
               child: VideoView(
-                videoId: videoId,  // تمرير id للفيديو
+                videoId: videoId,
               ),
             );
           } else {
@@ -252,8 +254,12 @@ class AppRouter {
       GoRoute(
           path: history,
           builder: (context, state) {
+            int historySkip = 0;
             return BlocProvider(
-                create: (BuildContext context) => getIt<HistoryCubit>()..getHistory(),
+
+                create: (BuildContext context) => getIt<HistoryCubit>()..getHistory(
+                 historySkip
+                ),
                 child: const HistoryView());
           }),
       GoRoute(path: waiting, builder: (context, state) {

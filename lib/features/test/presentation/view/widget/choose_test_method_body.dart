@@ -27,10 +27,8 @@ class _MethodSelectionPageState extends State<MethodSelectionPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding:  EdgeInsets.symmetric(horizontal: context.width * 20 / 852),
-              child: const Divider(),
-            ),
+            verticalSpace(context.height * 0.013),
+            const Divider(),
             verticalSpace(context.height * 20 / 852),
             Padding(
               padding: const EdgeInsets.only(left: 16.0),

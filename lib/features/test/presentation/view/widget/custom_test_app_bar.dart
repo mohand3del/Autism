@@ -28,8 +28,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 width:context.width * 50 / 393,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(28),
-                  child: CachedNetworkImage(
-                      imageUrl:
+                  child: Image.network(
+
                           "https://media.istockphoto.com/id/1451587807/vector/user-profile-icon-vector-avatar-or-person-icon-profile-picture-portrait-symbol-vector.jpg?s=1024x1024&w=is&k=20&c=ZVVVbYUtoZgPqbVSDxoltjnrW3G_4DLKYk6QZ0uu5_w="),
                 ),
               ),

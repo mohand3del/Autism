@@ -22,7 +22,6 @@ Map<String, dynamic> _$ResourceResponseBodyToJson(
 
 FullDatum _$FullDatumFromJson(Map<String, dynamic> json) => FullDatum(
       id: json['_id'] as String,
-      pageNum: (json['pageNum'] as num).toInt(),
       title: json['title'] as String,
       snippet: json['snippet'] as String,
       link: json['link'] as String,
@@ -34,7 +33,6 @@ FullDatum _$FullDatumFromJson(Map<String, dynamic> json) => FullDatum(
 
 Map<String, dynamic> _$FullDatumToJson(FullDatum instance) => <String, dynamic>{
       '_id': instance.id,
-      'pageNum': instance.pageNum,
       'title': instance.title,
       'snippet': instance.snippet,
       'link': instance.link,

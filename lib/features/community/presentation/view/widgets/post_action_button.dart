@@ -4,7 +4,7 @@ import 'package:autism/core/utils/spacing.dart';
 import 'package:flutter/material.dart';
 
 class PostActionButton extends StatelessWidget {
-  final ImageProvider icon; // استبدال IconData بـ ImageProvider
+  final ImageProvider icon;
   final String text;
   final VoidCallback onTap;
 
@@ -23,8 +23,8 @@ class PostActionButton extends StatelessWidget {
         children: [
           Image(
             image: icon,
-            width: 20, // التحكم في عرض الصورة
-            height: 20, // التحكم في ارتفاع الصورة
+            width: 20,
+            height: 20,
           ),
           horizontalSpace(context.width * 2 / 393),
           Text(

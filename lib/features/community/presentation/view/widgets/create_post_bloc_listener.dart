@@ -54,7 +54,7 @@ class _CreatePostBlocListenerState extends State<CreatePostBlocListener>  with S
             setupSuccessState(context, data.message);
           },
           error: (error) {
-            setupErrorState(context, error);
+            setupErrorState(context, error.toString());
 
           },
         );

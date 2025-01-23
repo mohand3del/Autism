@@ -1,17 +1,22 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/helper/contants.dart';
 import 'package:autism/core/helper/shared_preferences_helper.dart';
 import 'package:autism/core/utils/app_styles.dart';
+import 'package:autism/core/widgets/custom_bottom_loading_handler.dart';
 import 'package:autism/core/widgets/custom_image_bottom.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/core/widgets/custom_bottom.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:image_picker/image_picker.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 import 'package:http_parser/http_parser.dart';
@@ -35,9 +40,12 @@ class ImageMethodSection extends StatefulWidget {
   State<ImageMethodSection> createState() => _ImageMethodSectionState();
 }
 
-class _ImageMethodSectionState extends State<ImageMethodSection> {
+class _ImageMethodSectionState extends State<ImageMethodSection>
+    with SingleTickerProviderStateMixin {
   File? _image;
   final Dio _dio = Dio();
+  bool _isLoading = false;
+  late AnimationController _animationController;
 
   final Map<String, String> methodApiMap = {
     'Picture': 'https://autism-app.onrender.com/api/v1/testing/childFace',
@@ -50,7 +58,16 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
   @override
   void initState() {
     super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    )..repeat();
     _selectedMethod = widget.selectedMethods[widget.currentImageStep - 1];
+  }
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   Future<void> _pickImage(ImageSource source) async {
@@ -61,18 +78,19 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
-    final imageMethods = widget.selectedMethods.where((method) => method != 'Form').toList();
+    final imageMethods =
+    widget.selectedMethods.where((method) => method != 'Form').toList();
     final imageMethodIndex = widget.currentImageStep - 1;
     return Column(
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: context.width * 16 / 393),
           child: StepProgressIndicator(
-            totalSteps:
-              imageMethods.length ,
-            currentStep: imageMethodIndex + 1 ,
+            totalSteps: imageMethods.length,
+            currentStep: imageMethodIndex + 1,
             size: 6,
             padding: 4,
             selectedColor: Colors.blue,
@@ -82,16 +100,16 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
         ),
         verticalSpace(context.height * 20 / 852),
         Expanded(
-          child: _image == null && imageMethodIndex < imageMethods.length ? _buildImageMethodWidget(
-              imageMethods[imageMethodIndex], context) : Column(
+          child: _image == null && imageMethodIndex < imageMethods.length
+              ? _buildImageMethodWidget(imageMethods[imageMethodIndex], context)
+              : Column(
             children: [
               verticalSpace(context.height * 20 / 852),
               SizedBox(
                 height: context.height * 500 / 852,
                 width: context.width * 350 / 393,
-
                 child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(16),
                   clipBehavior: Clip.antiAlias,
                   child: Image.file(
                     fit: BoxFit.cover,
@@ -101,7 +119,24 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
                 ),
               ),
               verticalSpace(context.height * 30 / 852),
-             CustomBottom(text:"Submit" , onPressed: () => _sendImageToServer(context),),
+              CustomBottomLoadingHandler(
+                child: _isLoading
+                    ? Center(
+                  child: SpinKitFadingCube(
+                    color: AppColors.white,
+                    size: 20.0,
+                    controller: _animationController,
+                  ),
+
+                ):Text(
+                  "Submit",
+                  style: AppStyles.medium22(context).copyWith(
+                    color: AppColors.white,
+                    fontFamily: "Poppins",
+                  ),
+                ),
+                onPressed: () => _sendImageToServer(context),
+              ),
             ],
           ),
         )
@@ -110,29 +145,16 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
     );
   }
 
-  Widget _buildNextButton(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: context.width * 16 / 393),
-      child: SizedBox(
-        width: context.width * 110 / 393,
-        child: CustomBottom(
-          text: widget.currentImageStep < widget.selectedMethods.length ? "Next" : "Submit",
-          onPressed: widget.onNextStep,
-        ),
-      ),
-    );
-  }
-
   Widget _buildImageMethodWidget(String method, BuildContext context) {
     switch (method) {
       case 'Picture':
         return _buildPicturesWidget(context);
       case 'Drawing':
-       return _buildDrawingWidget(context);
+        return _buildDrawingWidget(context);
       case 'Coloring':
-       return _buildColoringWidget(context);
+        return _buildColoringWidget(context);
       case 'Hand Right':
-       return _buildHandRightWidget(context);
+        return _buildHandRightWidget(context);
       default:
         return Container();
     }
@@ -142,13 +164,12 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
     return SingleChildScrollView(
       child: Column(
         children: [
-           Center(
+          Center(
             child: Text(
               "Upload face image",
               style: AppStyles.medium26(context).copyWith(
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w600,
-
               ),
             ),
           ),
@@ -177,10 +198,11 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: context.width * 24 / 393),
             child: CustomImageBottom(
-                cameraImagePath: "assets/images/camera.png",
-                galleryImagePath: "assets/images/gallery.png",
+              cameraImagePath: "assets/images/camera.png",
+              galleryImagePath: "assets/images/gallery.png",
               onCameraPressed: () => _pickImage(ImageSource.camera),
-              onGalleryPressed: () => _pickImage(ImageSource.gallery),),
+              onGalleryPressed: () => _pickImage(ImageSource.gallery),
+            ),
           ),
         ],
       ),
@@ -190,13 +212,12 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
   Widget _buildDrawingWidget(BuildContext context) {
     return Column(
       children: [
-         Center(
+        Center(
           child: Text(
             "Upload Drawing image",
             style: AppStyles.medium26(context).copyWith(
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w600,
-
             ),
           ),
         ),
@@ -223,10 +244,11 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: context.width * 24 / 393),
           child: CustomImageBottom(
-              cameraImagePath: "assets/images/camera.png",
-              galleryImagePath: "assets/images/gallery.png",
+            cameraImagePath: "assets/images/camera.png",
+            galleryImagePath: "assets/images/gallery.png",
             onCameraPressed: () => _pickImage(ImageSource.camera),
-            onGalleryPressed: () => _pickImage(ImageSource.gallery),),
+            onGalleryPressed: () => _pickImage(ImageSource.gallery),
+          ),
         ),
       ],
     );
@@ -235,13 +257,12 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
   Widget _buildColoringWidget(BuildContext context) {
     return Column(
       children: [
-         Center(
+        Center(
           child: Text(
             "Upload Coloring image",
             style: AppStyles.medium26(context).copyWith(
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w600,
-
             ),
           ),
         ),
@@ -268,10 +289,11 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: context.width * 24 / 393),
           child: CustomImageBottom(
-              cameraImagePath: "assets/images/camera.png",
-              galleryImagePath: "assets/images/gallery.png",
+            cameraImagePath: "assets/images/camera.png",
+            galleryImagePath: "assets/images/gallery.png",
             onCameraPressed: () => _pickImage(ImageSource.camera),
-            onGalleryPressed: () => _pickImage(ImageSource.gallery),),
+            onGalleryPressed: () => _pickImage(ImageSource.gallery),
+          ),
         ),
       ],
     );
@@ -286,7 +308,6 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
             style: AppStyles.medium26(context).copyWith(
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w600,
-
             ),
           ),
         ),
@@ -313,16 +334,23 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: context.width * 24 / 393),
           child: CustomImageBottom(
-              cameraImagePath: "assets/images/camera.png",
-              galleryImagePath: "assets/images/gallery.png",
+            cameraImagePath: "assets/images/camera.png",
+            galleryImagePath: "assets/images/gallery.png",
             onCameraPressed: () => _pickImage(ImageSource.camera),
-            onGalleryPressed: () => _pickImage(ImageSource.gallery),),
+            onGalleryPressed: () => _pickImage(ImageSource.gallery),
+          ),
         ),
       ],
     );
   }
+
   Future<void> _sendImageToServer(BuildContext context) async {
     if (_image == null) return;
+
+    // Start loading
+    setState(() {
+      _isLoading = true;
+    });
 
     try {
       // Extract file name
@@ -330,34 +358,30 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
 
       // Read the file as bytes and print the file size
       final fileBytes = await _image!.readAsBytes();
-      print('File size: ${fileBytes.length} bytes');
+      log('File size: ${fileBytes.length} bytes');
 
       // Prepare FormData
       FormData formData = FormData.fromMap({
         "file": await MultipartFile.fromFile(
           _image!.path,
           filename: fileName,
-          contentType:  MediaType('image', 'jpeg'),
-
+          contentType: MediaType('image', 'jpeg'),
         ),
         // Add other fields if required by the server
       });
 
       // Print file details and FormData
-      print('Sending file: ${_image!.path}');
-      print('FormData fields: ${formData.fields}');
-      print('FormData files: ${formData.files}');
-
-
+      log('Sending file: ${_image!.path}');
+      log('FormData fields: ${formData.fields}');
+      log('FormData files: ${formData.files}');
 
       // Get the API URL based on the selected method
       String? apiUrl = methodApiMap[_selectedMethod];
-      print('API URL: $apiUrl');
+      log('API URL: $apiUrl');
       String token = await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken);
-      print('Token: $token');
+      log('Token: $token');
 
       if (apiUrl != null) {
-
         Response response = await _dio.post(
           apiUrl,
           data: formData,
@@ -366,18 +390,13 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
               'Authorization': 'Bearer $token',
               'Content-Type': 'multipart/form-data',
               'Accept': 'application/json',
-
             },
-
           ),
-
         );
-
 
         log('Response status: ${response.statusCode}');
         log('Response data: ${response.data}');
         log('Response headers: ${response.headers}');
-        log('token : ${await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken)}');
 
         // Check the response status
         if (response.statusCode == 200) {
@@ -385,32 +404,50 @@ class _ImageMethodSectionState extends State<ImageMethodSection> {
           _handleNextStep(context);  // Proceed to the next step
         } else {
           log('Image upload failed with status code: ${response.statusCode}');
+          setupErrorState(context, 'Status code: ${response.statusCode}');
         }
       } else {
         log('No API URL found for selected method');
+        setupErrorState(context, 'No API URL found for the selected method');
       }
     } catch (e) {
       if (e is DioException) {
-        // Print detailed DioException information
         log('DioException: ${e.message}');
         log('Response data: ${e.response?.data}');
         log('Response headers: ${e.response?.headers}');
         log('Response status: ${e.response?.statusCode}');
+        setupErrorState(
+          context,
+          'Failed to upload image: ${e.message}\nStatus code: ${e.response?.statusCode}',
+        );
       } else {
-        // Print any other exceptions
         log('Error: $e');
+        setupErrorState(context, 'An unexpected error occurred: $e');
       }
+    } finally {
+      // Stop loading
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
-
 
 
   void _handleNextStep(BuildContext context) {
     if (widget.currentImageStep < widget.selectedMethods.length) {
       widget.onNextStep();
     } else {
-
-      context.go('/testResult');
+      GoRouter.of(context).go('/resultTest');
     }
+  }
+
+  void setupErrorState(BuildContext context, String error) {
+    // GoRouter.of(context).pop();
+    QuickAlert.show(
+      context: context,
+      type: QuickAlertType.error,
+      title: 'Oops...',
+      text: 'Sorry, $error',
+    );
   }
 }

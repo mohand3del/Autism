@@ -45,10 +45,10 @@ class ResourceListItem extends StatelessWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
               ),
               child: Image.network(
-                data?.thumbnail ?? data?.favicon ?? 'https://zindee.com/product/autism-awareness-download/',
+                data?.thumbnail ?? data?.favicon ?? '',
                 width: context.width * 100 / 375,
                 height: context.height * 90 / 851,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
             ),
             SizedBox(

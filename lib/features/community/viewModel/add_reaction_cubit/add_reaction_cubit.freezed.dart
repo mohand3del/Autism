@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'create_post_cubit.dart';
+part of 'add_reaction_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,32 +15,29 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$CreatePostState<T> {
+mixin _$AddReactionState<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(T data) success,
+    required TResult Function() success,
     required TResult Function(String error) error,
-    required TResult Function(File image) imageSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(T data)? success,
+    TResult? Function()? success,
     TResult? Function(String error)? error,
-    TResult? Function(File image)? imageSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(T data)? success,
+    TResult Function()? success,
     TResult Function(String error)? error,
-    TResult Function(File image)? imageSelected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -50,7 +47,6 @@ mixin _$CreatePostState<T> {
     required TResult Function(Loading<T> value) loading,
     required TResult Function(Success<T> value) success,
     required TResult Function(Error<T> value) error,
-    required TResult Function(ImageSelected<T> value) imageSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -59,7 +55,6 @@ mixin _$CreatePostState<T> {
     TResult? Function(Loading<T> value)? loading,
     TResult? Function(Success<T> value)? success,
     TResult? Function(Error<T> value)? error,
-    TResult? Function(ImageSelected<T> value)? imageSelected,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -68,30 +63,29 @@ mixin _$CreatePostState<T> {
     TResult Function(Loading<T> value)? loading,
     TResult Function(Success<T> value)? success,
     TResult Function(Error<T> value)? error,
-    TResult Function(ImageSelected<T> value)? imageSelected,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CreatePostStateCopyWith<T, $Res> {
-  factory $CreatePostStateCopyWith(
-          CreatePostState<T> value, $Res Function(CreatePostState<T>) then) =
-      _$CreatePostStateCopyWithImpl<T, $Res, CreatePostState<T>>;
+abstract class $AddReactionStateCopyWith<T, $Res> {
+  factory $AddReactionStateCopyWith(
+          AddReactionState<T> value, $Res Function(AddReactionState<T>) then) =
+      _$AddReactionStateCopyWithImpl<T, $Res, AddReactionState<T>>;
 }
 
 /// @nodoc
-class _$CreatePostStateCopyWithImpl<T, $Res, $Val extends CreatePostState<T>>
-    implements $CreatePostStateCopyWith<T, $Res> {
-  _$CreatePostStateCopyWithImpl(this._value, this._then);
+class _$AddReactionStateCopyWithImpl<T, $Res, $Val extends AddReactionState<T>>
+    implements $AddReactionStateCopyWith<T, $Res> {
+  _$AddReactionStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of CreatePostState
+  /// Create a copy of AddReactionState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -104,13 +98,13 @@ abstract class _$$InitialImplCopyWith<T, $Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<T, $Res>
-    extends _$CreatePostStateCopyWithImpl<T, $Res, _$InitialImpl<T>>
+    extends _$AddReactionStateCopyWithImpl<T, $Res, _$InitialImpl<T>>
     implements _$$InitialImplCopyWith<T, $Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl<T> _value, $Res Function(_$InitialImpl<T>) _then)
       : super(_value, _then);
 
-  /// Create a copy of CreatePostState
+  /// Create a copy of AddReactionState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -121,7 +115,7 @@ class _$InitialImpl<T> implements _Initial<T> {
 
   @override
   String toString() {
-    return 'CreatePostState<$T>.initial()';
+    return 'AddReactionState<$T>.initial()';
   }
 
   @override
@@ -138,9 +132,8 @@ class _$InitialImpl<T> implements _Initial<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(T data) success,
+    required TResult Function() success,
     required TResult Function(String error) error,
-    required TResult Function(File image) imageSelected,
   }) {
     return initial();
   }
@@ -150,9 +143,8 @@ class _$InitialImpl<T> implements _Initial<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(T data)? success,
+    TResult? Function()? success,
     TResult? Function(String error)? error,
-    TResult? Function(File image)? imageSelected,
   }) {
     return initial?.call();
   }
@@ -162,9 +154,8 @@ class _$InitialImpl<T> implements _Initial<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(T data)? success,
+    TResult Function()? success,
     TResult Function(String error)? error,
-    TResult Function(File image)? imageSelected,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -180,7 +171,6 @@ class _$InitialImpl<T> implements _Initial<T> {
     required TResult Function(Loading<T> value) loading,
     required TResult Function(Success<T> value) success,
     required TResult Function(Error<T> value) error,
-    required TResult Function(ImageSelected<T> value) imageSelected,
   }) {
     return initial(this);
   }
@@ -192,7 +182,6 @@ class _$InitialImpl<T> implements _Initial<T> {
     TResult? Function(Loading<T> value)? loading,
     TResult? Function(Success<T> value)? success,
     TResult? Function(Error<T> value)? error,
-    TResult? Function(ImageSelected<T> value)? imageSelected,
   }) {
     return initial?.call(this);
   }
@@ -204,7 +193,6 @@ class _$InitialImpl<T> implements _Initial<T> {
     TResult Function(Loading<T> value)? loading,
     TResult Function(Success<T> value)? success,
     TResult Function(Error<T> value)? error,
-    TResult Function(ImageSelected<T> value)? imageSelected,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -214,7 +202,7 @@ class _$InitialImpl<T> implements _Initial<T> {
   }
 }
 
-abstract class _Initial<T> implements CreatePostState<T> {
+abstract class _Initial<T> implements AddReactionState<T> {
   const factory _Initial() = _$InitialImpl<T>;
 }
 
@@ -227,13 +215,13 @@ abstract class _$$LoadingImplCopyWith<T, $Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<T, $Res>
-    extends _$CreatePostStateCopyWithImpl<T, $Res, _$LoadingImpl<T>>
+    extends _$AddReactionStateCopyWithImpl<T, $Res, _$LoadingImpl<T>>
     implements _$$LoadingImplCopyWith<T, $Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl<T> _value, $Res Function(_$LoadingImpl<T>) _then)
       : super(_value, _then);
 
-  /// Create a copy of CreatePostState
+  /// Create a copy of AddReactionState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -244,7 +232,7 @@ class _$LoadingImpl<T> implements Loading<T> {
 
   @override
   String toString() {
-    return 'CreatePostState<$T>.loading()';
+    return 'AddReactionState<$T>.loading()';
   }
 
   @override
@@ -261,9 +249,8 @@ class _$LoadingImpl<T> implements Loading<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(T data) success,
+    required TResult Function() success,
     required TResult Function(String error) error,
-    required TResult Function(File image) imageSelected,
   }) {
     return loading();
   }
@@ -273,9 +260,8 @@ class _$LoadingImpl<T> implements Loading<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(T data)? success,
+    TResult? Function()? success,
     TResult? Function(String error)? error,
-    TResult? Function(File image)? imageSelected,
   }) {
     return loading?.call();
   }
@@ -285,9 +271,8 @@ class _$LoadingImpl<T> implements Loading<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(T data)? success,
+    TResult Function()? success,
     TResult Function(String error)? error,
-    TResult Function(File image)? imageSelected,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -303,7 +288,6 @@ class _$LoadingImpl<T> implements Loading<T> {
     required TResult Function(Loading<T> value) loading,
     required TResult Function(Success<T> value) success,
     required TResult Function(Error<T> value) error,
-    required TResult Function(ImageSelected<T> value) imageSelected,
   }) {
     return loading(this);
   }
@@ -315,7 +299,6 @@ class _$LoadingImpl<T> implements Loading<T> {
     TResult? Function(Loading<T> value)? loading,
     TResult? Function(Success<T> value)? success,
     TResult? Function(Error<T> value)? error,
-    TResult? Function(ImageSelected<T> value)? imageSelected,
   }) {
     return loading?.call(this);
   }
@@ -327,7 +310,6 @@ class _$LoadingImpl<T> implements Loading<T> {
     TResult Function(Loading<T> value)? loading,
     TResult Function(Success<T> value)? success,
     TResult Function(Error<T> value)? error,
-    TResult Function(ImageSelected<T> value)? imageSelected,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -337,7 +319,7 @@ class _$LoadingImpl<T> implements Loading<T> {
   }
 }
 
-abstract class Loading<T> implements CreatePostState<T> {
+abstract class Loading<T> implements AddReactionState<T> {
   const factory Loading() = _$LoadingImpl<T>;
 }
 
@@ -346,77 +328,48 @@ abstract class _$$SuccessImplCopyWith<T, $Res> {
   factory _$$SuccessImplCopyWith(
           _$SuccessImpl<T> value, $Res Function(_$SuccessImpl<T>) then) =
       __$$SuccessImplCopyWithImpl<T, $Res>;
-  @useResult
-  $Res call({T data});
 }
 
 /// @nodoc
 class __$$SuccessImplCopyWithImpl<T, $Res>
-    extends _$CreatePostStateCopyWithImpl<T, $Res, _$SuccessImpl<T>>
+    extends _$AddReactionStateCopyWithImpl<T, $Res, _$SuccessImpl<T>>
     implements _$$SuccessImplCopyWith<T, $Res> {
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl<T> _value, $Res Function(_$SuccessImpl<T>) _then)
       : super(_value, _then);
 
-  /// Create a copy of CreatePostState
+  /// Create a copy of AddReactionState
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? data = freezed,
-  }) {
-    return _then(_$SuccessImpl<T>(
-      freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as T,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$SuccessImpl<T> implements Success<T> {
-  const _$SuccessImpl(this.data);
-
-  @override
-  final T data;
+  const _$SuccessImpl();
 
   @override
   String toString() {
-    return 'CreatePostState<$T>.success(data: $data)';
+    return 'AddReactionState<$T>.success()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SuccessImpl<T> &&
-            const DeepCollectionEquality().equals(other.data, data));
+        (other.runtimeType == runtimeType && other is _$SuccessImpl<T>);
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
-
-  /// Create a copy of CreatePostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SuccessImplCopyWith<T, _$SuccessImpl<T>> get copyWith =>
-      __$$SuccessImplCopyWithImpl<T, _$SuccessImpl<T>>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(T data) success,
+    required TResult Function() success,
     required TResult Function(String error) error,
-    required TResult Function(File image) imageSelected,
   }) {
-    return success(data);
+    return success();
   }
 
   @override
@@ -424,11 +377,10 @@ class _$SuccessImpl<T> implements Success<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(T data)? success,
+    TResult? Function()? success,
     TResult? Function(String error)? error,
-    TResult? Function(File image)? imageSelected,
   }) {
-    return success?.call(data);
+    return success?.call();
   }
 
   @override
@@ -436,13 +388,12 @@ class _$SuccessImpl<T> implements Success<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(T data)? success,
+    TResult Function()? success,
     TResult Function(String error)? error,
-    TResult Function(File image)? imageSelected,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(data);
+      return success();
     }
     return orElse();
   }
@@ -454,7 +405,6 @@ class _$SuccessImpl<T> implements Success<T> {
     required TResult Function(Loading<T> value) loading,
     required TResult Function(Success<T> value) success,
     required TResult Function(Error<T> value) error,
-    required TResult Function(ImageSelected<T> value) imageSelected,
   }) {
     return success(this);
   }
@@ -466,7 +416,6 @@ class _$SuccessImpl<T> implements Success<T> {
     TResult? Function(Loading<T> value)? loading,
     TResult? Function(Success<T> value)? success,
     TResult? Function(Error<T> value)? error,
-    TResult? Function(ImageSelected<T> value)? imageSelected,
   }) {
     return success?.call(this);
   }
@@ -478,7 +427,6 @@ class _$SuccessImpl<T> implements Success<T> {
     TResult Function(Loading<T> value)? loading,
     TResult Function(Success<T> value)? success,
     TResult Function(Error<T> value)? error,
-    TResult Function(ImageSelected<T> value)? imageSelected,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -488,16 +436,8 @@ class _$SuccessImpl<T> implements Success<T> {
   }
 }
 
-abstract class Success<T> implements CreatePostState<T> {
-  const factory Success(final T data) = _$SuccessImpl<T>;
-
-  T get data;
-
-  /// Create a copy of CreatePostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SuccessImplCopyWith<T, _$SuccessImpl<T>> get copyWith =>
-      throw _privateConstructorUsedError;
+abstract class Success<T> implements AddReactionState<T> {
+  const factory Success() = _$SuccessImpl<T>;
 }
 
 /// @nodoc
@@ -511,13 +451,13 @@ abstract class _$$ErrorImplCopyWith<T, $Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<T, $Res>
-    extends _$CreatePostStateCopyWithImpl<T, $Res, _$ErrorImpl<T>>
+    extends _$AddReactionStateCopyWithImpl<T, $Res, _$ErrorImpl<T>>
     implements _$$ErrorImplCopyWith<T, $Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl<T> _value, $Res Function(_$ErrorImpl<T>) _then)
       : super(_value, _then);
 
-  /// Create a copy of CreatePostState
+  /// Create a copy of AddReactionState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -543,7 +483,7 @@ class _$ErrorImpl<T> implements Error<T> {
 
   @override
   String toString() {
-    return 'CreatePostState<$T>.error(error: $error)';
+    return 'AddReactionState<$T>.error(error: $error)';
   }
 
   @override
@@ -557,7 +497,7 @@ class _$ErrorImpl<T> implements Error<T> {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of CreatePostState
+  /// Create a copy of AddReactionState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -570,9 +510,8 @@ class _$ErrorImpl<T> implements Error<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(T data) success,
+    required TResult Function() success,
     required TResult Function(String error) error,
-    required TResult Function(File image) imageSelected,
   }) {
     return error(this.error);
   }
@@ -582,9 +521,8 @@ class _$ErrorImpl<T> implements Error<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(T data)? success,
+    TResult? Function()? success,
     TResult? Function(String error)? error,
-    TResult? Function(File image)? imageSelected,
   }) {
     return error?.call(this.error);
   }
@@ -594,9 +532,8 @@ class _$ErrorImpl<T> implements Error<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(T data)? success,
+    TResult Function()? success,
     TResult Function(String error)? error,
-    TResult Function(File image)? imageSelected,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -612,7 +549,6 @@ class _$ErrorImpl<T> implements Error<T> {
     required TResult Function(Loading<T> value) loading,
     required TResult Function(Success<T> value) success,
     required TResult Function(Error<T> value) error,
-    required TResult Function(ImageSelected<T> value) imageSelected,
   }) {
     return error(this);
   }
@@ -624,7 +560,6 @@ class _$ErrorImpl<T> implements Error<T> {
     TResult? Function(Loading<T> value)? loading,
     TResult? Function(Success<T> value)? success,
     TResult? Function(Error<T> value)? error,
-    TResult? Function(ImageSelected<T> value)? imageSelected,
   }) {
     return error?.call(this);
   }
@@ -636,7 +571,6 @@ class _$ErrorImpl<T> implements Error<T> {
     TResult Function(Loading<T> value)? loading,
     TResult Function(Success<T> value)? success,
     TResult Function(Error<T> value)? error,
-    TResult Function(ImageSelected<T> value)? imageSelected,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -646,173 +580,14 @@ class _$ErrorImpl<T> implements Error<T> {
   }
 }
 
-abstract class Error<T> implements CreatePostState<T> {
+abstract class Error<T> implements AddReactionState<T> {
   const factory Error({required final String error}) = _$ErrorImpl<T>;
 
   String get error;
 
-  /// Create a copy of CreatePostState
+  /// Create a copy of AddReactionState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorImplCopyWith<T, _$ErrorImpl<T>> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ImageSelectedImplCopyWith<T, $Res> {
-  factory _$$ImageSelectedImplCopyWith(_$ImageSelectedImpl<T> value,
-          $Res Function(_$ImageSelectedImpl<T>) then) =
-      __$$ImageSelectedImplCopyWithImpl<T, $Res>;
-  @useResult
-  $Res call({File image});
-}
-
-/// @nodoc
-class __$$ImageSelectedImplCopyWithImpl<T, $Res>
-    extends _$CreatePostStateCopyWithImpl<T, $Res, _$ImageSelectedImpl<T>>
-    implements _$$ImageSelectedImplCopyWith<T, $Res> {
-  __$$ImageSelectedImplCopyWithImpl(_$ImageSelectedImpl<T> _value,
-      $Res Function(_$ImageSelectedImpl<T>) _then)
-      : super(_value, _then);
-
-  /// Create a copy of CreatePostState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? image = null,
-  }) {
-    return _then(_$ImageSelectedImpl<T>(
-      null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as File,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$ImageSelectedImpl<T> implements ImageSelected<T> {
-  const _$ImageSelectedImpl(this.image);
-
-  @override
-  final File image;
-
-  @override
-  String toString() {
-    return 'CreatePostState<$T>.imageSelected(image: $image)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ImageSelectedImpl<T> &&
-            (identical(other.image, image) || other.image == image));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, image);
-
-  /// Create a copy of CreatePostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ImageSelectedImplCopyWith<T, _$ImageSelectedImpl<T>> get copyWith =>
-      __$$ImageSelectedImplCopyWithImpl<T, _$ImageSelectedImpl<T>>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(T data) success,
-    required TResult Function(String error) error,
-    required TResult Function(File image) imageSelected,
-  }) {
-    return imageSelected(image);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(T data)? success,
-    TResult? Function(String error)? error,
-    TResult? Function(File image)? imageSelected,
-  }) {
-    return imageSelected?.call(image);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(T data)? success,
-    TResult Function(String error)? error,
-    TResult Function(File image)? imageSelected,
-    required TResult orElse(),
-  }) {
-    if (imageSelected != null) {
-      return imageSelected(image);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial<T> value) initial,
-    required TResult Function(Loading<T> value) loading,
-    required TResult Function(Success<T> value) success,
-    required TResult Function(Error<T> value) error,
-    required TResult Function(ImageSelected<T> value) imageSelected,
-  }) {
-    return imageSelected(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial<T> value)? initial,
-    TResult? Function(Loading<T> value)? loading,
-    TResult? Function(Success<T> value)? success,
-    TResult? Function(Error<T> value)? error,
-    TResult? Function(ImageSelected<T> value)? imageSelected,
-  }) {
-    return imageSelected?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial<T> value)? initial,
-    TResult Function(Loading<T> value)? loading,
-    TResult Function(Success<T> value)? success,
-    TResult Function(Error<T> value)? error,
-    TResult Function(ImageSelected<T> value)? imageSelected,
-    required TResult orElse(),
-  }) {
-    if (imageSelected != null) {
-      return imageSelected(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class ImageSelected<T> implements CreatePostState<T> {
-  const factory ImageSelected(final File image) = _$ImageSelectedImpl<T>;
-
-  File get image;
-
-  /// Create a copy of CreatePostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ImageSelectedImplCopyWith<T, _$ImageSelectedImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }

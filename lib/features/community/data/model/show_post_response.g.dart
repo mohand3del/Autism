@@ -38,11 +38,12 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
       images:
           (json['images'] as List<dynamic>).map((e) => e as String).toList(),
       comments: json['comments'] as List<dynamic>,
-      reactions: json['reactions'] as List<dynamic>,
+      reactions:
+          (json['reactions'] as List<dynamic>).map((e) => e as String).toList(),
       outerViewCount: (json['outerViewCount'] as num).toInt(),
       innerViewCount: (json['innerViewCount'] as num).toInt(),
       commentsCount: (json['commentsCount'] as num).toInt(),
-      reactionsNumber: (json['reactionsNumber'] as num).toInt(),
+      reactionsNumber: (json['reactionsNumber'] as num?)?.toInt(),
       repostsNumber: (json['repostsNumber'] as num).toInt(),
       likesNumber: (json['likesNumber'] as num).toInt(),
       lovesNumber: (json['lovesNumber'] as num).toInt(),
@@ -52,6 +53,7 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       v: (json['__v'] as num).toInt(),
+      reactionsCount: (json['reactionsCount'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
@@ -77,6 +79,7 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
       '__v': instance.v,
+      'reactionsCount': instance.reactionsCount,
     };
 
 User _$UserFromJson(Map<String, dynamic> json) => User(

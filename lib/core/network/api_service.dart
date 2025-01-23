@@ -9,6 +9,8 @@ import 'package:autism/features/auth/signUp/data/model/sign_up_request_body.dart
 import 'package:autism/features/auth/signUp/data/model/sign_up_response.dart';
 import 'package:autism/features/auth/verifyCode/data/model/verify_request_body.dart';
 import 'package:autism/features/auth/verifyCode/data/model/verify_response_body.dart';
+import 'package:autism/features/community/data/model/add_reaction_request_body.dart';
+import 'package:autism/features/community/data/model/add_reaction_response.dart';
 import 'package:autism/features/community/data/model/create_post_response.dart';
 import 'package:autism/features/community/data/model/show_post_response.dart';
 import 'package:autism/features/home/data/model/channel_by_id_response_body.dart';
@@ -80,7 +82,11 @@ abstract class ApiService {
   Future<ChannelByIdResponseBody> getChannelById(
       {@Query("channelId") String? channelId});
   @GET(ApiConstants.getHistory)
-  Future<HistoryResponseBody> getHistory();
+  Future<HistoryResponseBody> getHistory({
+
+    @Query("historySkip") int? historySkip,
+  }
+      );
   @POST(ApiConstants.tellAbout)
   Future<TellAboutResponseBody> tellAbout(
       @Body() TellAboutRequestBody tellAboutRequestBody
@@ -114,6 +120,20 @@ abstract class ApiService {
      @Body() FormData formData,
 
       );
+
+  @POST(ApiConstants.addReaction)
+  Future<AddReactionResponse> addReaction(
+      @Query("postId") String postId,
+      @Body() AddReactionRequestBody addReactionRequestBody,
+      );
+
+  @DELETE(ApiConstants.deleteReaction)
+  Future<ApiResponse> deleteReaction(
+      @Query("postId") String postId,
+
+      );
+
+
 
 
 }

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/helper/shared_preferences_helper.dart';
 import 'package:autism/core/utils/app_styles.dart';
@@ -20,7 +19,7 @@ class OnBoardingViewBody extends StatefulWidget {
 }
 
 class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
-  bool isOut = false;
+  bool isScaled = true;
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +30,11 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
       listener: (context, state) {},
       builder: (context, state) {
         return PageView.builder(
+
           controller: context.read<OnboardingCubit>().pageController,
           onPageChanged: (int index) {
             context.read<OnboardingCubit>().changeCurrentIndex(index);
+            _triggerImageScaleAnimation();
           },
           itemCount: onBoardingList.length,
           itemBuilder: (BuildContext context, int index) => Container(
@@ -43,11 +44,11 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Expanded(child: SizedBox()),
+                const Spacer(),
                 Center(
                   child: AnimatedScale(
-                    scale: isOut ? 0 : 1,
-                    duration: const Duration(milliseconds: 250),
+                    scale: isScaled ? 1 : 0.9,
+                    duration: const Duration(milliseconds: 300),
                     child: Image.asset(
                       onBoardingList[index].image!,
                       width: width * 0.9,
@@ -70,35 +71,18 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         verticalSpace(height * 0.035),
-                        AnimatedOpacity(
-                          opacity: isOut ? 0 : 1,
-                          duration: const Duration(milliseconds: 500),
-                          child: AnimatedPositioned(
-                            curve: Curves.easeInOut,
-                            left: isOut ? width : width * 0.25,
-                            duration: const Duration(milliseconds: 500),
-                            child: Text(
-                              onBoardingList[index].title!,
-                              textAlign: TextAlign.center,
-                              style: AppStyles.medium20(context)
-                                  .copyWith(fontFamily: "Inter"),
-                            ),
-                          ),
+                        Text(
+                          onBoardingList[index].title!,
+                          textAlign: TextAlign.center,
+                          style: AppStyles.medium20(context)
+                              .copyWith(fontFamily: "Inter"),
                         ),
                         verticalSpace(height * 0.045),
-                        AnimatedOpacity(
-                          opacity: isOut ? 0 : 1,
-                          duration: const Duration(milliseconds: 500),
-                          child: AnimatedPositioned(
-                            right: isOut ? width : 0,
-                            duration: const Duration(milliseconds: 500),
-                            child: Text(
-                              onBoardingList[index].textBody!,
-                              style: AppStyles.regular18(context).copyWith(
-                                fontFamily: "Inter",
-                                color: AppColors.textGrey,
-                              ),
-                            ),
+                        Text(
+                          onBoardingList[index].textBody!,
+                          style: AppStyles.regular18(context).copyWith(
+                            fontFamily: "Inter",
+                            color: AppColors.textGrey,
                           ),
                         ),
                         verticalSpace(height * 0.038),
@@ -112,13 +96,15 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
                           onPressed: () async {
                             if (context.read<OnboardingCubit>().currentIndex <
                                 onBoardingList.length - 1) {
-                              triggerScaleAnimation();
                               context.read<OnboardingCubit>().nextPage();
+                              _triggerImageScaleAnimation();
                             } else {
                               await SharedPrefHelper.setOnBoardingScreenViewed(
                                   key: 'onBoarding', value: true)
                                   .then((value) => {
-                                if (value) {context.go('/login')}
+                                if (value) {
+                                  context.go('/login')
+                                }
                               });
                             }
                           },
@@ -135,15 +121,14 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
     );
   }
 
-  void triggerScaleAnimation() {
+  void _triggerImageScaleAnimation() {
     setState(() {
-      isOut = true;
+      isScaled = false;
     });
-    Timer(const Duration(milliseconds: 300), () {
+    Future.delayed(const Duration(milliseconds: 150), () {
       setState(() {
-        isOut = false;
+        isScaled = true;
       });
-
     });
   }
 }

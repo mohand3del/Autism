@@ -9,9 +9,11 @@ class HistoryCubit extends Cubit<HistoryState> {
   final HistoryRepo _historyRepo;
   HistoryCubit(this._historyRepo) : super(const HistoryState.initial());
 
-  Future<void> getHistory() async {
+  Future<void> getHistory(int historySkip) async {
     emit(const HistoryState.loading());
-    final response = await _historyRepo.getHistory();
+    final response = await _historyRepo.getHistory(
+      historySkip = 1
+    );
 
     response.when(
       success: (data) {

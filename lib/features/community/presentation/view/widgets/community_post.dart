@@ -1,21 +1,28 @@
+import 'dart:developer';
+
 import 'package:autism/core/constant/app_colors.dart';
+import 'package:autism/core/di/di.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
+import 'package:autism/features/community/data/model/add_reaction_request_body.dart';
 import 'package:autism/features/community/data/model/show_post_response.dart';
 import 'package:autism/features/community/presentation/view/comment_view.dart';
+import 'package:autism/features/community/viewModel/add_reaction_cubit/add_reaction_cubit.dart';
+import 'package:autism/features/community/viewModel/delete_reaction_cubit/delete_reaction_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'post_action_button.dart';
 import 'reactionIconWidget.dart';
 
 class CommunityPost extends StatefulWidget {
-  const CommunityPost({super.key, this.user, this.post,  this.data, });
+  const CommunityPost({super.key, this.user, this.post, this.data, this.postId});
 
   final User? user;
   final Post? post;
   final Datum? data;
-
+  final String? postId;
 
   @override
   _CommunityPostState createState() => _CommunityPostState();
@@ -39,21 +46,35 @@ class _CommunityPostState extends State<CommunityPost> {
 
   void _toggleLike() {
     setState(() {
-      isLiked = !isLiked; // Toggle the like state
+      isLiked = !isLiked;
+      final addReactionRequestBody = AddReactionRequestBody(reaction: 'like');
+      if (isLiked) {
+        // Add reaction when liked
+        context.read<AddReactionCubit>().addReaction(addReactionRequestBody, widget.postId ?? '');
+      } else {
+        // Remove reaction when unliked
+        context.read<DeleteReactionCubit>().deleteReaction(widget.postId ?? '');
+      }
     });
   }
 
-  void _selectReaction() {
+  void _selectReaction(String reaction) {
+    final addReactionRequestBody = AddReactionRequestBody(reaction: reaction);
+    context.read<AddReactionCubit>().addReaction(addReactionRequestBody,widget.postId ?? '');
+    log("Reaction selected: $reaction");
+    log("Post ID: ${widget.postId}");
+    log(widget.data!.post.id.toString());
+    log(widget.data!.user.name.toString());
     setState(() {
-      isLiked = true; // Set the like state to true when a reaction is selected
-      showReactions = false; // Hide the reactions row after selecting a reaction
+      isLiked = true;
+      showReactions = false; // Hide reactions after selection
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _hideReactions, // Tap anywhere to hide reactions
+      onTap: _hideReactions,
       child: Column(
         children: [
           const Divider(
@@ -67,29 +88,30 @@ class _CommunityPostState extends State<CommunityPost> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Profile Info (Image, Name, Time, Icon)
+                // Profile Info
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Row(
                     children: [
-                       CircleAvatar(
-                       radius: 25,
-                       child: ClipRRect(child: Image.network(widget.data?.user.image ??"https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=1024x1024&w=is&k=20&c=oGqYHhfkz_ifeE6-dID6aM7bLz38C6vQTy1YcbgZfx8=")), // Profile image size
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundImage: NetworkImage(
+                          widget.data?.user.image ?? "https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg",
+                        ),
                       ),
                       const SizedBox(width: 10),
-                       Column(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
                               Text(
-                              widget.data?.user.name ?? 'Dr. Jan',
+                                widget.data?.user.name.toString() ?? 'Dr. Jan',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
                                 ),
                               ),
-                              //const SizedBox(width: 4),
                               horizontalSpace(context.width * 4 / 393),
                               const Icon(
                                 Icons.verified,
@@ -108,19 +130,10 @@ class _CommunityPostState extends State<CommunityPost> {
                         ],
                       ),
                       const Expanded(child: SizedBox()),
-                      // Close icon
                       GestureDetector(
                         onTap: () {},
                         child: const Icon(
                           Icons.more_vert,
-                          color: AppColors.grey,
-                          size: 28,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: const Icon(
-                          Icons.close,
                           color: AppColors.grey,
                           size: 28,
                         ),
@@ -130,17 +143,17 @@ class _CommunityPostState extends State<CommunityPost> {
                 ),
                 verticalSpace(context.height * 10 / 851),
 
-                // Post content text
-                 Padding(
+                // Post content
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                   widget.data?.post.text  ??"Hi, I'm Dr. Jan in the autism department. I can help anyone with anything and I'm waiting for your comments. Merci.",
+                    widget.data?.post.text ?? "Hi, I'm Dr. Jan in the autism department. I can help anyone with anything and I'm waiting for your comments.",
                     style: const TextStyle(fontSize: 14),
                   ),
                 ),
                 verticalSpace(context.height * 10 / 851),
 
-                // Show reactions row when like is long-pressed
+                // Reaction row
                 if (showReactions)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -155,7 +168,7 @@ class _CommunityPostState extends State<CommunityPost> {
                               color: Colors.grey.withOpacity(0.2),
                               spreadRadius: 1,
                               blurRadius: 5,
-                              offset: const Offset(0, 2), // changes position of shadow
+                              offset: const Offset(0, 2),
                             ),
                           ],
                         ),
@@ -164,19 +177,19 @@ class _CommunityPostState extends State<CommunityPost> {
                           children: [
                             ReactionIcon(
                               image: const AssetImage('assets/images/Like.png'),
-                              onTap: _selectReaction, // Handle like action
+                              onTap: () => _selectReaction("like"),
                             ),
                             ReactionIcon(
                               image: const AssetImage('assets/images/love.png'),
-                              onTap: _selectReaction, // Handle love action
+                              onTap: () => _selectReaction("love"),
                             ),
                             ReactionIcon(
                               image: const AssetImage('assets/images/colburite.png'),
-                              onTap: _selectReaction, // Handle special reaction
+                              onTap: () => _selectReaction("special"),
                             ),
                             ReactionIcon(
                               image: const AssetImage('assets/images/led.png'),
-                              onTap: _selectReaction, // Handle idea action
+                              onTap: () => _selectReaction("idea"),
                             ),
                           ],
                         ),
@@ -184,54 +197,7 @@ class _CommunityPostState extends State<CommunityPost> {
                     ),
                   ),
 
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child:  Row(
-                    children: [
-                      SizedBox(
-                        width: context.width * 40 / 393,
-                        child: Stack(
-                          children: [
-                        widget.data?.post.likesNumber == 0 ? const SizedBox():   Image.asset('assets/images/like2.png'),
-                            Positioned(
-                              left: context.width * 12 / 393,
-                              child:widget.data?.post.lovesNumber == 0 ? const SizedBox(): Image.asset('assets/images/love2.png'),
-                            ),
-                          ],
-                        ),
-                      ),
-                      widget.data?.post.likesNumber == 0 ? const SizedBox():   Text(
-                      widget.data?.post.reactionsNumber.toString() ?? '1.2k',
-                        style: AppStyles.regular13(context).copyWith(
-                          fontFamily: 'Inter',
-                          color: AppColors.lightGrey,
-                        ),
-                      ),
-                      const Spacer(),
-                      Text(
-                       '${widget.data?.post.commentsCount.toString()} comments ' ?? '3 comments ',
-                        style: AppStyles.regular13(context).copyWith(
-                          fontFamily: 'Inter',
-                          color: AppColors.lightGrey,
-                        ),
-                      ),
-                      Text(
-                        '. ${widget.data?.post.repostsNumber} repost' ??'. 2 repost',
-                        style: AppStyles.regular13(context).copyWith(
-                          fontFamily: 'Inter',
-                          color: AppColors.lightGrey,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Divider(),
-                ),
-
-                // Bottom Buttons (Like, Comment, Repost, Share)
+                // Bottom Buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [

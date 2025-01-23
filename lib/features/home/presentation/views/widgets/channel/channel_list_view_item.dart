@@ -21,7 +21,7 @@ class ChannelListViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.only(start: itemIndex == 0 ? context.width * 20 / 430 : context.width * 44 / 430),
+      padding: EdgeInsetsDirectional.only(start: itemIndex == 0 ? context.width * 20 / 393 : context.width * 30 / 393),
       child: Column(
         children: [
 

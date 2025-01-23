@@ -28,13 +28,10 @@ class HomeViewBody extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              verticalSpace(context.height * 0.013),
+              //verticalSpace(context.height * 0.013),
               const CustomHomeAppBar(name: 'Mohand',),
-              verticalSpace(context.height * 10 / 932),
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: context.width * 16 / 393),
-                child:  const Divider(),
-              ),
+              verticalSpace(context.height * 0.013),
+              const Divider(),
               verticalSpace(context.height * 20 / 932),
               const ExploreRow(),
               verticalSpace(context.height * 20 / 932),

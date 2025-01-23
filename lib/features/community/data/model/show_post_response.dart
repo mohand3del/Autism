@@ -53,7 +53,7 @@ class Post {
   @JsonKey(name: "comments")
   List<dynamic> comments;
   @JsonKey(name: "reactions")
-  List<dynamic> reactions;
+  List<String> reactions;
   @JsonKey(name: "outerViewCount")
   int outerViewCount;
   @JsonKey(name: "innerViewCount")
@@ -61,7 +61,7 @@ class Post {
   @JsonKey(name: "commentsCount")
   int commentsCount;
   @JsonKey(name: "reactionsNumber")
-  int reactionsNumber;
+  int? reactionsNumber;
   @JsonKey(name: "repostsNumber")
   int repostsNumber;
   @JsonKey(name: "likesNumber")
@@ -80,6 +80,8 @@ class Post {
   DateTime updatedAt;
   @JsonKey(name: "__v")
   int v;
+  @JsonKey(name: "reactionsCount")
+  int? reactionsCount;
 
   Post({
     required this.id,
@@ -94,7 +96,7 @@ class Post {
     required this.outerViewCount,
     required this.innerViewCount,
     required this.commentsCount,
-    required this.reactionsNumber,
+    this.reactionsNumber,
     required this.repostsNumber,
     required this.likesNumber,
     required this.lovesNumber,
@@ -104,6 +106,7 @@ class Post {
     required this.createdAt,
     required this.updatedAt,
     required this.v,
+    this.reactionsCount,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
