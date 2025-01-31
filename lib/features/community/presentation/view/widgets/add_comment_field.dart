@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class AddCommentField extends StatefulWidget {
   final Function(String) onCommentSubmit;
+  final String? hintText;
 
-  AddCommentField({required this.onCommentSubmit});
+  AddCommentField({required this.onCommentSubmit, required this.hintText});
 
   @override
   _AddCommentFieldState createState() => _AddCommentFieldState();
@@ -29,8 +30,9 @@ class _AddCommentFieldState extends State<AddCommentField> {
               child: TextField(
                 controller: _commentController,
                 decoration: InputDecoration(
-                  hintText: "Add Comment",
-                  hintStyle: TextStyle(color: Colors.grey), // Light grey hint text
+                  hintText: widget.hintText,
+                  hintStyle:
+                      TextStyle(color: Colors.grey), // Light grey hint text
                   border: InputBorder.none, // No border
                 ),
               ),

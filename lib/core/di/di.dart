@@ -1,5 +1,3 @@
-
-
 import 'package:autism/core/network/dio_factory.dart';
 import 'package:autism/features/auth/forgetPass/view%20model/forget_cubit.dart';
 import 'package:autism/features/auth/login/data/repo/login_repo.dart';
@@ -14,10 +12,12 @@ import 'package:autism/features/community/data/repo/add_reaction_repo.dart';
 import 'package:autism/features/community/data/repo/create_post_repo.dart';
 import 'package:autism/features/community/data/repo/delete_reaction_repo.dart';
 import 'package:autism/features/community/data/repo/show_all_posts_repo.dart';
+import 'package:autism/features/community/data/repo/show_post_comments_repo.dart';
 import 'package:autism/features/community/viewModel/add_reaction_cubit/add_reaction_cubit.dart';
 import 'package:autism/features/community/viewModel/create_post_cubit/create_post_cubit.dart';
 import 'package:autism/features/community/viewModel/delete_reaction_cubit/delete_reaction_cubit.dart';
 import 'package:autism/features/community/viewModel/show_all_post_cubit.dart';
+import 'package:autism/features/community/viewModel/show_post_comments/cubit/show_post_comments_cubit.dart';
 import 'package:autism/features/home/data/repo/channel_repo.dart';
 import 'package:autism/features/home/data/repo/history_repo.dart';
 import 'package:autism/features/home/data/repo/video_repo.dart';
@@ -107,14 +107,8 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<DeleteReactionRepo>(() => DeleteReactionRepo(getIt()));
   getIt.registerFactory<DeleteReactionCubit>(() => DeleteReactionCubit(getIt()));
 
-
-
-
-
-
-
-
-
-
+  //comments
+  getIt.registerLazySingleton<ShowPostCommentsRepo>(() => ShowPostCommentsRepo(getIt()));
+  getIt.registerFactory<ShowPostCommentsCubit>(() => ShowPostCommentsCubit(getIt()));
 
 }

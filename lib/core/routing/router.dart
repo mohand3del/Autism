@@ -287,7 +287,8 @@ class AppRouter {
             child: const CommunityView());
       }),
       GoRoute(path: comment, builder: (context, state) {
-        return const CommentView();
+        final postId = state.extra as String;
+        return  CommentView(postId: postId,);
       }),
       GoRoute(path: createPost, builder: (context, state) {
         return const CreatePostView();

@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/di/di.dart';
@@ -10,6 +10,7 @@ import 'package:autism/features/community/data/model/show_post_response.dart';
 import 'package:autism/features/community/presentation/view/comment_view.dart';
 import 'package:autism/features/community/viewModel/add_reaction_cubit/add_reaction_cubit.dart';
 import 'package:autism/features/community/viewModel/delete_reaction_cubit/delete_reaction_cubit.dart';
+import 'package:autism/features/community/viewModel/show_post_comments/cubit/show_post_comments_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -61,10 +62,7 @@ class _CommunityPostState extends State<CommunityPost> {
   void _selectReaction(String reaction) {
     final addReactionRequestBody = AddReactionRequestBody(reaction: reaction);
     context.read<AddReactionCubit>().addReaction(addReactionRequestBody,widget.postId ?? '');
-    log("Reaction selected: $reaction");
-    log("Post ID: ${widget.postId}");
-    log(widget.data!.post.id.toString());
-    log(widget.data!.user.name.toString());
+   
     setState(() {
       isLiked = true;
       showReactions = false; // Hide reactions after selection
@@ -217,7 +215,12 @@ class _CommunityPostState extends State<CommunityPost> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const CommentView()),
+                          MaterialPageRoute(
+                            builder: (context) => BlocProvider(
+                              create: (context) => getIt<ShowPostCommentsCubit>()..getPostComments(widget.postId ?? ''),
+                              child: CommentView(postId: widget.postId ?? ''),
+                            ),
+                          ),
                         );
                       },
                     ),

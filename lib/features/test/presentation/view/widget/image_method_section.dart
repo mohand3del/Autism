@@ -418,11 +418,11 @@ class _ImageMethodSectionState extends State<ImageMethodSection>
         log('Response status: ${e.response?.statusCode}');
         setupErrorState(
           context,
-          'Failed to upload image: ${e.message}\nStatus code: ${e.response?.statusCode}',
+          'Failed to upload image: ${e.response?.data}\nStatus code: ${e.response?.statusCode}',
         );
       } else {
         log('Error: $e');
-        setupErrorState(context, 'An unexpected error occurred: $e');
+        setupErrorState(context, 'An unexpected error occurred: ${e}');
       }
     } finally {
       // Stop loading

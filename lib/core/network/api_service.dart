@@ -12,6 +12,8 @@ import 'package:autism/features/auth/verifyCode/data/model/verify_response_body.
 import 'package:autism/features/community/data/model/add_reaction_request_body.dart';
 import 'package:autism/features/community/data/model/add_reaction_response.dart';
 import 'package:autism/features/community/data/model/create_post_response.dart';
+import 'package:autism/features/community/data/model/get_post_by_id_response.dart';
+import 'package:autism/features/community/data/model/show_post_comments_response.dart';
 import 'package:autism/features/community/data/model/show_post_response.dart';
 import 'package:autism/features/home/data/model/channel_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/channel_response_body.dart';
@@ -91,17 +93,7 @@ abstract class ApiService {
   Future<TellAboutResponseBody> tellAbout(
       @Body() TellAboutRequestBody tellAboutRequestBody
       );
-  @POST("testing/childFace")
-  Future<ApiResponse> uploadChildFace(@Part(name: "file") File file);
 
-  @POST("testing/drawing")
-  Future<ApiResponse> uploadDrawing(@Part(name: "file") File file);
-
-  @POST("testing/coloring")
-  Future<ApiResponse> uploadColoring(@Part(name: "file") File file);
-
-  @POST("testing/handWriting")
-  Future<ApiResponse> uploadHandWriting(@Part(name: "file") File file);
   @POST(ApiConstants.form)
   Future<FormResponseBody> sendForm(@Body() FormRequestBody formRequestBody);
   @GET(ApiConstants.testResult)
@@ -132,8 +124,21 @@ abstract class ApiService {
       @Query("postId") String postId,
 
       );
-
-
-
-
+      @GET(ApiConstants.showPostComments)
+  Future<ShowPostCommentsResponse> showPostComments(
+      @Query("postId") String postId,
+      @Query("commentsSkip") int commentsSkip,
+      @Query("subcommentsSkip") int subCommentsSkip,
+      );
+      
+  @POST(ApiConstants.addComment)
+  Future<ApiResponse> addComment(
+    @Query("postId") String postId,
+    @Body() Map<String, String> commentBody,
+  );
+  @GET(ApiConstants.getPostById)
+  Future<GetPostByIdResponse> getPostById(
+      @Query("postId") String postId,
+      @Query("skip") int skip,
+      );
 }

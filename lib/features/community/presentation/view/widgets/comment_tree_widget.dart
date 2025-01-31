@@ -1,157 +1,212 @@
 import 'package:flutter/material.dart';
-import 'package:comment_tree/comment_tree.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import '../../../data/model/show_post_comments_response.dart' as response;
+import 'package:autism/core/constant/app_colors.dart';
 
-class CommentTree extends StatelessWidget {
-  const CommentTree({super.key});
+class CommentsTreeView extends StatefulWidget {
+  final List<response.Comment> comments;
+  final String postId;
+  final Function(String commentId, String userId) onReply;
+  
+  const CommentsTreeView({
+    super.key, 
+    required this.comments,
+    required this.postId,
+    required this.onReply,
+  });
+
+  @override
+  State<CommentsTreeView> createState() => _CommentsTreeViewState();
+}
+
+class _CommentsTreeViewState extends State<CommentsTreeView> {
+  final Set<String> expandedComments = {};
+
+  void toggleComment(String commentId) {
+    setState(() {
+      if (expandedComments.contains(commentId)) {
+        expandedComments.remove(commentId);
+      } else {
+        expandedComments.add(commentId);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: CommentTreeWidget<Comment, Comment>(
-        Comment(
-          avatar: 'https://example.com/user1.jpg',
-          userName: 'User One',
-          content: 'This is a main comment. Great post!',
-          timeAgo: '2h ago',
-          likes: 5,
-        ),
-        [
-          Comment(
-            avatar: 'https://example.com/user2.jpg',
-            userName: 'User Two',
-            content: 'Thank you! I agree with your point.',
-            timeAgo: '1h ago',
-            likes: 2,
-          ),
-          Comment(
-            avatar: 'https://example.com/user3.jpg',
-            userName: 'User Three',
-            content: 'Another reply to the main comment.',
-            timeAgo: '45m ago',
-            likes: 1,
-          ),
-        ],
-        treeThemeData: const TreeThemeData(lineColor: Colors.grey, lineWidth: 1),
-        avatarRoot: (context, data) => PreferredSize(
-          preferredSize: const Size.fromRadius(18),
-          child: CircleAvatar(
-            radius: 18,
-            backgroundImage: NetworkImage(data.avatar),
+    if (widget.comments.isEmpty) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Text(
+            'No comments yet. Be the first to comment!',
+            style: TextStyle(
+              color: AppColors.grey,
+              fontSize: 16,
+            ),
           ),
         ),
-        avatarChild: (context, data) => PreferredSize(
-          preferredSize: const Size.fromRadius(12),
-          child: CircleAvatar(
-            radius: 12,
-            backgroundImage: NetworkImage(data.avatar),
-          ),
-        ),
-        contentRoot: (context, data) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildCommentContent(
-                userName: data.userName,
-                commentText: data.content,
+      );
+    }
+
+    return ListView.builder(
+      shrinkWrap: true,
+      //physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      itemCount: widget.comments.length,
+      itemBuilder: (context, index) {
+        final comment = widget.comments[index];
+        final isExpanded = expandedComments.contains(comment.id);
+        final hasReplies = comment.subcommentsNumber > 0;
+        
+        return Column(
+          children: [
+            _buildCommentTile(
+              context,
+              comment.userId,
+              comment.comment,
+              comment.createdAt,
+              comment.id,
+              comment.subcommentsNumber,
+              isReply: false,
+              hasReplies: hasReplies,
+              isExpanded: isExpanded,
+              onToggleReplies: hasReplies ? () => toggleComment(comment.id) : null,
+              onReply: () => widget.onReply(comment.id, comment.userId),
+            ),
+            if (isExpanded && hasReplies)
+              Padding(
+                padding: const EdgeInsets.only(left: 48),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: comment.subcomments.length,
+                  itemBuilder: (context, index) {
+                    final subcomment = comment.subcomments[index];
+                    if (subcomment is! Map<String, dynamic>) return const SizedBox();
+                    
+                    return _buildCommentTile(
+                      context,
+                      subcomment['userId'] as String,
+                      subcomment['comment'] as String,
+                      DateTime.parse(subcomment['createdAt'] as String),
+                      comment.id,
+                      0,
+                      isReply: true,
+                      hasReplies: false,
+                      isExpanded: false,
+                      onReply: () => widget.onReply(comment.id, subcomment['userId'] as String),
+                    );
+                  },
+                ),
               ),
-              buildCommentActions(
-                timeAgo: data.timeAgo,
-                likes: data.likes.toString(),
-              ),
-            ],
-          );
-        },
-        contentChild: (context, data) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildCommentContent(
-                userName: data.userName,
-                commentText: data.content,
-              ),
-              buildCommentActions(
-                timeAgo: data.timeAgo,
-                likes: data.likes.toString(),
-              ),
-            ],
-          );
-        },
-      ),
+          ],
+        );
+      },
     );
   }
 
-  // Widget for comment content (only the text part)
-  Widget buildCommentContent({
-    required String userName,
-    required String commentText,
+  Widget _buildCommentTile(
+    BuildContext context,
+    String userId,
+    String content,
+    DateTime createdAt,
+    String commentId,
+    int repliesCount, {
+    required bool isReply,
+    required bool hasReplies,
+    required bool isExpanded,
+    VoidCallback? onToggleReplies,
+    VoidCallback? onReply,
   }) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            userName,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+          CircleAvatar(
+            radius: isReply ? 14 : 18,
+            backgroundColor: AppColors.primaryColor,
+            backgroundImage: NetworkImage(
+              'https://ui-avatars.com/api/?name=${Uri.encodeComponent(userId)}&background=random',
+            ),
+            onBackgroundImageError: (_, __) => const Icon(Icons.person),
           ),
-          const SizedBox(height: 4),
-          Text(commentText),
-        ],
-      ),
-    );
-  }
-
-  // Widget for the comment actions (like and reply below the comment)
-  Widget buildCommentActions({
-    required String timeAgo,
-    required String likes,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8.0, top: 4.0),
-      child: Row(
-        children: [
-          Text(
-            timeAgo,
-            style: const TextStyle(color: Colors.grey, fontSize: 12),
-          ),
-          const SizedBox(width: 10),
-          Text(
-            '$likes Likes',
-            style: const TextStyle(color: Colors.blue, fontSize: 12),
-          ),
-          const SizedBox(width: 10),
-          GestureDetector(
-            onTap: () {
-              // Handle reply action
-            },
-            child: const Text(
-              'Reply',
-              style: TextStyle(color: Colors.blue, fontSize: 12),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[50],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    userId,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    content,
+                    style: const TextStyle(fontSize: 13),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Text(
+                        timeago.format(createdAt),
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      GestureDetector(
+                        onTap: onReply,
+                        child: Text(
+                          'Reply',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      if (hasReplies) ...[
+                        const SizedBox(width: 16),
+                        GestureDetector(
+                          onTap: onToggleReplies,
+                          child: Row(
+                            children: [
+                              Text(
+                                '$repliesCount ${repliesCount == 1 ? 'Reply' : 'Replies'}',
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontSize: 12,
+                                ),
+                              ),
+                              const SizedBox(width: 4),
+                              Icon(
+                                isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                                size: 16,
+                                color: Colors.grey[600],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],
       ),
     );
   }
-}
-
-class Comment {
-  final String avatar;
-  final String userName;
-  final String content;
-  final String timeAgo;
-  final int likes;
-
-  Comment({
-    required this.avatar,
-    required this.userName,
-    required this.content,
-    required this.timeAgo,
-    required this.likes,
-  });
 }

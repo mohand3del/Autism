@@ -37,5 +37,9 @@ class ApiConstants {
   static const String createPost = "community/createPost";
   static const String addReaction = "community/post/add/reaction";
   static const String deleteReaction = "community/post/delete/reaction";
+  static const String addComment = "community/post/add/comment";
+  static const String deleteComment = "community/post/delete/comment";
+  static const String showPostComments = "community/post/show/comments";
+  static const String getPostById = "community/post";
 
 }
