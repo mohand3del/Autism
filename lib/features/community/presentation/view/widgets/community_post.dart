@@ -1,5 +1,3 @@
-
-
 import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/di/di.dart';
 import 'package:autism/core/utils/app_styles.dart';
@@ -18,7 +16,8 @@ import 'post_action_button.dart';
 import 'reactionIconWidget.dart';
 
 class CommunityPost extends StatefulWidget {
-  const CommunityPost({super.key, this.user, this.post, this.data, this.postId});
+  const CommunityPost(
+      {super.key, this.user, this.post, this.data, this.postId});
 
   final User? user;
   final Post? post;
@@ -51,7 +50,9 @@ class _CommunityPostState extends State<CommunityPost> {
       final addReactionRequestBody = AddReactionRequestBody(reaction: 'like');
       if (isLiked) {
         // Add reaction when liked
-        context.read<AddReactionCubit>().addReaction(addReactionRequestBody, widget.postId ?? '');
+        context
+            .read<AddReactionCubit>()
+            .addReaction(addReactionRequestBody, widget.postId ?? '');
       } else {
         // Remove reaction when unliked
         context.read<DeleteReactionCubit>().deleteReaction(widget.postId ?? '');
@@ -61,8 +62,10 @@ class _CommunityPostState extends State<CommunityPost> {
 
   void _selectReaction(String reaction) {
     final addReactionRequestBody = AddReactionRequestBody(reaction: reaction);
-    context.read<AddReactionCubit>().addReaction(addReactionRequestBody,widget.postId ?? '');
-   
+    context
+        .read<AddReactionCubit>()
+        .addReaction(addReactionRequestBody, widget.postId ?? '');
+
     setState(() {
       isLiked = true;
       showReactions = false; // Hide reactions after selection
@@ -88,13 +91,15 @@ class _CommunityPostState extends State<CommunityPost> {
               children: [
                 // Profile Info
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Row(
                     children: [
                       CircleAvatar(
                         radius: 25,
                         backgroundImage: NetworkImage(
-                          widget.data?.user.image ?? "https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg",
+                          widget.data?.user.image ??
+                              "https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg",
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -145,7 +150,8 @@ class _CommunityPostState extends State<CommunityPost> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    widget.data?.post.text ?? "Hi, I'm Dr. Jan in the autism department. I can help anyone with anything and I'm waiting for your comments.",
+                    widget.data?.post.text ??
+                        "Hi, I'm Dr. Jan in the autism department. I can help anyone with anything and I'm waiting for your comments.",
                     style: const TextStyle(fontSize: 14),
                   ),
                 ),
@@ -182,7 +188,8 @@ class _CommunityPostState extends State<CommunityPost> {
                               onTap: () => _selectReaction("love"),
                             ),
                             ReactionIcon(
-                              image: const AssetImage('assets/images/colburite.png'),
+                              image: const AssetImage(
+                                  'assets/images/colburite.png'),
                               onTap: () => _selectReaction("special"),
                             ),
                             ReactionIcon(
@@ -204,7 +211,8 @@ class _CommunityPostState extends State<CommunityPost> {
                       child: PostActionButton(
                         icon: isLiked
                             ? const AssetImage('assets/images/Like.png')
-                            : const AssetImage('assets/images/outlined_like.png'),
+                            : const AssetImage(
+                                'assets/images/outlined_like.png'),
                         text: 'Like',
                         onTap: _toggleLike,
                       ),
@@ -217,8 +225,15 @@ class _CommunityPostState extends State<CommunityPost> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => BlocProvider(
-                              create: (context) => getIt<ShowPostCommentsCubit>()..getPostComments(widget.postId ?? ''),
-                              child: CommentView(postId: widget.postId ?? ''),
+                              create: (context) =>
+                                  getIt<ShowPostCommentsCubit>()
+                                    ..getPostComments(widget.postId ?? ''),
+                              child: CommentView(
+                                postId: widget.postId ?? '',
+                                post: widget.post, // Add this
+                                user: widget.user, // Add this
+                                data: widget.data,
+                              ),
                             ),
                           ),
                         );

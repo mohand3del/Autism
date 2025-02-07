@@ -1,3 +1,4 @@
+import 'package:autism/features/community/data/model/show_post_response.dart';
 import 'package:autism/features/community/presentation/view/widgets/community_post.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,8 +9,12 @@ import 'comment_shimmer.dart';
 
 class CommentViewBody extends StatefulWidget {
   final String postId;
+  final Post? post;
+  final User? user;
+  final Datum? data;
 
-  const CommentViewBody({super.key, required this.postId});
+  const CommentViewBody(
+      {super.key, required this.postId, this.post, this.user, this.data});
 
   @override
   State<CommentViewBody> createState() => _CommentViewBodyState();
@@ -39,10 +44,15 @@ class _CommentViewBodyState extends State<CommentViewBody> {
       builder: (context, state) {
         return Column(
           children: [
-            CommunityPost(postId: widget.postId),
+            CommunityPost(
+                postId: widget.postId,
+                data: widget.data,
+                user: widget.user,
+                post: widget.post),
             if (replyingToId != null)
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Row(
                   children: [
                     Text(
@@ -83,15 +93,17 @@ class _CommentViewBodyState extends State<CommentViewBody> {
               orElse: () => const SizedBox(),
             ),
             AddCommentField(
-              hintText: replyingToId != null ? 'Write a reply...' : 'Write a comment...',
+              hintText: replyingToId != null
+                  ? 'Write a reply...'
+                  : 'Write a comment...',
               onCommentSubmit: (value) {
                 if (value.isNotEmpty) {
                   context.read<ShowPostCommentsCubit>().addComment(
-                    widget.postId,
-                    value,
-                    replyingToId != null ? 'reply' : 'add',
-                    replyingToId ?? '',
-                  );
+                        widget.postId,
+                        value,
+                        replyingToId != null ? 'reply' : 'add',
+                        replyingToId ?? '',
+                      );
                   if (replyingToId != null) {
                     cancelReply();
                   }

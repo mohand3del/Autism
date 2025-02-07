@@ -1,9 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'get_post_by_id_response.g.dart';
+
 @JsonSerializable()
 class GetPostByIdResponse {
     @JsonKey(name: "post")
-    GetPostByIdResponsePost post;
+    Post post;
 
     GetPostByIdResponse({
         required this.post,
@@ -15,45 +16,8 @@ class GetPostByIdResponse {
 }
 
 @JsonSerializable()
-class GetPostByIdResponsePost {
-    @JsonKey(name: "post")
-    Post post;
-    @JsonKey(name: "list")
-    ListClass list;
-
-    GetPostByIdResponsePost({
-        required this.post,
-        required this.list,
-    });
-
-    factory GetPostByIdResponsePost.fromJson(Map<String, dynamic> json) => _$GetPostByIdResponsePostFromJson(json);
-
-    Map<String, dynamic> toJson() => _$GetPostByIdResponsePostToJson(this);
-}
-
-@JsonSerializable()
-class ListClass {
-    @JsonKey(name: "_id")
-    String id;
-    @JsonKey(name: "comments")
-    List<String> comments;
-    @JsonKey(name: "reactions")
-    List<dynamic> reactions;
-
-    ListClass({
-        required this.id,
-        required this.comments,
-        required this.reactions,
-    });
-
-    factory ListClass.fromJson(Map<String, dynamic> json) => _$ListClassFromJson(json);
-
-    Map<String, dynamic> toJson() => _$ListClassToJson(this);
-}
-
-@JsonSerializable()
 class Post {
-    @JsonKey(name: "_id")
+    @JsonKey(name: "id")
     String id;
     @JsonKey(name: "userId")
     String userId;
@@ -66,9 +30,9 @@ class Post {
     @JsonKey(name: "text")
     String text;
     @JsonKey(name: "images")
-    List<dynamic> images;
+    List<String> images;
     @JsonKey(name: "comments")
-    List<String> comments;
+    List<dynamic> comments;
     @JsonKey(name: "reactions")
     List<dynamic> reactions;
     @JsonKey(name: "outerViewCount")
@@ -95,7 +59,7 @@ class Post {
     DateTime createdAt;
     @JsonKey(name: "updatedAt")
     DateTime updatedAt;
-    @JsonKey(name: "__v")
+    @JsonKey(name: "v")
     int v;
 
     Post({

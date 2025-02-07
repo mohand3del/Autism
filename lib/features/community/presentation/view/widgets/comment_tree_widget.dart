@@ -63,7 +63,7 @@ class _CommentsTreeViewState extends State<CommentsTreeView> {
           children: [
             _buildCommentTile(
               context,
-              comment.userId,
+              comment.userData,
               comment.comment,
               comment.createdAt,
               comment.id,
@@ -83,19 +83,17 @@ class _CommentsTreeViewState extends State<CommentsTreeView> {
                   itemCount: comment.subcomments.length,
                   itemBuilder: (context, index) {
                     final subcomment = comment.subcomments[index];
-                    if (subcomment is! Map<String, dynamic>) return const SizedBox();
-                    
                     return _buildCommentTile(
                       context,
-                      subcomment['userId'] as String,
-                      subcomment['comment'] as String,
-                      DateTime.parse(subcomment['createdAt'] as String),
+                      subcomment.userData,
+                      subcomment.comment,
+                      subcomment.createdAt,
                       comment.id,
                       0,
                       isReply: true,
                       hasReplies: false,
                       isExpanded: false,
-                      onReply: () => widget.onReply(comment.id, subcomment['userId'] as String),
+                      onReply: () => widget.onReply(comment.id, subcomment.userId),
                     );
                   },
                 ),
@@ -108,7 +106,7 @@ class _CommentsTreeViewState extends State<CommentsTreeView> {
 
   Widget _buildCommentTile(
     BuildContext context,
-    String userId,
+    response.UserData userData,
     String content,
     DateTime createdAt,
     String commentId,
@@ -127,10 +125,9 @@ class _CommentsTreeViewState extends State<CommentsTreeView> {
           CircleAvatar(
             radius: isReply ? 14 : 18,
             backgroundColor: AppColors.primaryColor,
-            backgroundImage: NetworkImage(
-              'https://ui-avatars.com/api/?name=${Uri.encodeComponent(userId)}&background=random',
-            ),
+            backgroundImage: NetworkImage(userData.image),
             onBackgroundImageError: (_, __) => const Icon(Icons.person),
+            child: userData.image.isEmpty ? const Icon(Icons.person, color: Colors.white) : null,
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -144,7 +141,7 @@ class _CommentsTreeViewState extends State<CommentsTreeView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    userId,
+                    userData.name,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,

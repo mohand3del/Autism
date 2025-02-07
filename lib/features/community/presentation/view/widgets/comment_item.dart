@@ -28,9 +28,12 @@ class CommentItem extends StatelessWidget {
         children: [
           Row(
             children: [
-              const CircleAvatar(
+              CircleAvatar(
+                backgroundImage: NetworkImage(comment.userData.image),
                 backgroundColor: AppColors.primaryColor,
-                child: Icon(Icons.person, color: Colors.white),
+                child: comment.userData.image.isEmpty 
+                    ? const Icon(Icons.person, color: Colors.white)
+                    : null,
               ),
               const SizedBox(width: 8),
               Expanded(
@@ -38,7 +41,7 @@ class CommentItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      comment.userId,
+                      comment.userData.name,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),

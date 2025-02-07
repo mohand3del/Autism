@@ -26,11 +26,15 @@ Comment _$CommentFromJson(Map<String, dynamic> json) => Comment(
       userId: json['userId'] as String,
       comment: json['comment'] as String,
       subcomment: json['subcomment'] as bool,
-      subcomments: json['subcomments'] as List<dynamic>,
+      subcomments: (json['subcomments'] as List<dynamic>)
+          .map((e) => Comment.fromJson(e as Map<String, dynamic>))
+          .toList(),
       subcommentsNumber: (json['subcommentsNumber'] as num).toInt(),
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       v: (json['__v'] as num).toInt(),
+      userData: UserData.fromJson(json['userData'] as Map<String, dynamic>),
+      parentCommentId: json['parentCommentId'] as String?,
     );
 
 Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
@@ -44,4 +48,26 @@ Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
       '__v': instance.v,
+      'userData': instance.userData,
+      'parentCommentId': instance.parentCommentId,
+    };
+
+UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
+      id: json['_id'] as String,
+      name: json['name'] as String,
+      email: json['email'] as String,
+      gender: json['gender'] as String,
+      image: json['image'] as String,
+      type: json['type'] as String,
+      dateOfBirth: DateTime.parse(json['dateOfBirth'] as String),
+    );
+
+Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
+      '_id': instance.id,
+      'name': instance.name,
+      'email': instance.email,
+      'gender': instance.gender,
+      'image': instance.image,
+      'type': instance.type,
+      'dateOfBirth': instance.dateOfBirth.toIso8601String(),
     };

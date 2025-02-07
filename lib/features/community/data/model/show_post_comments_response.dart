@@ -1,4 +1,8 @@
+
+
+
 import 'package:json_annotation/json_annotation.dart';
+
 part 'show_post_comments_response.g.dart';
 @JsonSerializable()
 class ShowPostCommentsResponse {
@@ -27,7 +31,7 @@ class Comment {
     @JsonKey(name: "subcomment")
     bool subcomment;
     @JsonKey(name: "subcomments")
-    List<dynamic> subcomments;
+    List<Comment> subcomments;
     @JsonKey(name: "subcommentsNumber")
     int subcommentsNumber;
     @JsonKey(name: "createdAt")
@@ -36,6 +40,10 @@ class Comment {
     DateTime updatedAt;
     @JsonKey(name: "__v")
     int v;
+    @JsonKey(name: "userData")
+    UserData userData;
+    @JsonKey(name: "parentCommentId")
+    String? parentCommentId;
 
     Comment({
         required this.id,
@@ -48,9 +56,43 @@ class Comment {
         required this.createdAt,
         required this.updatedAt,
         required this.v,
+        required this.userData,
+        this.parentCommentId,
     });
 
     factory Comment.fromJson(Map<String, dynamic> json) => _$CommentFromJson(json);
 
     Map<String, dynamic> toJson() => _$CommentToJson(this);
+}
+
+@JsonSerializable()
+class UserData {
+    @JsonKey(name: "_id")
+    String id;
+    @JsonKey(name: "name")
+    String name;
+    @JsonKey(name: "email")
+    String email;
+    @JsonKey(name: "gender")
+    String gender;
+    @JsonKey(name: "image")
+    String image;
+    @JsonKey(name: "type")
+    String type;
+    @JsonKey(name: "dateOfBirth")
+    DateTime dateOfBirth;
+
+    UserData({
+        required this.id,
+        required this.name,
+        required this.email,
+        required this.gender,
+        required this.image,
+        required this.type,
+        required this.dateOfBirth,
+    });
+
+    factory UserData.fromJson(Map<String, dynamic> json) => _$UserDataFromJson(json);
+
+    Map<String, dynamic> toJson() => _$UserDataToJson(this);
 }
