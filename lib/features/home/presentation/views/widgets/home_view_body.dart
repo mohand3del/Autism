@@ -28,9 +28,7 @@ class HomeViewBody extends StatelessWidget {
           child: Column(
             children: [
               verticalSpace(context.height * 15 / 852),
-              const CustomHomeAppBar(
-                name: 'Mohand',
-              ),
+              const CustomHomeAppBar(),
               verticalSpace(context.height * 10 / 852),
               const Divider(),
               verticalSpace(context.height * 20 / 852),
