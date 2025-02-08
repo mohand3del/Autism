@@ -6,14 +6,16 @@ import 'package:autism/features/community/presentation/view/widgets/community_po
 import 'package:autism/features/profile/data/model/profile_user_data_response.dart';
 import 'package:autism/features/profile/data/model/row_profile_model.dart';
 import 'package:autism/features/profile/presentation/view/widgets/profile_section.dart';
+import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class ProfileViewBody extends StatelessWidget {
-  ProfileViewBody({super.key, this.userData});
-  final ProfileUserDataResponse? userData;
-  List<RowProfileModel> profileList = [
+  ProfileViewBody({super.key});
+
+  final List<RowProfileModel> profileList = [
     RowProfileModel(
       leadingIcon: 'assets/images/edit_icon.svg',
       text: 'Edit Profile',
@@ -53,6 +55,19 @@ class ProfileViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<ProfileCubit, ProfileState>(
+      builder: (context, state) {
+        return state.when(
+          initial: () => const Center(child: CircularProgressIndicator()),
+          loading: () => const Center(child: CircularProgressIndicator()),
+          loaded: (userData) => _buildProfileContent(context, userData),
+          error: (message) => Center(child: Text('Error: $message')),
+        );
+      },
+    );
+  }
+
+  Widget _buildProfileContent(BuildContext context, ProfileUserDataResponse userData) {
     return SafeArea(
       child: Column(
         children: [
@@ -75,10 +90,10 @@ class ProfileViewBody extends StatelessWidget {
                   child: SizedBox(
                     height: context.height * 100 / 852,
                     width: context.width * 100 / 393,
-                    child: const CircleAvatar(
+                    child: CircleAvatar(
                       radius: 54,
                       backgroundImage:
-                          AssetImage('assets/images/userImage.png'),
+                          NetworkImage(userData.user.image),
                     ),
                   ),
                 ),
@@ -91,7 +106,6 @@ class ProfileViewBody extends StatelessWidget {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      //  Navigator.pop(context);
                       GoRouter.of(context).pop();
                     },
                   ),
@@ -99,21 +113,19 @@ class ProfileViewBody extends StatelessWidget {
               ]),
           verticalSpace(context.height * 36 / 852),
           Text(
-           userData?.user.name ?? 'Guest',
+            userData.user.name,
             style: AppStyles.medium24(context).copyWith(
               color: AppColors.black,
               fontFamily: "Poppins",
             ),
           ),
-          //verticalSpace(context.height * 16 / 852),
           Text(
-            userData?.user.email ?? 'Guest',
+            userData.user.email,
             style: AppStyles.regular20(context).copyWith(
               color: const Color(0xff989898),
               fontFamily: "Poppins",
             ),
           ),
-          //verticalSpace(context.height * 20 / 852),
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

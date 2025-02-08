@@ -17,16 +17,22 @@ void main()async {
   WidgetsFlutterBinding.ensureInitialized();
  await setupGetIt();
  await checkIfLoggedInUser();
+   final profileCubit = getIt<ProfileCubit>();
+  await profileCubit.getProfileData();
   runApp(
     DevicePreview(
         enabled: !kReleaseMode,
-        builder: (_) => const Autism()),
+        builder: (_) =>  Autism(
+          profileCubit: profileCubit,
+        )),
 
   );
+
 }
 
 class Autism extends StatelessWidget {
-  const Autism({super.key});
+  const Autism({super.key, required this.profileCubit, });
+ final ProfileCubit profileCubit;
 
   // This widget is the root of your application.
   @override

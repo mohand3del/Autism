@@ -11,7 +11,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit(this._profileRepo) : super(ProfileState.initial());
   final ProfileRepo _profileRepo;
 
-  void getProfileData() async {
+   getProfileData() async {
     emit(const ProfileState.loading());
     final response = await _profileRepo.getUserData();
     response.when(success: (profileUserDataResponse) {
