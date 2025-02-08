@@ -25,6 +25,7 @@ import 'package:autism/features/home/viewModel/historyCubit/history_cubit.dart';
 import 'package:autism/features/layout/view/layout_view.dart';
 import 'package:autism/features/layout/viewModel/layout_cubit.dart';
 import 'package:autism/features/onboarding/presentation/view/on_boarding_view.dart';
+import 'package:autism/features/profile/presentation/view/profile_view.dart';
 import 'package:autism/features/resource/presentation/view/resource_view.dart';
 import 'package:autism/features/resource/viewModel/resource_cubit.dart';
 import 'package:autism/features/test/presentation/view/autism_result_view.dart';
@@ -72,6 +73,7 @@ class AppRouter {
   static const String comment = "/comment";
   static const String createPost = "/createPost";
   static const String search = "/search";
+  static const String profile = "/profile";
 
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
@@ -295,6 +297,9 @@ class AppRouter {
       }),
       GoRoute(path: search, builder: (context, state) {
         return const SearchView();
+      }),
+      GoRoute(path: profile, builder: (context, state) {
+        return const ProfileView();
       }),
     ],
   );

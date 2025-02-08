@@ -96,6 +96,8 @@ class _CommentViewBodyState extends State<CommentViewBody> {
               hintText: replyingToId != null
                   ? 'Write a reply...'
                   : 'Write a comment...',
+              userImage: widget.data?.user.image,
+              userName: widget.data?.user.name,
               onCommentSubmit: (value) {
                 if (value.isNotEmpty) {
                   context.read<ShowPostCommentsCubit>().addComment(

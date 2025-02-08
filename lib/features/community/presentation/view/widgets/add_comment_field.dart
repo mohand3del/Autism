@@ -3,8 +3,15 @@ import 'package:flutter/material.dart';
 class AddCommentField extends StatefulWidget {
   final Function(String) onCommentSubmit;
   final String? hintText;
+  final String? userImage;
+  final String? userName;
 
-  AddCommentField({required this.onCommentSubmit, required this.hintText});
+  AddCommentField({
+    required this.onCommentSubmit, 
+    required this.hintText,
+    this.userImage,
+    this.userName,
+  });
 
   @override
   _AddCommentFieldState createState() => _AddCommentFieldState();
@@ -19,26 +26,37 @@ class _AddCommentFieldState extends State<AddCommentField> {
       padding: const EdgeInsets.all(16.0),
       child: Row(
         children: [
+          // User profile image
+          CircleAvatar(
+            radius: 20,
+            backgroundImage: widget.userImage != null && widget.userImage!.isNotEmpty
+                ? NetworkImage(widget.userImage!)
+                : null,
+            backgroundColor: Colors.blue.shade100,
+            child: widget.userImage == null || widget.userImage!.isEmpty
+                ? const Icon(Icons.person, color: Colors.white)
+                : null,
+          ),
+          const SizedBox(width: 10),
           // Comment input field
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.blue.shade50, // Light blue background color
-                borderRadius: BorderRadius.circular(16.0), // Rounded corners
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(16.0),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
                 controller: _commentController,
                 decoration: InputDecoration(
                   hintText: widget.hintText,
-                  hintStyle:
-                      TextStyle(color: Colors.grey), // Light grey hint text
-                  border: InputBorder.none, // No border
+                  hintStyle: TextStyle(color: Colors.grey),
+                  border: InputBorder.none,
                 ),
               ),
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           // Send button
           GestureDetector(
             onTap: () {
@@ -52,7 +70,7 @@ class _AddCommentFieldState extends State<AddCommentField> {
                 color: Colors.blue, // Button color
                 shape: BoxShape.circle,
               ),
-              padding: EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
               child: Icon(
                 Icons.send, // Send icon
                 color: Colors.white,

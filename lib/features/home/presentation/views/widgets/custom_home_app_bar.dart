@@ -5,6 +5,8 @@ import 'package:autism/core/utils/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
+
 class CustomHomeAppBar extends StatelessWidget {
   const CustomHomeAppBar({super.key, required this.name});
   final String name;
@@ -15,12 +17,15 @@ class CustomHomeAppBar extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: context.width * 0.06),
       child: Row(
         children: [
-          SizedBox(
-            height: context.height * 50 / 852,
-            width: context.width * 50 / 393,
-            child:  const CircleAvatar(
-              radius: 54,
-              backgroundImage: AssetImage('assets/images/userImage.png'),
+          GestureDetector(
+            onTap: () => GoRouter.of(context).push('/profile'),
+            child: SizedBox(
+              height: context.height * 50 / 852,
+              width: context.width * 50 / 393,
+              child: const CircleAvatar(
+                radius: 54,
+                backgroundImage: AssetImage('assets/images/userImage.png'),
+              ),
             ),
           ),
           horizontalSpace(context.width * 12 / 393),
@@ -45,14 +50,15 @@ class CustomHomeAppBar extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-          icon : Center(child: SvgPicture.asset("assets/images/fav_video_icon.svg")),
-            color: AppColors.black, onPressed: () {  },
-
+            icon: Center(
+                child: SvgPicture.asset("assets/images/fav_video_icon.svg")),
+            color: AppColors.black,
+            onPressed: () {
+              // GoRouter.of(context).go('/profile');
+            },
           ),
         ],
       ),
-
-
     );
   }
 }

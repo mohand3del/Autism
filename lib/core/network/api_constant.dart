@@ -41,5 +41,13 @@ class ApiConstants {
   static const String deleteComment = "community/post/delete/comment";
   static const String showPostComments = "community/post/show/comments";
   static const String getPostById = "community/post";
+  static const String contactInformation = "portfolio/contactInfo";
+  static const String editProfile = "portfolio/editProfile";
+  static const String editContactInfo = "portfolio/editContactInfo";
+  static const String editUserData = "portfolio/editUserData";
+  static const String userData = "portfolio/userData";
+  static const String aboutApp = "portfolio/aboutApp";
+ 
+
 
 }
