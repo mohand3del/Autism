@@ -1,7 +1,7 @@
-
-
+import 'package:autism/core/di/di.dart';
+import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'widgets/profile_view_body.dart';
 
 class ProfileView extends StatelessWidget {
@@ -9,9 +9,11 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-     
-      body:  ProfileViewBody(),
+    return BlocProvider(
+      create: (context) => getIt<ProfileCubit>()..getProfileData(),
+      child:  Scaffold(
+        body: ProfileViewBody(),
+      ),
     );
   }
 }

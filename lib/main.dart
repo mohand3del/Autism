@@ -1,6 +1,7 @@
 import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/helper/shared_preferences_helper.dart';
 import 'package:autism/core/utils/extentions.dart';
+import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
 import 'package:autism/features/test/viewModel/tell_about_cubit/tell_about_cubit.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
@@ -31,12 +32,10 @@ class Autism extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers:[
-
       BlocProvider(create: (context) => TellAboutCubit(getIt()),),
-    BlocProvider(
-    create: (BuildContext context) => getIt<ResourceCubit>()..fetchResources(),),
-
-
+      BlocProvider(create: (BuildContext context) => getIt<ResourceCubit>()..fetchResources(),),
+      BlocProvider(create: (BuildContext context) => getIt<ProfileCubit>()..getProfileData(),),
+      BlocProvider(create: (BuildContext context) => getIt<ProfileCubit>()..getProfileData(),),
 
     ],
 

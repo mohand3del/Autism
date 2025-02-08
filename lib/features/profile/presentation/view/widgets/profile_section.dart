@@ -1,4 +1,5 @@
 import 'package:autism/core/utils/app_styles.dart';
+import 'package:autism/features/profile/data/model/row_profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -8,7 +9,7 @@ class ProfileSection extends StatelessWidget {
       required this.leadingIcon,
       required this.text,
       this.trailingIcon,
-      required this.onTap});
+      required this.onTap, required RowProfileModel rowProfileModel});
   final String leadingIcon;
   final String text;
   final IconData? trailingIcon;
