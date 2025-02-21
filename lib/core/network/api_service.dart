@@ -20,6 +20,7 @@ import 'package:autism/features/home/data/model/channel_response_body.dart';
 import 'package:autism/features/home/data/model/history_response_body.dart';
 import 'package:autism/features/home/data/model/video_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/video_response_body.dart';
+import 'package:autism/features/profile/data/model/profile_user_data.dart';
 import 'package:autism/features/profile/data/model/profile_user_data_response.dart';
 import 'package:autism/features/resource/data/model/recource_response_body.dart';
 import 'package:autism/features/test/data/model/form_request_body.dart';
@@ -144,4 +145,11 @@ abstract class ApiService {
       );
   @GET(ApiConstants.userData)
   Future<ProfileUserDataResponse> getUserData();
+    @POST(ApiConstants.editUserData)
+
+  Future<ApiResponse> editProfile(
+      @Body() ProfileUserData profileUserData,
+  );
+
+      
 }

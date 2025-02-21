@@ -10,8 +10,8 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ProfileCubit>()..getProfileData(),
-      child:  Scaffold(
+      create: (context) => getIt<ProfileCubit>(),
+      child: Scaffold(
         body: ProfileViewBody(),
       ),
     );

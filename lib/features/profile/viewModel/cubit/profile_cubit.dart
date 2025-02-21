@@ -8,17 +8,41 @@ part 'profile_state.dart';
 part 'profile_cubit.freezed.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit(this._profileRepo) : super(ProfileState.initial());
   final ProfileRepo _profileRepo;
 
-   getProfileData() async {
+  ProfileCubit(this._profileRepo) : super(const ProfileState.initial()) {
+    getProfileData();
+  }
+
+  Future<void> getProfileData() async {
     emit(const ProfileState.loading());
-    final response = await _profileRepo.getUserData();
-    response.when(success: (profileUserDataResponse) {
-      UserDataCache.instance.updateUserData(profileUserDataResponse);
-      emit(ProfileState.loaded(profileUserDataResponse));
-    }, failure: (error) {
-      emit(ProfileState.error(error.apiErrorModel.message.toString()));
-    });
+    
+    // Check cache first
+    final cachedData = UserDataCache.instance.userData;
+    if (cachedData != null) {
+      emit(ProfileState.loaded(cachedData));
+    }
+
+    try {
+      final result = await _profileRepo.getUserData();
+      result.when(
+        success: (data) {
+          UserDataCache.instance.updateUserData(data);
+          emit(ProfileState.loaded(data));
+        },
+        failure: (error) => emit(ProfileState.error(error.apiErrorModel.message ?? '')),
+      );
+    } catch (e) {
+      emit(ProfileState.error(e.toString()));
+    }
+  }
+
+  void refreshProfile() {
+    final cachedData = UserDataCache.instance.userData;
+    if (cachedData != null) {
+      emit(ProfileState.loaded(cachedData));
+    }
   }
 }
+
+

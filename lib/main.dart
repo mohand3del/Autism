@@ -13,56 +13,54 @@ import 'core/helper/contants.dart';
 import 'core/routing/router.dart';
 import 'features/resource/viewModel/resource_cubit.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- await setupGetIt();
- await checkIfLoggedInUser();
-   final profileCubit = getIt<ProfileCubit>();
+  await setupGetIt();
+  await checkIfLoggedInUser();
+  final profileCubit = getIt<ProfileCubit>();
   await profileCubit.getProfileData();
   runApp(
     DevicePreview(
         enabled: !kReleaseMode,
-        builder: (_) =>  Autism(
-          profileCubit: profileCubit,
-        )),
-
+        builder: (_) => Autism(
+              profileCubit: profileCubit,
+            )),
   );
-
 }
 
 class Autism extends StatelessWidget {
-  const Autism({super.key, required this.profileCubit, });
- final ProfileCubit profileCubit;
+  const Autism({
+    super.key,
+    required this.profileCubit,
+  });
+  final ProfileCubit profileCubit;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers:[
-      BlocProvider(create: (context) => TellAboutCubit(getIt()),),
-      BlocProvider(create: (BuildContext context) => getIt<ResourceCubit>()..fetchResources(),),
-      BlocProvider(create: (BuildContext context) => getIt<ProfileCubit>()..getProfileData(),),
-      BlocProvider(create: (BuildContext context) => getIt<ProfileCubit>()..getProfileData(),),
-
-    ],
-
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => TellAboutCubit(getIt()),
+        ),
+        BlocProvider(
+          create: (BuildContext context) =>
+              getIt<ResourceCubit>()..fetchResources(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) =>
+              getIt<ProfileCubit>()..getProfileData(),
+        )
+      ],
       child: MaterialApp.router(
-
         debugShowCheckedModeBanner: false,
-        
         title: 'Autism',
-
         theme: ThemeData(
-
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
           useMaterial3: true,
-
         ),
-
         routerConfig: AppRouter.router,
-
-
         builder: DevicePreview.appBuilder,
-
       ),
     );
   }
@@ -70,7 +68,7 @@ class Autism extends StatelessWidget {
 
 checkIfLoggedInUser() async {
   String? userToken =
-  await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken);
+      await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken);
   if (!userToken.isNullOrEmpty()) {
     isLoggedInUser = true;
   } else {

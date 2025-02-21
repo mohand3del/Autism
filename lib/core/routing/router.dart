@@ -25,7 +25,10 @@ import 'package:autism/features/home/viewModel/historyCubit/history_cubit.dart';
 import 'package:autism/features/layout/view/layout_view.dart';
 import 'package:autism/features/layout/viewModel/layout_cubit.dart';
 import 'package:autism/features/onboarding/presentation/view/on_boarding_view.dart';
+import 'package:autism/features/profile/presentation/view/edit_profile_view.dart';
 import 'package:autism/features/profile/presentation/view/profile_view.dart';
+import 'package:autism/features/profile/viewModel/cubit/cubit/edit_profile_cubit.dart';
+import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
 import 'package:autism/features/resource/presentation/view/resource_view.dart';
 import 'package:autism/features/resource/viewModel/resource_cubit.dart';
 import 'package:autism/features/test/presentation/view/autism_result_view.dart';
@@ -74,6 +77,13 @@ class AppRouter {
   static const String createPost = "/createPost";
   static const String search = "/search";
   static const String profile = "/profile";
+  static const String setting = "/setting";
+  static const String about = "/about";
+  static const String privacy = "/privacy";
+  static const String faqs = "/faqs";
+  static const String verifyCertificate = "/verifyCertificate";
+  static const String contactInformation = "/contactInformation";
+  static const String editProfile = "/editProfile";
 
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
@@ -166,13 +176,10 @@ class AppRouter {
                 create: (context) => getIt<ChannelCubit>()..getChannels(),
               ),
               BlocProvider(
-                  create: (context) => getIt<HistoryCubit>()..getHistory(
-                    0
-                  )),
+                  create: (context) => getIt<HistoryCubit>()..getHistory(0)),
               BlocProvider(
-                  create: (context) => getIt<ResourceCubit>()..fetchResources()),
-
-
+                  create: (context) =>
+                      getIt<ResourceCubit>()..fetchResources()),
             ], child: const LayoutView());
           }),
       GoRoute(
@@ -218,7 +225,6 @@ class AppRouter {
           }
         },
       ),
-
       GoRoute(
           path: channelInfo,
           builder: (context, state) {
@@ -258,49 +264,84 @@ class AppRouter {
           builder: (context, state) {
             int historySkip = 0;
             return BlocProvider(
-
-                create: (BuildContext context) => getIt<HistoryCubit>()..getHistory(
-                 historySkip
-                ),
+                create: (BuildContext context) =>
+                    getIt<HistoryCubit>()..getHistory(historySkip),
                 child: const HistoryView());
           }),
-      GoRoute(path: waiting, builder: (context, state) {
-        return const WaitingView();
-      }),
-      GoRoute(path: autismTestResult, builder: (context, state) {
-        return const AutismResultView();
-      }),
-      GoRoute(path: nonAutismTestResult, builder: (context, state) {
-        return const NonAutismView();
-      }),
-      GoRoute(path: testResult, builder: (context, state) {
-        return BlocProvider(
-            create: (BuildContext context) => getIt<TestResultCubit>()..getTestResult(),
-            child: const TestResultView());
-      }),
-      GoRoute(path: resources, builder: (context, state) {
-        return BlocProvider(
-            create: (BuildContext context) => getIt<ResourceCubit>()..fetchResources(),
-            child: const ResourceView());
-      }),
-      GoRoute(path: community, builder: (context, state) {
-        return BlocProvider(
-            create: (BuildContext context) => getIt<ShowAllPostCubit>()..showAllPosts(),
-            child: const CommunityView());
-      }),
-      GoRoute(path: comment, builder: (context, state) {
-        final postId = state.extra as String;
-        return  CommentView(postId: postId,);
-      }),
-      GoRoute(path: createPost, builder: (context, state) {
-        return const CreatePostView();
-      }),
-      GoRoute(path: search, builder: (context, state) {
-        return const SearchView();
-      }),
-      GoRoute(path: profile, builder: (context, state) {
-        return const ProfileView();
-      }),
+      GoRoute(
+          path: waiting,
+          builder: (context, state) {
+            return const WaitingView();
+          }),
+      GoRoute(
+          path: autismTestResult,
+          builder: (context, state) {
+            return const AutismResultView();
+          }),
+      GoRoute(
+          path: nonAutismTestResult,
+          builder: (context, state) {
+            return const NonAutismView();
+          }),
+      GoRoute(
+          path: testResult,
+          builder: (context, state) {
+            return BlocProvider(
+                create: (BuildContext context) =>
+                    getIt<TestResultCubit>()..getTestResult(),
+                child: const TestResultView());
+          }),
+      GoRoute(
+          path: resources,
+          builder: (context, state) {
+            return BlocProvider(
+                create: (BuildContext context) =>
+                    getIt<ResourceCubit>()..fetchResources(),
+                child: const ResourceView());
+          }),
+      GoRoute(
+          path: community,
+          builder: (context, state) {
+            return BlocProvider(
+                create: (BuildContext context) =>
+                    getIt<ShowAllPostCubit>()..showAllPosts(),
+                child: const CommunityView());
+          }),
+      GoRoute(
+          path: comment,
+          builder: (context, state) {
+            final postId = state.extra as String;
+            return CommentView(
+              postId: postId,
+            );
+          }),
+      GoRoute(
+          path: createPost,
+          builder: (context, state) {
+            return const CreatePostView();
+          }),
+      GoRoute(
+          path: search,
+          builder: (context, state) {
+            return const SearchView();
+          }),
+      GoRoute(
+          path: profile,
+          builder: (context, state) {
+            return const ProfileView();
+          }),
+      GoRoute(
+          path: editProfile,
+          builder: (context, state) {
+            return MultiBlocProvider(providers: [
+              BlocProvider(
+                create: (BuildContext context) => getIt<ProfileCubit>(),
+              ),
+              BlocProvider(
+                create: (BuildContext context) => getIt<EditProfileCubit>(),
+              ),
+            ], child: const EditProfileView());
+          }),
     ],
   );
 }

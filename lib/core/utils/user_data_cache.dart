@@ -1,9 +1,10 @@
+import 'dart:async';
 import 'package:autism/features/profile/data/model/profile_user_data_response.dart';
-import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
 
 class UserDataCache {
   static UserDataCache? _instance;
   static ProfileUserDataResponse? _userData;
+  final _controller = StreamController<ProfileUserDataResponse?>.broadcast();
 
   UserDataCache._();
 
@@ -12,13 +13,16 @@ class UserDataCache {
     return _instance!;
   }
 
+  Stream<ProfileUserDataResponse?> get userDataStream => _controller.stream;
+
   void updateUserData(ProfileUserDataResponse userData) {
     _userData = userData;
+    _controller.add(_userData);
   }
 
   ProfileUserDataResponse? get userData => _userData;
 
-  String get userImage => _userData?.user.image ?? '';
-  String get userName => _userData?.user.name ?? '';
-  String get userEmail => _userData?.user.email ?? '';
+  void dispose() {
+    _controller.close();
+  }
 }
