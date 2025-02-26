@@ -152,4 +152,9 @@ abstract class ApiService {
   );
 
       
+  @POST(ApiConstants.uploadImage)
+  @MultiPart()
+  Future<ApiResponse> uploadImage(
+    @Body() FormData formData,
+  );
 }

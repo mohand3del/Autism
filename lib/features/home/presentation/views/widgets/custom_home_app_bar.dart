@@ -24,7 +24,7 @@ class CustomHomeAppBar extends StatelessWidget {
           initialData: UserDataCache.instance.userData,
           builder: (context, snapshot) {
             final userData = snapshot.data;
-            
+
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: context.width * 0.06),
               child: Skeletonizer(
@@ -41,8 +41,10 @@ class CustomHomeAppBar extends StatelessWidget {
                         width: context.width * 50 / 393,
                         child: CircleAvatar(
                           radius: 54,
-                          backgroundImage: userData?.user.image.isNotEmpty == true
-                              ? NetworkImage(userData!.user.image) as ImageProvider
+                          backgroundImage: userData?.user.image.isNotEmpty ==
+                                  true
+                              ? NetworkImage(userData!.user.image)
+                                  as ImageProvider
                               : const AssetImage('assets/images/userImage.png'),
                         ),
                       ),
@@ -72,7 +74,8 @@ class CustomHomeAppBar extends StatelessWidget {
                     const Spacer(),
                     IconButton(
                       icon: Center(
-                        child: SvgPicture.asset("assets/images/fav_video_icon.svg"),
+                        child: SvgPicture.asset(
+                            "assets/images/fav_video_icon.svg"),
                       ),
                       color: AppColors.black,
                       onPressed: () {

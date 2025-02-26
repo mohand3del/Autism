@@ -1,8 +1,9 @@
+import 'dart:io';
+
+import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/utils/extentions.dart';
-import 'package:autism/features/profile/viewModel/cubit/cubit/edit_profile_cubit.dart';
-import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,6 +20,10 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Color(0xFF2B7FFD), // Match your shape background color
+      statusBarIconBrightness: Brightness.light, // Makes status bar icons white
+    ));
     return Stack(
       alignment: Alignment.center,
       clipBehavior: Clip.none,
@@ -40,47 +45,11 @@ class ProfileHeader extends StatelessWidget {
             width: context.width * 100 / 393,
             child: CircleAvatar(
               radius: 54,
-              backgroundImage: NetworkImage(image),
+              // backgroundImage: NetworkImage(image),
+              backgroundImage: _getImageProvider(),
             ),
           ),
         ),
-        if (showCameraIcon)
-          Positioned(
-            bottom: context.height * -32 / 852,
-            child: SizedBox(
-              height: 36,
-              width: 36,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 1,
-                      blurRadius: 3,
-                    ),
-                  ],
-                ),
-                child: Container(
-                  margin: const EdgeInsets.all(5),
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    icon: const Icon(
-                      Icons.camera_alt_outlined,
-                      color: Colors.white,
-                      size: 14,
-                    ),
-                    onPressed: onCameraTap,
-                  ),
-                ),
-              ),
-            ),
-          ),
         Positioned(
           left: 16,
           top: 40,
@@ -91,11 +60,48 @@ class ProfileHeader extends StatelessWidget {
             ),
             onPressed: () {
               GoRouter.of(context).pop();
-            //  context.read<ProfileCubit>().getProfileData();
+              //  context.read<ProfileCubit>().getProfileData();
             },
           ),
         ),
+        if (showCameraIcon)
+          Positioned(
+            bottom: context.height * -22 / 852,
+            child: InkWell(
+              onTap: onCameraTap,
+              child: Container(
+                height: 36,
+                width: 36,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: AppColors.white, width: 4),
+                ),
+                child: const Icon(
+                  Icons.camera_alt_outlined,
+                  color: Colors.white,
+                  size: 14,
+                ),
+              ),
+            ),
+          ),
       ],
     );
+  }
+
+  ImageProvider _getImageProvider() {
+    if (image.isEmpty) {
+      return const AssetImage('assets/images/default_profile.png');
+    }
+
+    try {
+      if (image.startsWith('http')) {
+        return NetworkImage(image);
+      } else {
+        return FileImage(File(image));
+      }
+    } catch (e) {
+      return const AssetImage('assets/images/default_profile.png');
+    }
   }
 }

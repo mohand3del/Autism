@@ -1,3 +1,4 @@
+import 'package:autism/core/cubit/internet_connection_cubit.dart';
 import 'package:autism/core/network/dio_factory.dart';
 import 'package:autism/features/auth/forgetPass/view%20model/forget_cubit.dart';
 import 'package:autism/features/auth/login/data/repo/login_repo.dart';
@@ -27,8 +28,10 @@ import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dar
 import 'package:autism/features/home/viewModel/historyCubit/history_cubit.dart';
 import 'package:autism/features/profile/data/repo/edit_profile_repo.dart';
 import 'package:autism/features/profile/data/repo/profile_repo.dart';
+import 'package:autism/features/profile/data/repo/upload_image_repo.dart';
 import 'package:autism/features/profile/viewModel/cubit/cubit/edit_profile_cubit.dart';
 import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
+import 'package:autism/features/profile/viewModel/uploadImageCubit/cubit/upload_image_cubit.dart';
 import 'package:autism/features/resource/data/repo/resource_repo.dart';
 import 'package:autism/features/resource/viewModel/resource_cubit.dart';
 import 'package:autism/features/test/data/repo/form_repo.dart';
@@ -118,7 +121,12 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt()));
   getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt()));
 
-  getIt.registerFactory<EditProfileCubit>(() => EditProfileCubit(getIt()));
+  getIt.registerLazySingleton<EditProfileCubit>(() => EditProfileCubit(getIt()));
   getIt.registerFactory<EditProfileRepo>(() => EditProfileRepo(getIt()));
+
+  getIt.registerLazySingleton<UploadImageCubit>(() => UploadImageCubit(getIt()));
+  getIt.registerFactory<UploadImageRepo>(() => UploadImageRepo(getIt()));
+
+  getIt.registerLazySingleton<InternetCubit>(() => InternetCubit());
 
 }

@@ -25,6 +25,7 @@ import 'package:autism/features/home/viewModel/historyCubit/history_cubit.dart';
 import 'package:autism/features/layout/view/layout_view.dart';
 import 'package:autism/features/layout/viewModel/layout_cubit.dart';
 import 'package:autism/features/onboarding/presentation/view/on_boarding_view.dart';
+import 'package:autism/features/profile/presentation/view/contact_view.dart';
 import 'package:autism/features/profile/presentation/view/edit_profile_view.dart';
 import 'package:autism/features/profile/presentation/view/profile_view.dart';
 import 'package:autism/features/profile/viewModel/cubit/cubit/edit_profile_cubit.dart';
@@ -84,6 +85,7 @@ class AppRouter {
   static const String verifyCertificate = "/verifyCertificate";
   static const String contactInformation = "/contactInformation";
   static const String editProfile = "/editProfile";
+  
 
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
@@ -342,6 +344,13 @@ class AppRouter {
               ),
             ], child: const EditProfileView());
           }),
+
+      GoRoute(
+        path: contactInformation,
+        builder: (context, state) {
+          return const ContactView();
+        },  
+      ),
     ],
   );
 }

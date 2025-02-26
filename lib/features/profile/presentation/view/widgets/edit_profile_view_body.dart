@@ -10,6 +10,7 @@ import 'package:autism/features/profile/presentation/view/widgets/edit_profile_t
 import 'package:autism/features/profile/presentation/view/widgets/profile_header.dart';
 import 'package:autism/features/profile/viewModel/cubit/cubit/edit_profile_cubit.dart';
 import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
+import 'package:autism/features/profile/viewModel/uploadImageCubit/cubit/upload_image_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -25,6 +26,7 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _genderController = TextEditingController();
   final TextEditingController _dateOfBirthController = TextEditingController();
+  String? _imagePath;
 
   @override
   void dispose() {
@@ -67,7 +69,46 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
                   ),
                 );
                 context.read<ProfileCubit>().getProfileData();
-                
+              },
+              error: (error) {
+                Navigator.pop(context); // Dismiss loading dialog
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(error),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              },
+            );
+          },
+        ),
+        BlocListener<UploadImageCubit, UploadImageState>(
+          listener: (context, state) {
+            state.when(
+              initial: () {},
+              loading: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              },
+              success: (image) {
+                Navigator.pop(context); // Dismiss loading dialog
+                setState(() {
+                  _imagePath = image!
+                      .path; // Update the image path when upload is successful
+                });
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Profile image updated successfully'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+                // Refresh profile data to get new image
+                context.read<ProfileCubit>().getProfileData();
               },
               error: (error) {
                 Navigator.pop(context); // Dismiss loading dialog
@@ -97,10 +138,21 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
               return SingleChildScrollView(
                 child: Column(
                   children: [
-                    ProfileHeader(
-                      image: userData.user.image ?? '',
-                      showCameraIcon: true,
-                    ),
+                    BlocBuilder<UploadImageCubit, UploadImageState>(
+                        builder: (context, state) {
+                      return ProfileHeader(
+                        image: context.read<UploadImageCubit>().state.maybeWhen(
+                              success: (image) => image?.path ?? '',
+                              orElse: () => userData.user.image ?? '',
+                            ),
+                        showCameraIcon: true,
+                        onCameraTap: () {
+                          log(userData.user.image);
+                          debugPrint("Camera icon tapped");
+                          context.read<UploadImageCubit>().uploadImage();
+                        },
+                      );
+                    }),
                     verticalSpace(context.height * 36 / 852),
                     Text(
                       userData.user.name ?? 'No Name',

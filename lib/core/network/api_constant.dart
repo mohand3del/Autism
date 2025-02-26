@@ -47,6 +47,7 @@ class ApiConstants {
   static const String editUserData = "portfolio/editUserData";
   static const String userData = "portfolio/userData";
   static const String aboutApp = "portfolio/aboutApp";
+  static const String uploadImage = "portfolio/imageUpload";
  
 
 

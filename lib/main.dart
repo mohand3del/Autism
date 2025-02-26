@@ -7,11 +7,12 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'core/cubit/internet_connection_cubit.dart';
 import 'core/di/di.dart';
 import 'core/helper/contants.dart';
 import 'core/routing/router.dart';
 import 'features/resource/viewModel/resource_cubit.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,10 +22,11 @@ void main() async {
   await profileCubit.getProfileData();
   runApp(
     DevicePreview(
-        enabled: !kReleaseMode,
-        builder: (_) => Autism(
-              profileCubit: profileCubit,
-            )),
+      enabled: !kReleaseMode,
+      builder: (_) => Autism(
+        profileCubit: profileCubit,
+      ),
+    ),
   );
 }
 
@@ -35,7 +37,6 @@ class Autism extends StatelessWidget {
   });
   final ProfileCubit profileCubit;
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -50,7 +51,11 @@ class Autism extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context) =>
               getIt<ProfileCubit>()..getProfileData(),
-        )
+        ),
+        BlocProvider(
+          create: (BuildContext context) =>
+              getIt<InternetCubit>(), // Add InternetCubit
+        ),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
@@ -66,7 +71,7 @@ class Autism extends StatelessWidget {
   }
 }
 
-checkIfLoggedInUser() async {
+Future<void> checkIfLoggedInUser() async {
   String? userToken =
       await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken);
   if (!userToken.isNullOrEmpty()) {

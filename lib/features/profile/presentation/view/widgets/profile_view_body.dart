@@ -76,7 +76,6 @@ class ProfileViewBody extends StatelessWidget {
               initial: () => const Center(child: CircularProgressIndicator()),
               loading: () => const Center(child: CircularProgressIndicator()),
               loaded: (userData) {
-                // Update cache when new data is loaded
                 UserDataCache.instance.updateUserData(userData);
                 return _buildProfileContent(context, userData);
               },
@@ -117,25 +116,25 @@ class ProfileViewBody extends StatelessWidget {
           itemBuilder: (context, index) {
             return Column(
               children: [
+                verticalSpace(12),
                 ProfileSection(
                   leadingIcon: profileList[index].leadingIcon!,
                   text: profileList[index].text!,
                   rowProfileModel: profileList[index],
                   onTap: () => profileList[index].navigate(context),
                 ),
-                verticalSpace(12),
-                if (index != profileList.length - 1)
+                if (index < profileList.length - 1) ...[
+                  verticalSpace(12),
                   const Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Divider(),
                   ),
-                if (index != profileList.length - 1) verticalSpace(12),
+                ],
               ],
             );
           },
         ),
+        //verticalSpace(12),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(

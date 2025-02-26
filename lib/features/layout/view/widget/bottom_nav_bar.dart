@@ -31,88 +31,84 @@ class _BottomNavBarState extends State<BottomNavBar> {
         return cubit.shouldHideNavBar(cubit.currentIndex)
             ? const SizedBox() // Hide the BottomNavBar if needed
             : Material(
-          clipBehavior: Clip.antiAlias,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(28),
-                topRight: Radius.circular(28),
-              ),
-
-           elevation: 3,
-              color: Colors.white,
-              child: BottomNavigationBar(
-                onTap: (index) {
-                  cubit.changeCurrentIndex(index);
-                },
-                type: BottomNavigationBarType.fixed,
-                currentIndex: cubit.currentIndex,
-                unselectedItemColor: const Color(0xff67687E),
-                selectedItemColor: const Color(0xff3F80FF),
-                backgroundColor: Colors.white,
-                showUnselectedLabels: true,
-
-                items: [
-                  BottomNavigationBarItem(
-                    label: 'Home',
-                    icon: SvgPicture.asset(
-                      'assets/images/home.svg',
-                      colorFilter: ColorFilter.mode(
-                        cubit.currentIndex == 0
-                            ? const Color(0xff3F80FF)
-                            : const Color(0xff67687E),
-                        BlendMode.srcIn,
+                clipBehavior: Clip.antiAlias,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(28),
+                  topRight: Radius.circular(28),
+                ),
+                elevation: 3,
+                color: Colors.white,
+                child: BottomNavigationBar(
+                  onTap: (index) {
+                    cubit.changeCurrentIndex(index);
+                  },
+                  type: BottomNavigationBarType.fixed,
+                  currentIndex: cubit.currentIndex,
+                  unselectedItemColor: const Color(0xff67687E),
+                  selectedItemColor: const Color(0xff3F80FF),
+                  backgroundColor: Colors.white,
+                  showUnselectedLabels: true,
+                  items: [
+                    BottomNavigationBarItem(
+                      label: 'Home',
+                      icon: SvgPicture.asset(
+                        'assets/images/home.svg',
+                        colorFilter: ColorFilter.mode(
+                          cubit.currentIndex == 0
+                              ? const Color(0xff3F80FF)
+                              : const Color(0xff67687E),
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
-                  ),
-                  BottomNavigationBarItem(
-                    label: 'Test',
-                    icon: Icon(
-                      FontAwesomeIcons.newspaper,
-                      size: iconSize,
-                      color: cubit.currentIndex == 1
-                          ? const Color(0xff3F80FF)
-                          : const Color(0xff67687E),
-                    ),
-                  ),
-                  BottomNavigationBarItem(
-
-                    label: 'Community',
-                    icon: Icon(
-                      FontAwesomeIcons.users,
-                      size: iconSize,
-                      color: cubit.currentIndex == 2
-                          ? const Color(0xff3F80FF)
-                          : const Color(0xff67687E),
-                    ),
-                  ),
-                  BottomNavigationBarItem(
-                    label: 'Resources',
-                    icon: SvgPicture.asset(
-                      'assets/images/resource.svg',
-                      colorFilter: ColorFilter.mode(
-                        cubit.currentIndex == 3
+                    BottomNavigationBarItem(
+                      label: 'Test',
+                      icon: Icon(
+                        FontAwesomeIcons.newspaper,
+                        size: iconSize,
+                        color: cubit.currentIndex == 1
                             ? const Color(0xff3F80FF)
                             : const Color(0xff67687E),
-                        BlendMode.srcIn,
                       ),
                     ),
-                  ),
-                  BottomNavigationBarItem(
-                    label: 'Doctors',
-                    icon: SvgPicture.asset(
-                      'assets/images/doctors.svg',
-                      colorFilter: ColorFilter.mode(
-                        cubit.currentIndex == 4
+                    BottomNavigationBarItem(
+                      label: 'Community',
+                      icon: Icon(
+                        FontAwesomeIcons.users,
+                        size: iconSize,
+                        color: cubit.currentIndex == 2
                             ? const Color(0xff3F80FF)
                             : const Color(0xff67687E),
-                        BlendMode.srcIn,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
+                    BottomNavigationBarItem(
+                      label: 'Resources',
+                      icon: SvgPicture.asset(
+                        'assets/images/resource.svg',
+                        colorFilter: ColorFilter.mode(
+                          cubit.currentIndex == 3
+                              ? const Color(0xff3F80FF)
+                              : const Color(0xff67687E),
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                    ),
+                    // BottomNavigationBarItem(
+                    //   label: 'Doctors',
+                    //   icon: SvgPicture.asset(
+                    //     'assets/images/doctors.svg',
+                    //     colorFilter: ColorFilter.mode(
+                    //       cubit.currentIndex == 4
+                    //           ? const Color(0xff3F80FF)
+                    //           : const Color(0xff67687E),
+                    //       BlendMode.srcIn,
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                ),
+              );
       },
     );
   }
 }
-
