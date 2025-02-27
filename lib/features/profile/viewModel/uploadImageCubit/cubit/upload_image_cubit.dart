@@ -12,16 +12,28 @@ part 'upload_image_cubit.freezed.dart';
 
 class UploadImageCubit extends Cubit<UploadImageState> {
   UploadImageCubit(this._uploadImageRepo) : super(UploadImageState.initial());
+
   final UploadImageRepo _uploadImageRepo;
   final ImagePicker _picker = ImagePicker();
+  File? _selectedImage; // Store selected image
+
+  File? get selectedImage => _selectedImage; // Getter for the UI
 
   Future<void> uploadImage() async {
-     XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile == null) return;
+    if (isClosed) return;
 
-    File image = File(pickedFile.path);
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile == null) {
+      emit(const UploadImageState.error('No image selected'));
+      return;
+    }
+
+    final File image = File(pickedFile.path);
+    _selectedImage = image; // Store the new image locally
+
     emit(UploadImageState.loading());
+
     try {
       await _uploadImageRepo.uploadImage(image);
       emit(UploadImageState.success(image: image));

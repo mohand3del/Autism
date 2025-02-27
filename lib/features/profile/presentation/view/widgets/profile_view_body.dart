@@ -92,7 +92,7 @@ class ProfileViewBody extends StatelessWidget {
     return Column(
       children: [
         ProfileHeader(
-          image: userData.user.image,
+          oldImage: userData.user.image,
         ),
         verticalSpace(context.height * 32 / 852),
         Text(

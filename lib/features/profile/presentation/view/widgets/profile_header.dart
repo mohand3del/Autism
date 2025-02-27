@@ -2,28 +2,29 @@ import 'dart:io';
 
 import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/utils/extentions.dart';
+import 'package:autism/features/profile/viewModel/uploadImageCubit/cubit/upload_image_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({
     super.key,
-    required this.image,
+    this.oldImage,
     this.showCameraIcon = false,
     this.onCameraTap,
   });
-  final String image;
+
+  final String? oldImage; // User's current profile image from API
   final bool showCameraIcon;
   final VoidCallback? onCameraTap;
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Color(0xFF2B7FFD), // Match your shape background color
-      statusBarIconBrightness: Brightness.light, // Makes status bar icons white
-    ));
+    final uploadedImage = context.watch<UploadImageCubit>().selectedImage;
+
     return Stack(
       alignment: Alignment.center,
       clipBehavior: Clip.none,
@@ -46,7 +47,7 @@ class ProfileHeader extends StatelessWidget {
             child: CircleAvatar(
               radius: 54,
               // backgroundImage: NetworkImage(image),
-              backgroundImage: _getImageProvider(),
+              backgroundImage: _getImageProvider(uploadedImage),
             ),
           ),
         ),
@@ -67,41 +68,41 @@ class ProfileHeader extends StatelessWidget {
         if (showCameraIcon)
           Positioned(
             bottom: context.height * -22 / 852,
-            child: InkWell(
-              onTap: onCameraTap,
-              child: Container(
-                height: 36,
-                width: 36,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.white, width: 4),
-                ),
-                child: const Icon(
-                  Icons.camera_alt_outlined,
-                  color: Colors.white,
-                  size: 14,
-                ),
-              ),
+            child: BlocBuilder<UploadImageCubit, UploadImageState>(
+              builder: (context, state) {
+                return InkWell(
+                  onTap: onCameraTap,
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: AppColors.white, width: 4),
+                    ),
+                    child: const Center(
+                      child: Icon(
+                        Icons.camera_alt_outlined,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
       ],
     );
   }
 
-  ImageProvider _getImageProvider() {
-    if (image.isEmpty) {
-      return const AssetImage('assets/images/default_profile.png');
-    }
-
-    try {
-      if (image.startsWith('http')) {
-        return NetworkImage(image);
-      } else {
-        return FileImage(File(image));
-      }
-    } catch (e) {
-      return const AssetImage('assets/images/default_profile.png');
+  ImageProvider<Object> _getImageProvider(File? uploadedImage) {
+    if (uploadedImage != null) {
+      return FileImage(uploadedImage);
+    } else if (oldImage != null && oldImage!.isNotEmpty) {
+      return NetworkImage(oldImage!);
+    } else {
+      return const AssetImage('assets/images/default_avatar.png');
     }
   }
 }

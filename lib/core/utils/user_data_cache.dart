@@ -16,11 +16,16 @@ class UserDataCache {
   Stream<ProfileUserDataResponse?> get userDataStream => _controller.stream;
 
   void updateUserData(ProfileUserDataResponse userData) {
+    _clearCache(); // Clear old data before updating
     _userData = userData;
     _controller.add(_userData);
   }
 
   ProfileUserDataResponse? get userData => _userData;
+
+  void _clearCache() {
+    _userData = null; // Reset old cached data
+  }
 
   void dispose() {
     _controller.close();
