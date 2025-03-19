@@ -26,9 +26,11 @@ import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_by_id_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
 import 'package:autism/features/home/viewModel/historyCubit/history_cubit.dart';
+import 'package:autism/features/profile/data/repo/contact_info_repo.dart';
 import 'package:autism/features/profile/data/repo/edit_profile_repo.dart';
 import 'package:autism/features/profile/data/repo/profile_repo.dart';
 import 'package:autism/features/profile/data/repo/upload_image_repo.dart';
+import 'package:autism/features/profile/viewModel/contactCubit/cubit/contact_info_cubit.dart';
 import 'package:autism/features/profile/viewModel/cubit/cubit/edit_profile_cubit.dart';
 import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
 import 'package:autism/features/profile/viewModel/uploadImageCubit/cubit/upload_image_cubit.dart';
@@ -128,5 +130,9 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<UploadImageRepo>(() => UploadImageRepo(getIt()));
 
   getIt.registerLazySingleton<InternetCubit>(() => InternetCubit());
+
+  //contact info
+  getIt.registerLazySingleton<ContactInfoRepo>(() => ContactInfoRepo(getIt()));
+  getIt.registerFactory<ContactInfoCubit>(() => ContactInfoCubit(getIt()));
 
 }

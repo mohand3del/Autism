@@ -1,6 +1,11 @@
-
-
+import 'package:autism/features/profile/presentation/view/widgets/contact_form.dart';
+import 'package:autism/features/profile/presentation/view/widgets/profile_header_widget.dart';
+import 'package:autism/features/profile/presentation/view/widgets/profile_listeners.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'contact_listenerts.dart';
+import 'profile_header.dart';
 
 class ContactViewBody extends StatefulWidget {
   const ContactViewBody({super.key});
@@ -27,10 +32,11 @@ class _ContactViewBodyState extends State<ContactViewBody>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Text('Contact View Body'),
+    return MultiBlocListener(
+      listeners: [
+        ...ContactListenerts.getListeners(),
       ],
+      child: ContactForm(),
     );
   }
 }

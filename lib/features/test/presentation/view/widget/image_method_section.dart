@@ -47,11 +47,13 @@ class _ImageMethodSectionState extends State<ImageMethodSection>
   bool _isLoading = false;
   late AnimationController _animationController;
 
+  static const String baseUrl = 'https://autism-app.onrender.com/api/v1/testing';
+
   final Map<String, String> methodApiMap = {
-    'Picture': 'https://autism-app.onrender.com/api/v1/testing/childFace',
-    'Drawing': 'https://autism-app.onrender.com/api/v1/testing/drawing',
-    'Coloring': 'https://autism-app.onrender.com/api/v1/testing/coloring',
-    'Hand Right': 'https://autism-app.onrender.com/api/v1/testing/handWriting',
+    'Picture' : '$baseUrl/childFace',  
+    'Drawing': '$baseUrl/drawing',
+    'Coloring': '$baseUrl/coloring',
+    'Hand write': '$baseUrl/handWriting',
   };
 
   late String _selectedMethod;
@@ -153,7 +155,7 @@ class _ImageMethodSectionState extends State<ImageMethodSection>
         return _buildDrawingWidget(context);
       case 'Coloring':
         return _buildColoringWidget(context);
-      case 'Hand Right':
+      case 'Hand Write':
         return _buildHandRightWidget(context);
       default:
         return Container();

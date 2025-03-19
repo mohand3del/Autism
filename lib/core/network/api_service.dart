@@ -20,6 +20,8 @@ import 'package:autism/features/home/data/model/channel_response_body.dart';
 import 'package:autism/features/home/data/model/history_response_body.dart';
 import 'package:autism/features/home/data/model/video_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/video_response_body.dart';
+import 'package:autism/features/profile/data/model/contact_info_model.dart';
+import 'package:autism/features/profile/data/model/edit_contact_info_model.dart';
 import 'package:autism/features/profile/data/model/profile_user_data.dart';
 import 'package:autism/features/profile/data/model/profile_user_data_response.dart';
 import 'package:autism/features/resource/data/model/recource_response_body.dart';
@@ -157,4 +159,11 @@ abstract class ApiService {
   Future<ApiResponse> uploadImage(
     @Body() FormData formData,
   );
+  @GET(ApiConstants.contactInformation)
+  Future<ContactInfoModel> getContactInfo();
+  @POST(ApiConstants.editContactInfo)
+  Future<ApiResponse> editContactInfo(
+      @Body() EditContactInfoModel contactInfoModel,
+  );
+  
 }
