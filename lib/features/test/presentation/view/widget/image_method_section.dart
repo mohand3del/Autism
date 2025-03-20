@@ -11,7 +11,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
-import 'package:autism/core/widgets/custom_bottom.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 
@@ -47,10 +46,11 @@ class _ImageMethodSectionState extends State<ImageMethodSection>
   bool _isLoading = false;
   late AnimationController _animationController;
 
-  static const String baseUrl = 'https://autism-app.onrender.com/api/v1/testing';
+  static const String baseUrl =
+      'https://autism-app.onrender.com/api/v1/testing';
 
   final Map<String, String> methodApiMap = {
-    'Picture' : '$baseUrl/childFace',  
+    'Picture': '$baseUrl/childFace',
     'Drawing': '$baseUrl/drawing',
     'Coloring': '$baseUrl/coloring',
     'Hand write': '$baseUrl/handWriting',
@@ -66,6 +66,7 @@ class _ImageMethodSectionState extends State<ImageMethodSection>
     )..repeat();
     _selectedMethod = widget.selectedMethods[widget.currentImageStep - 1];
   }
+
   @override
   void dispose() {
     _animationController.dispose();
@@ -84,8 +85,9 @@ class _ImageMethodSectionState extends State<ImageMethodSection>
   @override
   Widget build(BuildContext context) {
     final imageMethods =
-    widget.selectedMethods.where((method) => method != 'Form').toList();
+        widget.selectedMethods.where((method) => method != 'Form').toList();
     final imageMethodIndex = widget.currentImageStep - 1;
+
     return Column(
       children: [
         Padding(
@@ -105,44 +107,58 @@ class _ImageMethodSectionState extends State<ImageMethodSection>
           child: _image == null && imageMethodIndex < imageMethods.length
               ? _buildImageMethodWidget(imageMethods[imageMethodIndex], context)
               : Column(
-            children: [
-              verticalSpace(context.height * 20 / 852),
-              SizedBox(
-                height: context.height * 500 / 852,
-                width: context.width * 350 / 393,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.file(
-                    fit: BoxFit.cover,
-                    _image!,
-                    height: 200,
-                  ),
+                  children: [
+                    verticalSpace(context.height * 20 / 852),
+                    SizedBox(
+                      height: context.height * 500 / 852,
+                      width: context.width * 350 / 393,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        clipBehavior: Clip.antiAlias,
+                        child: Image.file(
+                          fit: BoxFit.cover,
+                          _image!,
+                          height: 200,
+                        ),
+                      ),
+                    ),
+                    verticalSpace(context.height * 30 / 852),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 24),
+                            child: CustomBottomLoadingHandler(
+                              child: _isLoading
+                                  ? Center(
+                                      child: SpinKitFadingCube(
+                                        color: AppColors.white,
+                                        size: 20.0,
+                                        controller: _animationController,
+                                      ),
+                                    )
+                                  : Text(
+                                      imageMethods.length > 1 &&
+                                              widget.currentImageStep <
+                                                  imageMethods.length
+                                          ? "Next Step"
+                                          : "Submit",
+                                      style:
+                                          AppStyles.medium22(context).copyWith(
+                                        color: AppColors.white,
+                                        fontFamily: "Poppins",
+                                      ),
+                                    ),
+                              onPressed: () => _sendImageToServer(context),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ),
-              verticalSpace(context.height * 30 / 852),
-              CustomBottomLoadingHandler(
-                child: _isLoading
-                    ? Center(
-                  child: SpinKitFadingCube(
-                    color: AppColors.white,
-                    size: 20.0,
-                    controller: _animationController,
-                  ),
-
-                ):Text(
-                  "Submit",
-                  style: AppStyles.medium22(context).copyWith(
-                    color: AppColors.white,
-                    fontFamily: "Poppins",
-                  ),
-                ),
-                onPressed: () => _sendImageToServer(context),
-              ),
-            ],
-          ),
         )
-        //_buildNextButton(context),
       ],
     );
   }
@@ -355,6 +371,22 @@ class _ImageMethodSectionState extends State<ImageMethodSection>
     });
 
     try {
+      // Get the method count to determine behavior
+      final imageMethods =
+          widget.selectedMethods.where((method) => method != 'Form').toList();
+      final isLastMethod = widget.currentImageStep >= imageMethods.length;
+
+      // If this is not the last method and we have multiple methods, just move to next step
+      if (!isLastMethod && imageMethods.length > 1) {
+        setState(() {
+          _isLoading = false;
+          _image = null; // Reset image for next step
+        });
+        widget.onNextStep();
+        return;
+      }
+
+      // Otherwise, proceed with sending to server
       // Extract file name
       String fileName = _image!.path.split('/').last;
 
@@ -380,7 +412,8 @@ class _ImageMethodSectionState extends State<ImageMethodSection>
       // Get the API URL based on the selected method
       String? apiUrl = methodApiMap[_selectedMethod];
       log('API URL: $apiUrl');
-      String token = await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken);
+      String token =
+          await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken);
       log('Token: $token');
 
       if (apiUrl != null) {
@@ -403,7 +436,7 @@ class _ImageMethodSectionState extends State<ImageMethodSection>
         // Check the response status
         if (response.statusCode == 200) {
           log('Image uploaded successfully');
-          _handleNextStep(context);  // Proceed to the next step
+          _handleNextStep(context); // Proceed to the next step
         } else {
           log('Image upload failed with status code: ${response.statusCode}');
           setupErrorState(context, 'Status code: ${response.statusCode}');
@@ -433,7 +466,6 @@ class _ImageMethodSectionState extends State<ImageMethodSection>
       });
     }
   }
-
 
   void _handleNextStep(BuildContext context) {
     if (widget.currentImageStep < widget.selectedMethods.length) {

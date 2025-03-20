@@ -56,34 +56,43 @@ class ContactFormState extends State<ContactForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ContactInfoCubit, ContactInfoState>(
-        builder: (context, contactState) {
-      return contactState.maybeWhen(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        loaded: (contactInfo) {
-          _initializeContactControllers(contactInfo);
-          return BlocBuilder<ProfileCubit, ProfileState>(
-            builder: (context, profileState) => profileState.when(
-              initial: () => const Center(child: Text("Fetching profile...")),
-              loading: () => const Center(child: CircularProgressIndicator()),
-              loaded: (userData) {
-                _initializeProfileControllers(userData);
-                return _buildFormContent(context, userData);
-              },
-              error: (error) => Center(
-                child: Text(error, style: const TextStyle(color: Colors.red)),
-              ),
+    return BlocListener<ContactInfoCubit, ContactInfoState>(
+      listener: (context, contactState) {
+        // التعامل مع الحالات هنا
+        contactState.maybeWhen(
+          loading: () {
+            // يمكن إضافة دالة لعرض spinner عند التحميل
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Loading contact info...')),
+            );
+          },
+          loaded: (contactInfo) {
+            _initializeContactControllers(contactInfo);
+          },
+          error: (error) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Error: $error')),
+            );
+          },
+          orElse: () {},
+        );
+      },
+      child: BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (context, profileState) {
+          return profileState.when(
+            initial: () => const Center(child: Text("Fetching profile...")),
+            loading: () => const Center(child: CircularProgressIndicator()),
+            loaded: (userData) {
+              _initializeProfileControllers(userData);
+              return _buildFormContent(context, userData);
+            },
+            error: (error) => Center(
+              child: Text(error, style: const TextStyle(color: Colors.red)),
             ),
           );
         },
-        error: (error) => Center(
-          child: Text(error, style: const TextStyle(color: Colors.red)),
-        ),
-        orElse: () {
-          return const Center(child: CircularProgressIndicator());
-        },
-      );
-    });
+      ),
+    );
   }
 
   Widget _buildFormContent(

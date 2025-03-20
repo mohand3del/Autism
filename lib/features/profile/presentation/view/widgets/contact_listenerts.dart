@@ -19,17 +19,17 @@ class ContactListenerts {
             );
           },
         ),
-        BlocListener<ContactInfoCubit, ContactInfoState>(
-            listener: (context, state) {
-          state.when(
-            initial: () {},
-            loading: () {
-              _showLoadingDialog(context);
-            },
-            loaded: (data) => _handleEditContactInfoSuccess(context),
-            error: (error) => _handleError(context, error),
-          );
-        }),
+        // BlocListener<ContactInfoCubit, ContactInfoState>(
+        //     listener: (context, state) {
+        //   state.when(
+        //     initial: () {},
+        //     loading: () {
+        //       _showLoadingDialog(context);
+        //     },
+        //     loaded: (data) => _handleEditContactInfoSuccess(context),
+        //     error: (error) => _handleError(context, error),
+        //   );
+        // }),
       ];
 
   static void _showLoadingDialog(BuildContext context) {
