@@ -26,7 +26,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       selectedImage = File(pickedFile.path);
       emit(CreatePostState.imageSelected(selectedImage!));
     } else {
-      emit(const CreatePostState.error("No image selected"));
+      emit(const CreatePostState.error(error: "No image selected"));
     }
   }
 
@@ -48,7 +48,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     result.when(success: (data) {
       emit(CreatePostState.success(data));
     }, failure: (error) {
-      emit(CreatePostState.error(ErrorHandler.handle(error).toString()));
+      emit(CreatePostState.error(error: error.apiErrorModel.message.toString()));
     });
   }
 }

@@ -72,37 +72,6 @@ class _LoginBlocListenerState extends State<LoginBlocListener> with SingleTicker
 
   void setupErrorState(BuildContext context, String error) {
     context.pop();
-    // showDialog(
-    //   context: context,
-    //   builder: (context) => AlertDialog(
-    //     icon: const Icon(
-    //       Icons.error,
-    //       color: Colors.red,
-    //       size: 32,
-    //     ),
-    //     content: Text(
-    //       error,
-    //       style: AppStyles.medium16(context).copyWith(
-    //         color: AppColors.black,
-    //         fontFamily: 'Poppins',
-    //       ),
-    //     ),
-    //     actions: [
-    //       TextButton(
-    //         onPressed: () {
-    //           context.pop();
-    //         },
-    //         child: Text(
-    //           'Got it',
-    //           style: AppStyles.semiBold16(context).copyWith(
-    //             color: AppColors.primaryColor,
-    //           ),
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
-
     QuickAlert.show(
       context: context,
       type: QuickAlertType.error,

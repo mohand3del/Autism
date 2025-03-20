@@ -73,7 +73,8 @@ class LayoutCubit extends Cubit<LayoutStates> {
     const HomeView(),
     const ChooseTestView(),
     const CommunityView(),    // Placeholder, will be replaced later
-    const ResourceView(),         // Placeholder for future implementation
+    const ResourceView(),
+    Column(),         // Placeholder for future implementation
        // Placeholder for future implementation
   ];
 
@@ -104,10 +105,9 @@ class LayoutCubit extends Cubit<LayoutStates> {
 
   /// Call this method after onboarding is finished to update the view and nav bar visibility
   Future<void> completeOnboarding() async {
-    // تأكيد تحديث الحالة في SharedPreferences
+
     await SharedPrefHelper.setOnBoardingTestScreenViewed(key: 'onBoardingTest', value: true);
 
-    // تحديث المتغير المحلي
     isOnboardingViewed = true;
 
 

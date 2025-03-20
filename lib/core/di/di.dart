@@ -1,5 +1,4 @@
-
-
+import 'package:autism/core/cubit/internet_connection_cubit.dart';
 import 'package:autism/core/network/dio_factory.dart';
 import 'package:autism/features/auth/forgetPass/view%20model/forget_cubit.dart';
 import 'package:autism/features/auth/login/data/repo/login_repo.dart';
@@ -10,10 +9,16 @@ import 'package:autism/features/auth/signUp/data/repo/sign_up_repo.dart';
 import 'package:autism/features/auth/signUp/view%20model/sign_up_cubit.dart';
 import 'package:autism/features/auth/verifyCode/data/repo/verify_repo.dart';
 import 'package:autism/features/auth/verifyCode/view%20model/verify_cubit.dart';
+import 'package:autism/features/community/data/repo/add_reaction_repo.dart';
 import 'package:autism/features/community/data/repo/create_post_repo.dart';
+import 'package:autism/features/community/data/repo/delete_reaction_repo.dart';
 import 'package:autism/features/community/data/repo/show_all_posts_repo.dart';
+import 'package:autism/features/community/data/repo/show_post_comments_repo.dart';
+import 'package:autism/features/community/viewModel/add_reaction_cubit/add_reaction_cubit.dart';
 import 'package:autism/features/community/viewModel/create_post_cubit/create_post_cubit.dart';
+import 'package:autism/features/community/viewModel/delete_reaction_cubit/delete_reaction_cubit.dart';
 import 'package:autism/features/community/viewModel/show_all_post_cubit.dart';
+import 'package:autism/features/community/viewModel/show_post_comments/cubit/show_post_comments_cubit.dart';
 import 'package:autism/features/home/data/repo/channel_repo.dart';
 import 'package:autism/features/home/data/repo/history_repo.dart';
 import 'package:autism/features/home/data/repo/video_repo.dart';
@@ -21,6 +26,14 @@ import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_by_id_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
 import 'package:autism/features/home/viewModel/historyCubit/history_cubit.dart';
+import 'package:autism/features/profile/data/repo/contact_info_repo.dart';
+import 'package:autism/features/profile/data/repo/edit_profile_repo.dart';
+import 'package:autism/features/profile/data/repo/profile_repo.dart';
+import 'package:autism/features/profile/data/repo/upload_image_repo.dart';
+import 'package:autism/features/profile/viewModel/contactCubit/cubit/contact_info_cubit.dart';
+import 'package:autism/features/profile/viewModel/cubit/cubit/edit_profile_cubit.dart';
+import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
+import 'package:autism/features/profile/viewModel/uploadImageCubit/cubit/upload_image_cubit.dart';
 import 'package:autism/features/resource/data/repo/resource_repo.dart';
 import 'package:autism/features/resource/viewModel/resource_cubit.dart';
 import 'package:autism/features/test/data/repo/form_repo.dart';
@@ -96,15 +109,30 @@ Future<void> setupGetIt() async {
   //create post
    getIt.registerLazySingleton<CreatePostRepo>(() => CreatePostRepo(getIt()));
    getIt.registerFactory<CreatePostCubit>(() => CreatePostCubit(getIt()));
+   //add reaction
+   getIt.registerLazySingleton<AddReactionRepo>(() => AddReactionRepo(getIt()));
+  getIt.registerFactory<AddReactionCubit>(() => AddReactionCubit(getIt()));
+  //delete reaction
+  getIt.registerLazySingleton<DeleteReactionRepo>(() => DeleteReactionRepo(getIt()));
+  getIt.registerFactory<DeleteReactionCubit>(() => DeleteReactionCubit(getIt()));
 
+  //comments
+  getIt.registerLazySingleton<ShowPostCommentsRepo>(() => ShowPostCommentsRepo(getIt()));
+  getIt.registerFactory<ShowPostCommentsCubit>(() => ShowPostCommentsCubit(getIt()));
+  //profile
+  getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt()));
+  getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt()));
 
+  getIt.registerLazySingleton<EditProfileCubit>(() => EditProfileCubit(getIt()));
+  getIt.registerFactory<EditProfileRepo>(() => EditProfileRepo(getIt()));
 
+  getIt.registerLazySingleton<UploadImageCubit>(() => UploadImageCubit(getIt()));
+  getIt.registerFactory<UploadImageRepo>(() => UploadImageRepo(getIt()));
 
+  getIt.registerLazySingleton<InternetCubit>(() => InternetCubit());
 
-
-
-
-
-
+  //contact info
+  getIt.registerLazySingleton<ContactInfoRepo>(() => ContactInfoRepo(getIt()));
+  getIt.registerFactory<ContactInfoCubit>(() => ContactInfoCubit(getIt()));
 
 }

@@ -81,7 +81,7 @@ class _ChannelListViewState extends State<ChannelListView> {
 
                 return GestureDetector(
                   onTap: () {
-                    log("=============================${channelCubit.allChannels[index].id}");
+                    //log("=============================${channelCubit.allChannels[index].id}");
                     context.push("/channelInfo",
                         extra: channelCubit.allChannels[index].id);
                   },

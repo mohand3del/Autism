@@ -9,9 +9,13 @@ class HistoryRepo {
   final ApiService _apiService;
   HistoryRepo(this._apiService);
 
-  Future<ApiResult<HistoryResponseBody>> getHistory() async {
+  Future<ApiResult<HistoryResponseBody>> getHistory(
+      int historySkip,
+      ) async {
     try {
-      final response =  await _apiService.getHistory();
+      final response =  await _apiService.getHistory(
+        historySkip: historySkip,
+      );
       return ApiResult.success(response);
     }catch(error){
       return ApiResult.failure(

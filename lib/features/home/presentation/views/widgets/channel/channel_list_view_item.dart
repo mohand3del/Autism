@@ -1,5 +1,3 @@
-
-
 import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/helper/contants.dart';
 import 'package:autism/core/utils/app_styles.dart';
@@ -15,37 +13,45 @@ class ChannelListViewItem extends StatelessWidget {
   final int? selectedIndex;
   final FullDatum? channels;
 
-  const ChannelListViewItem({super.key,  this.itemIndex,
-     this.selectedIndex,  this.channels,});
+  const ChannelListViewItem({
+    super.key,
+    this.itemIndex,
+    this.selectedIndex,
+    this.channels,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.only(start: itemIndex == 0 ? context.width * 20 / 430 : context.width * 44 / 430),
+      padding: EdgeInsetsDirectional.only(
+          start: itemIndex == 0
+              ? context.width * 20 / 393
+              : context.width * 30 / 393),
       child: Column(
         children: [
+          CircleAvatar(
+            radius: 25,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(
+                  25.0), // Same radius as the CircleAvatar
+              child: CachedNetworkImage(
+                placeholder: (context, url) => CircularProgressIndicator(
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(AppColors.primaryColor),
+                ),
+                imageUrl: channels!.thumbnails.medium.url,
 
-        CircleAvatar(
-        radius: 25,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(25.0), // Same radius as the CircleAvatar
-          child: CachedNetworkImage(
-            placeholder: (context, url) => Skeletonizer(
-                enabled: true,
-                child: Container(
-
-                )),
-            imageUrl: channels?.thumbnails.medium.url ?? "https://via.placeholder.com/150",
-            fit: BoxFit.cover,
-            height: context.height * 70 / 932,
-            width: context.width * 70 / 430,// Adjust fit as needed
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                fadeInDuration: Duration(milliseconds: 500),
+                fit: BoxFit.cover,
+                height: context.height * 70 / 932,
+                width: context.width * 70 / 430, // Adjust fit as needed
+              ),
+            ),
           ),
-        ),
-      ),
-
           verticalSpace(8),
           Text(
-          Helper.limitWords(  channels?.title ?? "Autism", 1),
+            Helper.limitWords(channels?.title ?? "Autism", 1),
             style: AppStyles.regular12(context).copyWith(
               color: AppColors.black,
               fontFamily: "Poppins",

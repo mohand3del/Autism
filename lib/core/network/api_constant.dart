@@ -35,5 +35,20 @@ class ApiConstants {
   static const String showAllResource = "resource/showAllWebsites";
   static const String showAllCommunity = "community/showAllPosts";
   static const String createPost = "community/createPost";
+  static const String addReaction = "community/post/add/reaction";
+  static const String deleteReaction = "community/post/delete/reaction";
+  static const String addComment = "community/post/add/comment";
+  static const String deleteComment = "community/post/delete/comment";
+  static const String showPostComments = "community/post/show/comments";
+  static const String getPostById = "community/post";
+  static const String contactInformation = "portfolio/contactInfo";
+  static const String editProfile = "portfolio/editProfile";
+  static const String editContactInfo = "portfolio/editContactInfo";
+  static const String editUserData = "portfolio/editUserData";
+  static const String userData = "portfolio/userData";
+  static const String aboutApp = "portfolio/aboutApp";
+  static const String uploadImage = "portfolio/imageUpload";
+ 
+
 
 }

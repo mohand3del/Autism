@@ -39,7 +39,7 @@ class FormCubit extends Cubit<FormState> {
     );
     response.when(success: (formResponseBody) =>
         emit(FormState.success(formResponseBody)), failure: (error) {
-      emit(FormState.error( error.apiErrorModel.message.toString() ?? ''));
+      emit(FormState.error( error.apiErrorModel.message.toString()));
     });
 
   }

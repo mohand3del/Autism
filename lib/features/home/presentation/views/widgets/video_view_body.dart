@@ -38,6 +38,7 @@ class _VideoViewBodyState extends State<VideoViewBody> {
       flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: false,
+        loop: false,
       ),
     );
 

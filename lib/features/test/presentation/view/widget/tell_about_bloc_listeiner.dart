@@ -56,10 +56,9 @@ class _TellAboutBlocListenerState extends State<TellAboutBlocListener> with Sing
             _animationController.repeat();
           },
           success: (tellAboutResponseBody) {
-           // context.pop(); // اغلاق صندوق التحميل أو أي نافذة أخرى مفتوحة
-            setupSuccessState(context, 'Operation completed successfully!');
 
-            // بعد إظهار الرسالة، الانتقال إلى الصفحة التالية
+           // setupSuccessState(context, 'Operation completed successfully!');
+
             Future.delayed(const Duration(seconds: 1), () {
               Navigator.push(
                 context,
@@ -80,7 +79,7 @@ class _TellAboutBlocListenerState extends State<TellAboutBlocListener> with Sing
           },
         );
       },
-      child: const SizedBox.shrink(), // Placeholder or actual child widget here
+      child: const SizedBox.shrink(),
     );
   }
 

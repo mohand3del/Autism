@@ -9,13 +9,21 @@ import 'package:autism/features/auth/signUp/data/model/sign_up_request_body.dart
 import 'package:autism/features/auth/signUp/data/model/sign_up_response.dart';
 import 'package:autism/features/auth/verifyCode/data/model/verify_request_body.dart';
 import 'package:autism/features/auth/verifyCode/data/model/verify_response_body.dart';
+import 'package:autism/features/community/data/model/add_reaction_request_body.dart';
+import 'package:autism/features/community/data/model/add_reaction_response.dart';
 import 'package:autism/features/community/data/model/create_post_response.dart';
+import 'package:autism/features/community/data/model/get_post_by_id_response.dart';
+import 'package:autism/features/community/data/model/show_post_comments_response.dart';
 import 'package:autism/features/community/data/model/show_post_response.dart';
 import 'package:autism/features/home/data/model/channel_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/channel_response_body.dart';
 import 'package:autism/features/home/data/model/history_response_body.dart';
 import 'package:autism/features/home/data/model/video_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/video_response_body.dart';
+import 'package:autism/features/profile/data/model/contact_info_model.dart';
+import 'package:autism/features/profile/data/model/edit_contact_info_model.dart';
+import 'package:autism/features/profile/data/model/profile_user_data.dart';
+import 'package:autism/features/profile/data/model/profile_user_data_response.dart';
 import 'package:autism/features/resource/data/model/recource_response_body.dart';
 import 'package:autism/features/test/data/model/form_request_body.dart';
 import 'package:autism/features/test/data/model/form_response_body.dart';
@@ -80,22 +88,16 @@ abstract class ApiService {
   Future<ChannelByIdResponseBody> getChannelById(
       {@Query("channelId") String? channelId});
   @GET(ApiConstants.getHistory)
-  Future<HistoryResponseBody> getHistory();
+  Future<HistoryResponseBody> getHistory({
+
+    @Query("historySkip") int? historySkip,
+  }
+      );
   @POST(ApiConstants.tellAbout)
   Future<TellAboutResponseBody> tellAbout(
       @Body() TellAboutRequestBody tellAboutRequestBody
       );
-  @POST("testing/childFace")
-  Future<ApiResponse> uploadChildFace(@Part(name: "file") File file);
 
-  @POST("testing/drawing")
-  Future<ApiResponse> uploadDrawing(@Part(name: "file") File file);
-
-  @POST("testing/coloring")
-  Future<ApiResponse> uploadColoring(@Part(name: "file") File file);
-
-  @POST("testing/handWriting")
-  Future<ApiResponse> uploadHandWriting(@Part(name: "file") File file);
   @POST(ApiConstants.form)
   Future<FormResponseBody> sendForm(@Body() FormRequestBody formRequestBody);
   @GET(ApiConstants.testResult)
@@ -115,5 +117,53 @@ abstract class ApiService {
 
       );
 
+  @POST(ApiConstants.addReaction)
+  Future<AddReactionResponse> addReaction(
+      @Query("postId") String postId,
+      @Body() AddReactionRequestBody addReactionRequestBody,
+      );
 
+  @DELETE(ApiConstants.deleteReaction)
+  Future<ApiResponse> deleteReaction(
+      @Query("postId") String postId,
+
+      );
+      @GET(ApiConstants.showPostComments)
+  Future<ShowPostCommentsResponse> showPostComments(
+      @Query("postId") String postId,
+      @Query("commentsSkip") int commentsSkip,
+      @Query("subcommentsSkip") int subCommentsSkip,
+      );
+      
+  @POST(ApiConstants.addComment)
+  Future<ApiResponse> addComment(
+    @Query("postId") String postId,
+    @Body() Map<String, String> commentBody,
+  );
+  @GET(ApiConstants.getPostById)
+  Future<GetPostByIdResponse> getPostById(
+      @Query("postId") String postId,
+      @Query("skip") int skip,
+      );
+  @GET(ApiConstants.userData)
+  Future<ProfileUserDataResponse> getUserData();
+    @POST(ApiConstants.editUserData)
+
+  Future<ApiResponse> editProfile(
+      @Body() ProfileUserData profileUserData,
+  );
+
+      
+  @POST(ApiConstants.uploadImage)
+  @MultiPart()
+  Future<ApiResponse> uploadImage(
+    @Body() FormData formData,
+  );
+  @GET(ApiConstants.contactInformation)
+  Future<ContactInfoModel> getContactInfo();
+  @POST(ApiConstants.editContactInfo)
+  Future<ApiResponse> editContactInfo(
+      @Body() EditContactInfoModel contactInfoModel,
+  );
+  
 }

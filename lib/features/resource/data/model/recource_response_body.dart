@@ -4,6 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'recource_response_body.g.dart';
 @JsonSerializable()
+@JsonSerializable()
 class ResourceResponseBody {
   @JsonKey(name: "fullData")
   List<FullDatum> fullData;
@@ -21,8 +22,6 @@ class ResourceResponseBody {
 class FullDatum {
   @JsonKey(name: "_id")
   String id;
-  @JsonKey(name: "pageNum")
-  int pageNum;
   @JsonKey(name: "title")
   String title;
   @JsonKey(name: "snippet")
@@ -40,7 +39,6 @@ class FullDatum {
 
   FullDatum({
     required this.id,
-    required this.pageNum,
     required this.title,
     required this.snippet,
     required this.link,

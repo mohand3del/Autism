@@ -525,7 +525,7 @@ class __$$ErrorImplCopyWithImpl<T, $Res>
     Object? error = null,
   }) {
     return _then(_$ErrorImpl<T>(
-      null == error
+      error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
@@ -536,7 +536,7 @@ class __$$ErrorImplCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$ErrorImpl<T> implements Error<T> {
-  const _$ErrorImpl(this.error);
+  const _$ErrorImpl({required this.error});
 
   @override
   final String error;
@@ -647,7 +647,7 @@ class _$ErrorImpl<T> implements Error<T> {
 }
 
 abstract class Error<T> implements CreatePostState<T> {
-  const factory Error(final String error) = _$ErrorImpl<T>;
+  const factory Error({required final String error}) = _$ErrorImpl<T>;
 
   String get error;
 

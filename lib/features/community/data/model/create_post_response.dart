@@ -44,8 +44,8 @@ class NewPost {
   int innerViewCount;
   @JsonKey(name: "commentsCount")
   int commentsCount;
-  @JsonKey(name: "reactionsNumber")
-  int reactionsNumber;
+  @JsonKey(name: "reactionsCount")
+  int reactionsCount;
   @JsonKey(name: "repostsNumber")
   int repostsNumber;
   @JsonKey(name: "likesNumber")
@@ -79,7 +79,7 @@ class NewPost {
     required this.outerViewCount,
     required this.innerViewCount,
     required this.commentsCount,
-    required this.reactionsNumber,
+    required this.reactionsCount,
     required this.repostsNumber,
     required this.likesNumber,
     required this.lovesNumber,

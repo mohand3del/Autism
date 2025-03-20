@@ -5,6 +5,10 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:autism/core/network/api_service.dart';
+import 'package:autism/features/profile/data/repo/profile_repo.dart';
+import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -13,7 +17,7 @@ import 'package:autism/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const Autism());
+    await tester.pumpWidget( Autism(profileCubit:ProfileCubit(ProfileRepo(ApiService(Dio()))),));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
