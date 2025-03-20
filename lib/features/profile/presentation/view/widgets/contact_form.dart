@@ -9,8 +9,8 @@ import 'package:autism/features/profile/data/model/edit_contact_info_model.dart'
 import 'package:autism/features/profile/data/model/profile_user_data_response.dart';
 import 'package:autism/features/profile/presentation/view/widgets/contact_profile_fileds.dart';
 import 'package:autism/features/profile/viewModel/contactCubit/cubit/contact_info_cubit.dart';
-import 'package:autism/features/profile/viewModel/cubit/cubit/edit_profile_cubit.dart';
-import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
+import 'package:autism/features/profile/viewModel/profileCubit/editCubit/edit_profile_cubit.dart';
+import 'package:autism/features/profile/viewModel/profileCubit/profile_cubit.dart';
 import 'package:autism/features/profile/viewModel/uploadImageCubit/cubit/upload_image_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

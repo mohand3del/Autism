@@ -27,10 +27,11 @@ import 'package:autism/features/layout/viewModel/layout_cubit.dart';
 import 'package:autism/features/onboarding/presentation/view/on_boarding_view.dart';
 import 'package:autism/features/profile/presentation/view/contact_view.dart';
 import 'package:autism/features/profile/presentation/view/edit_profile_view.dart';
+import 'package:autism/features/profile/presentation/view/fqas_view.dart';
 import 'package:autism/features/profile/presentation/view/profile_view.dart';
 import 'package:autism/features/profile/viewModel/contactCubit/cubit/contact_info_cubit.dart';
-import 'package:autism/features/profile/viewModel/cubit/cubit/edit_profile_cubit.dart';
-import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
+import 'package:autism/features/profile/viewModel/profileCubit/editCubit/edit_profile_cubit.dart';
+import 'package:autism/features/profile/viewModel/profileCubit/profile_cubit.dart';
 import 'package:autism/features/resource/presentation/view/resource_view.dart';
 import 'package:autism/features/resource/viewModel/resource_cubit.dart';
 import 'package:autism/features/test/presentation/view/autism_result_view.dart';
@@ -86,6 +87,7 @@ class AppRouter {
   static const String verifyCertificate = "/verifyCertificate";
   static const String contactInformation = "/contactInformation";
   static const String editProfile = "/editProfile";
+  static const String fqas = "/fqas";
 
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
@@ -360,6 +362,12 @@ class AppRouter {
           );
         },
       ),
+      GoRoute(
+        path: fqas,
+        builder: (context, state) {
+          return FqasView();
+        },
+      )
     ],
   );
 }

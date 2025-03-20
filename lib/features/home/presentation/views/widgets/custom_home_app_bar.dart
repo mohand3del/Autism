@@ -4,7 +4,7 @@ import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/core/utils/user_data_cache.dart';
 import 'package:autism/features/profile/data/model/profile_user_data_response.dart';
-import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
+import 'package:autism/features/profile/viewModel/profileCubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';

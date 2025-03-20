@@ -7,7 +7,7 @@ import 'package:autism/features/profile/data/model/profile_user_data_response.da
 import 'package:autism/features/profile/data/model/row_profile_model.dart';
 import 'package:autism/features/profile/presentation/view/widgets/profile_header.dart';
 import 'package:autism/features/profile/presentation/view/widgets/profile_section.dart';
-import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
+import 'package:autism/features/profile/viewModel/profileCubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -40,7 +40,7 @@ class ProfileViewBody extends StatelessWidget {
     RowProfileModel(
       leadingIcon: 'assets/images/FQA.svg',
       text: 'FQAS & Help',
-      routePath: '/faqs',
+      routePath: '/fqas',
     ),
     RowProfileModel(
       leadingIcon: 'assets/images/legel.svg',
