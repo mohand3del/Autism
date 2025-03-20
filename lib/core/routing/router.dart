@@ -1,4 +1,5 @@
 import 'package:autism/core/di/di.dart';
+import 'package:autism/features/about/viewModel/about_cubit.dart';
 import 'package:autism/features/auth/forgetPass/presentation/views/forget_view.dart';
 import 'package:autism/features/auth/login/presentation/view/login_view.dart';
 import 'package:autism/features/auth/login/view%20model/login_cubit.dart';
@@ -25,6 +26,8 @@ import 'package:autism/features/home/viewModel/historyCubit/history_cubit.dart';
 import 'package:autism/features/layout/view/layout_view.dart';
 import 'package:autism/features/layout/viewModel/layout_cubit.dart';
 import 'package:autism/features/onboarding/presentation/view/on_boarding_view.dart';
+import 'package:autism/features/privacy/presentation/view/privacy_view.dart';
+import 'package:autism/features/privacy/presentation/viewmodel/privacy_cubit.dart';
 import 'package:autism/features/profile/presentation/view/contact_view.dart';
 import 'package:autism/features/profile/presentation/view/edit_profile_view.dart';
 import 'package:autism/features/profile/presentation/view/fqas_view.dart';
@@ -51,6 +54,7 @@ import '../../features/auth/forgetPass/view model/forget_cubit.dart';
 import '../../features/auth/newPassword/viewModel/new_password_cubit.dart';
 import '../../features/auth/verifyCode/view model/verify_cubit.dart';
 import '../../features/splash/presentation/view/splash_screen.dart';
+import 'package:autism/features/about/presentation/view/about_view.dart';
 
 class AppRouter {
   static const splash = '/';
@@ -83,7 +87,6 @@ class AppRouter {
   static const String setting = "/setting";
   static const String about = "/about";
   static const String privacy = "/privacy";
-  static const String faqs = "/faqs";
   static const String verifyCertificate = "/verifyCertificate";
   static const String contactInformation = "/contactInformation";
   static const String editProfile = "/editProfile";
@@ -367,7 +370,25 @@ class AppRouter {
         builder: (context, state) {
           return FqasView();
         },
-      )
+      ),
+      GoRoute(
+        path: about,
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => AboutCubit(getIt()),
+            child: const AboutView(),
+          );
+        },
+      ),
+      GoRoute(
+        path: privacy,
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => PrivacyCubit()..loadLegalInfo(),
+            child: PrivacyView(),
+          );
+        },
+      ),
     ],
   );
 }

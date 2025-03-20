@@ -69,6 +69,7 @@ dependencies:
   timeago: ^3.7.0
   webview_flutter: ^4.9.0
   youtube_player_flutter: ^9.1.1
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_lints: ^4.0.0

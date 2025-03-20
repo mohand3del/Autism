@@ -26,6 +26,8 @@ import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_by_id_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
 import 'package:autism/features/home/viewModel/historyCubit/history_cubit.dart';
+import 'package:autism/features/privacy/data/repositories/legal_info_repository.dart';
+import 'package:autism/features/privacy/presentation/viewmodel/privacy_cubit.dart';
 import 'package:autism/features/profile/data/repo/contact_info_repo.dart';
 import 'package:autism/features/profile/data/repo/edit_profile_repo.dart';
 import 'package:autism/features/profile/data/repo/profile_repo.dart';
@@ -47,13 +49,12 @@ import 'package:get_it/get_it.dart';
 
 import '../../features/auth/forgetPass/data/repo/forget_repo.dart';
 import '../network/api_service.dart';
+import 'package:autism/features/about/data/repo/about_repo.dart';
+import 'package:autism/features/about/viewModel/about_cubit.dart';
 
 final getIt = GetIt.instance;
 
-
-
 Future<void> setupGetIt() async {
-
   // Dio & ApiService
   Dio dio = DioFactory.getDio();
   getIt.registerLazySingleton<ApiService>(() => ApiService(dio));
@@ -103,30 +104,37 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<ResourceRepo>(() => ResourceRepo(getIt()));
   getIt.registerFactory<ResourceCubit>(() => ResourceCubit(getIt()));
   //community
-  getIt.registerLazySingleton<  ShowAllPostsRepo>(() => ShowAllPostsRepo(getIt()));
+  getIt
+      .registerLazySingleton<ShowAllPostsRepo>(() => ShowAllPostsRepo(getIt()));
   getIt.registerFactory<ShowAllPostCubit>(() => ShowAllPostCubit(getIt()));
 
   //create post
-   getIt.registerLazySingleton<CreatePostRepo>(() => CreatePostRepo(getIt()));
-   getIt.registerFactory<CreatePostCubit>(() => CreatePostCubit(getIt()));
-   //add reaction
-   getIt.registerLazySingleton<AddReactionRepo>(() => AddReactionRepo(getIt()));
+  getIt.registerLazySingleton<CreatePostRepo>(() => CreatePostRepo(getIt()));
+  getIt.registerFactory<CreatePostCubit>(() => CreatePostCubit(getIt()));
+  //add reaction
+  getIt.registerLazySingleton<AddReactionRepo>(() => AddReactionRepo(getIt()));
   getIt.registerFactory<AddReactionCubit>(() => AddReactionCubit(getIt()));
   //delete reaction
-  getIt.registerLazySingleton<DeleteReactionRepo>(() => DeleteReactionRepo(getIt()));
-  getIt.registerFactory<DeleteReactionCubit>(() => DeleteReactionCubit(getIt()));
+  getIt.registerLazySingleton<DeleteReactionRepo>(
+      () => DeleteReactionRepo(getIt()));
+  getIt
+      .registerFactory<DeleteReactionCubit>(() => DeleteReactionCubit(getIt()));
 
   //comments
-  getIt.registerLazySingleton<ShowPostCommentsRepo>(() => ShowPostCommentsRepo(getIt()));
-  getIt.registerFactory<ShowPostCommentsCubit>(() => ShowPostCommentsCubit(getIt()));
+  getIt.registerLazySingleton<ShowPostCommentsRepo>(
+      () => ShowPostCommentsRepo(getIt()));
+  getIt.registerFactory<ShowPostCommentsCubit>(
+      () => ShowPostCommentsCubit(getIt()));
   //profile
   getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt()));
   getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt()));
 
-  getIt.registerLazySingleton<EditProfileCubit>(() => EditProfileCubit(getIt()));
+  getIt
+      .registerLazySingleton<EditProfileCubit>(() => EditProfileCubit(getIt()));
   getIt.registerFactory<EditProfileRepo>(() => EditProfileRepo(getIt()));
 
-  getIt.registerLazySingleton<UploadImageCubit>(() => UploadImageCubit(getIt()));
+  getIt
+      .registerLazySingleton<UploadImageCubit>(() => UploadImageCubit(getIt()));
   getIt.registerFactory<UploadImageRepo>(() => UploadImageRepo(getIt()));
 
   getIt.registerLazySingleton<InternetCubit>(() => InternetCubit());
@@ -134,5 +142,12 @@ Future<void> setupGetIt() async {
   //contact info
   getIt.registerLazySingleton<ContactInfoRepo>(() => ContactInfoRepo(getIt()));
   getIt.registerFactory<ContactInfoCubit>(() => ContactInfoCubit(getIt()));
+
+  getIt.registerLazySingleton<AboutRepo>(() => AboutRepo());
+  getIt.registerFactory<AboutCubit>(() => AboutCubit(getIt()));
+
+  //legle
+   getIt.registerLazySingleton<LegalInfoRepository>(() => LegalInfoRepository());  
+   getIt.registerFactory<PrivacyCubit>(() => PrivacyCubit());
 
 }
