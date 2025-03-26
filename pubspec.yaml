@@ -57,6 +57,7 @@ dependencies:
   json_serializable: ^6.7.1
   logger: ^2.4.0
   lottie: ^3.2.0
+  native_ios_dialog: ^0.2.1
   pin_code_fields: ^8.0.1
   pretty_dio_logger: ^1.4.0
   quickalert: ^1.1.0
@@ -67,9 +68,9 @@ dependencies:
   skeletonizer: ^1.4.2
   step_progress_indicator: ^1.0.2
   timeago: ^3.7.0
+  url_launcher: ^6.1.11
   webview_flutter: ^4.9.0
   youtube_player_flutter: ^9.1.1
-  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_lints: ^4.0.0

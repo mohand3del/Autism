@@ -3,11 +3,13 @@ import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/core/utils/user_data_cache.dart';
+import 'package:autism/core/helper/shared_preferences_helper.dart';
 import 'package:autism/features/profile/data/model/profile_user_data_response.dart';
 import 'package:autism/features/profile/data/model/row_profile_model.dart';
 import 'package:autism/features/profile/presentation/view/widgets/profile_header.dart';
 import 'package:autism/features/profile/presentation/view/widgets/profile_section.dart';
 import 'package:autism/features/profile/viewModel/profileCubit/profile_cubit.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -137,22 +139,53 @@ class ProfileViewBody extends StatelessWidget {
         //verticalSpace(12),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              GestureDetector(
-                child: SvgPicture.asset('assets/images/logout.svg',
+          child: GestureDetector(
+            onTap: () => _showLogoutDialog(context),
+            child: Row(
+              children: [
+                SvgPicture.asset('assets/images/logout.svg',
                     width: 24, height: 24),
-              ),
-              horizontalSpace(10),
-              Text(
-                'Logout',
-                style: AppStyles.regular20(context).copyWith(
-                    color: const Color(0xffD20707), fontFamily: "Poppins"),
-              )
-            ],
+                horizontalSpace(10),
+                Text(
+                  'Logout',
+                  style: AppStyles.regular20(context).copyWith(
+                      color: const Color(0xffD20707), fontFamily: "Poppins"),
+                )
+              ],
+            ),
           ),
         ),
       ],
+    );
+  }
+
+  void _showLogoutDialog(BuildContext context) {
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: const Text('Log Out?'),
+          content: const Text('Are you sure you want to log out?'),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child:  const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            CupertinoDialogAction(
+              child:   Text('Log out'),
+              isDestructiveAction: true,
+              onPressed: () async {
+                // Clear authentication token
+                await SharedPrefHelper.logout();
+                Navigator.of(context).pop();
+                context.go('/login');
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

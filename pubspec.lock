@@ -850,6 +850,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.6"
+  native_ios_dialog:
+    dependency: "direct main"
+    description:
+      name: native_ios_dialog
+      sha256: "52d4fc40af7b0e832b23d5d061ad7e8e31b5a992a1125616e63960404be12e1c"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.1"
   nested:
     dependency: transitive
     description:
