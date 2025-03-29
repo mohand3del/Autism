@@ -16,12 +16,14 @@ import 'package:autism/features/community/viewModel/show_all_post_cubit.dart';
 import 'package:autism/features/home/presentation/views/channel_info_view.dart';
 import 'package:autism/features/home/presentation/views/channel_view.dart';
 import 'package:autism/features/home/presentation/views/explore_view.dart';
+import 'package:autism/features/home/presentation/views/favorite_view.dart';
 import 'package:autism/features/home/presentation/views/history_view.dart';
 import 'package:autism/features/home/presentation/views/home_view.dart';
 import 'package:autism/features/home/presentation/views/video_view.dart';
 import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_by_id_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
+import 'package:autism/features/home/viewModel/favorateCubit/cubit/favorite_cubit.dart';
 import 'package:autism/features/home/viewModel/historyCubit/history_cubit.dart';
 import 'package:autism/features/layout/view/layout_view.dart';
 import 'package:autism/features/layout/viewModel/layout_cubit.dart';
@@ -91,6 +93,7 @@ class AppRouter {
   static const String contactInformation = "/contactInformation";
   static const String editProfile = "/editProfile";
   static const String fqas = "/fqas";
+  static const String favorite = "/favorite";
 
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
@@ -389,6 +392,16 @@ class AppRouter {
           );
         },
       ),
+      GoRoute(
+        path: favorite,
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) =>
+                FavoriteCubit(getIt())..getFavoriteVideos(skipVideo: 0),
+            child: FavoriteView(),
+          );
+        },
+      )
     ],
   );
 }

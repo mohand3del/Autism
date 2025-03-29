@@ -79,7 +79,7 @@ class CustomHomeAppBar extends StatelessWidget {
                       ),
                       color: AppColors.black,
                       onPressed: () {
-                        // GoRouter.of(context).go('/profile');
+                        GoRouter.of(context).push('/favorite');
                       },
                     ),
                   ],

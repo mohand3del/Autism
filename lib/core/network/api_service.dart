@@ -17,6 +17,7 @@ import 'package:autism/features/community/data/model/show_post_comments_response
 import 'package:autism/features/community/data/model/show_post_response.dart';
 import 'package:autism/features/home/data/model/channel_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/channel_response_body.dart';
+import 'package:autism/features/home/data/model/favorite_video_response_model.dart';
 import 'package:autism/features/home/data/model/history_response_body.dart';
 import 'package:autism/features/home/data/model/video_by_id_response_body.dart';
 import 'package:autism/features/home/data/model/video_response_body.dart';
@@ -164,6 +165,10 @@ abstract class ApiService {
   @POST(ApiConstants.editContactInfo)
   Future<ApiResponse> editContactInfo(
       @Body() EditContactInfoModel contactInfoModel,
+  );
+  @GET(ApiConstants.favoriteVideo)
+  Future<FavoriteVideoResponseModel> showFavoriteVideo(
+     @Query("favoriteSkip") int favoriteSkip,
   );
   
 }
