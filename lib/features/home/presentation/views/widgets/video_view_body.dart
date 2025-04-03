@@ -1,9 +1,11 @@
-
 import 'package:autism/core/helper/contants.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/features/home/data/model/video_by_id_response_body.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:autism/features/home/viewModel/favorateCubit/cubit/add_to_favorite_cubit.dart';
+import 'package:autism/features/home/viewModel/favorateCubit/cubit/remove_from_favorite_cubit.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -15,13 +17,12 @@ import 'description_widget.dart';
 import 'video_bloc_builder.dart';
 
 class VideoViewBody extends StatefulWidget {
-
   final String? videoId;
   final Vedio? videoData;
   final Channel? channelData;
 
   const VideoViewBody(
-      {super.key,this.videoId, this.videoData, this.channelData});
+      {super.key, this.videoId, this.videoData, this.channelData});
 
   @override
   State<VideoViewBody> createState() => _VideoViewBodyState();
@@ -29,19 +30,35 @@ class VideoViewBody extends StatefulWidget {
 
 class _VideoViewBodyState extends State<VideoViewBody> {
   late YoutubePlayerController _controller;
+  bool isFavorite = false;
 
   @override
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: widget.videoId.toString() ,
+      initialVideoId: widget.videoId.toString(),
       flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: false,
         loop: false,
       ),
     );
+    // Initialize favorite state if needed
+  }
 
+  void toggleFavorite(BuildContext context) {
+    if (isFavorite) {
+      context
+          .read<RemoveFromFavoriteCubit>()
+          .removeFromFavorite(videoId: widget.videoId!);
+    } else {
+      context
+          .read<AddToFavoriteCubit>()
+          .addToFavorite(videoId: widget.videoId!);
+    }
+    setState(() {
+      isFavorite = !isFavorite;
+    });
   }
 
   @override
@@ -85,8 +102,16 @@ class _VideoViewBodyState extends State<VideoViewBody> {
                     ),
                   ),
                   horizontalSpace(context.width * 11 / 393),
-                  const Icon(Icons.favorite_border_outlined,
-                      size: 28, color: Colors.grey),
+                  GestureDetector(
+                    onTap: () => toggleFavorite(context),
+                    child: Icon(
+                      isFavorite
+                          ? Icons.favorite
+                          : Icons.favorite_border_outlined,
+                      size: 28,
+                      color: isFavorite ? Colors.red : Colors.grey,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -97,17 +122,22 @@ class _VideoViewBodyState extends State<VideoViewBody> {
               ),
               child: Row(
                 children: [
-                  Text('${widget.videoData?.viewCount} Views'?? 'No Views',
+                  Text(
+                    '${widget.videoData?.viewCount} Views' ?? 'No Views',
                     style: AppStyles.regular12(context).copyWith(
                       fontFamily: "Poppins",
                       color: Colors.grey,
                     ),
                   ),
                   horizontalSpace(context.width * 12 / 393),
-                  Text(Helper.limitWords(widget.videoData?.publishedAt.toString()?? 'No Date', 1) ,
+                  Text(
+                    Helper.limitWords(
+                        widget.videoData?.publishedAt.toString() ?? 'No Date',
+                        1),
                     style: AppStyles.regular12(context).copyWith(
                       fontFamily: "Poppins",
-                      color: Colors.grey,),
+                      color: Colors.grey,
+                    ),
                   )
                 ],
               ),
@@ -121,7 +151,8 @@ class _VideoViewBodyState extends State<VideoViewBody> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      context.push('/channelInfo',extra: widget.channelData?.id as String);
+                      context.push('/channelInfo',
+                          extra: widget.channelData?.id as String);
                     },
                     child: CircleAvatar(
                       radius: 22,
@@ -129,9 +160,9 @@ class _VideoViewBodyState extends State<VideoViewBody> {
                         borderRadius: BorderRadius.circular(22.0),
                         child: CachedNetworkImage(
                           imageUrl:
-                          widget.channelData?.thumbnails.high.url ?? '',
+                              widget.channelData?.thumbnails.high.url ?? '',
                           errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
+                              const Icon(Icons.error),
                         ),
                       ),
                     ),
@@ -143,32 +174,30 @@ class _VideoViewBodyState extends State<VideoViewBody> {
                       children: [
                         Text(
                           Helper.limitWords(
-                              widget.channelData?.title ?? 'No Description',
-                              3),
+                              widget.channelData?.title ?? 'No Description', 3),
                           style: AppStyles.medium13(context).copyWith(
                             fontFamily: "Poppins",
                           ),
                         ),
-
                         Container(
                           height: 30,
                           width: 83,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(27.0),
                             color: const Color(0xff81AEF1),
-
                           ),
                           child: Center(
-                              child:  Text(
-                                Helper.formatNumber(widget.channelData?.subscriberCount.toString()  ) ?? 'No Subscribers',
-                                style: AppStyles.regular16(context).copyWith(
-                                  fontFamily: "Poppins",
-                                  color: Colors.white,
-                                ),
-                              )
-                          ),
+                              child: Text(
+                            Helper.formatNumber(widget
+                                    .channelData?.subscriberCount
+                                    .toString()) ??
+                                'No Subscribers',
+                            style: AppStyles.regular16(context).copyWith(
+                              fontFamily: "Poppins",
+                              color: Colors.white,
+                            ),
+                          )),
                         ),
-
                       ],
                     ),
                   ),
@@ -176,7 +205,9 @@ class _VideoViewBodyState extends State<VideoViewBody> {
               ),
             ),
             verticalSpace(context.height * 12 / 852),
-            DescriptionWidget(  description: widget.videoData?.description??'No Description',),
+            DescriptionWidget(
+              description: widget.videoData?.description ?? 'No Description',
+            ),
             verticalSpace(context.height * 12 / 852),
             const VideoBlocBuilder(),
           ],

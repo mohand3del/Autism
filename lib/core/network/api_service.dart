@@ -51,23 +51,23 @@ abstract class ApiService {
 
   @POST(ApiConstants.signup)
   Future<SignUpResponse> signup(
-      @Body() SignUpRequestBody signupRequestBody,
-      );
+    @Body() SignUpRequestBody signupRequestBody,
+  );
 
   @POST(ApiConstants.forgetPassword)
   Future<ForgetResponseBody> forgetPassword(
-      @Body() ForgetRequestBody forgetPasswordRequestBody,
-      );
+    @Body() ForgetRequestBody forgetPasswordRequestBody,
+  );
 
   @POST(ApiConstants.verifyCode)
   Future<VerifyResponseBody> verifyCode(
-      @Body() VerifyRequestBody verifyCodeRequestBody,
-      );
+    @Body() VerifyRequestBody verifyCodeRequestBody,
+  );
 
   @POST(ApiConstants.newPassword)
   Future<NewPasswordResponseBody> newPassword(
-      @Body() NewPasswordRequestBody newPasswordRequestBody,
-      );
+    @Body() NewPasswordRequestBody newPasswordRequestBody,
+  );
 
   @GET(ApiConstants.showAllVideo)
   Future<VideoResponseBody> showAllVideos({
@@ -90,52 +90,47 @@ abstract class ApiService {
       {@Query("channelId") String? channelId});
   @GET(ApiConstants.getHistory)
   Future<HistoryResponseBody> getHistory({
-
     @Query("historySkip") int? historySkip,
-  }
-      );
+  });
   @POST(ApiConstants.tellAbout)
   Future<TellAboutResponseBody> tellAbout(
-      @Body() TellAboutRequestBody tellAboutRequestBody
-      );
+      @Body() TellAboutRequestBody tellAboutRequestBody);
 
   @POST(ApiConstants.form)
   Future<FormResponseBody> sendForm(@Body() FormRequestBody formRequestBody);
   @GET(ApiConstants.testResult)
-  Future<TestResultResponse>getTestResult();
+  Future<TestResultResponse> getTestResult();
 
   @GET(ApiConstants.showAllResource)
-  Future<ResourceResponseBody> showAllWebsites(
-      {@Query("page") int? page,
-        @Query("number") int? number = 20,
+  Future<ResourceResponseBody> showAllWebsites({
+    @Query("page") int? page,
+    @Query("number") int? number = 20,
   });
   @GET(ApiConstants.showAllCommunity)
   Future<ShowPostsResponse> showAllPosts();
 
   @POST(ApiConstants.createPost)
   Future<CreatePostResponse> createPost(
-     @Body() FormData formData,
-
-      );
+    @Body() FormData formData,
+  );
 
   @POST(ApiConstants.addReaction)
   Future<AddReactionResponse> addReaction(
-      @Query("postId") String postId,
-      @Body() AddReactionRequestBody addReactionRequestBody,
-      );
+    @Query("postId") String postId,
+    @Body() AddReactionRequestBody addReactionRequestBody,
+  );
 
   @DELETE(ApiConstants.deleteReaction)
   Future<ApiResponse> deleteReaction(
-      @Query("postId") String postId,
-
-      );
-      @GET(ApiConstants.showPostComments)
+    @Query("postId") String postId,
+  );
+  @GET(ApiConstants.showPostComments)
   Future<ShowPostCommentsResponse> showPostComments(
-      @Query("postId") String postId,
-      @Query("commentsSkip") int commentsSkip,
-      @Query("subcommentsSkip") int subCommentsSkip,
-      );
-      
+    @Query("postId") String postId,
+    @Query("commentsSkip") int commentsSkip,
+    @Query("subcommentsSkip") int subCommentsSkip,
+  );
+
   @POST(ApiConstants.addComment)
   Future<ApiResponse> addComment(
     @Query("postId") String postId,
@@ -143,18 +138,16 @@ abstract class ApiService {
   );
   @GET(ApiConstants.getPostById)
   Future<GetPostByIdResponse> getPostById(
-      @Query("postId") String postId,
-      @Query("skip") int skip,
-      );
+    @Query("postId") String postId,
+    @Query("skip") int skip,
+  );
   @GET(ApiConstants.userData)
   Future<ProfileUserDataResponse> getUserData();
-    @POST(ApiConstants.editUserData)
-
+  @POST(ApiConstants.editUserData)
   Future<ApiResponse> editProfile(
-      @Body() ProfileUserData profileUserData,
+    @Body() ProfileUserData profileUserData,
   );
 
-      
   @POST(ApiConstants.uploadImage)
   @MultiPart()
   Future<ApiResponse> uploadImage(
@@ -164,11 +157,23 @@ abstract class ApiService {
   Future<ContactInfoModel> getContactInfo();
   @POST(ApiConstants.editContactInfo)
   Future<ApiResponse> editContactInfo(
-      @Body() EditContactInfoModel contactInfoModel,
+    @Body() EditContactInfoModel contactInfoModel,
   );
   @GET(ApiConstants.favoriteVideo)
   Future<FavoriteVideoResponseModel> showFavoriteVideo(
-     @Query("favoriteSkip") int favoriteSkip,
+    @Query("favoriteSkip") int favoriteSkip,
   );
-  
+
+  @POST(ApiConstants.addToFavorite)
+  Future<ApiResponse> addToFavorite(
+    @Query("videoId") String videoId,
+  );
+
+  @DELETE(ApiConstants.deleteFavorite)
+  Future<ApiResponse> removeFromFavorite(
+    @Query("videoId") String videoId,
+  );
+
+  @DELETE(ApiConstants.deleteAllFavorites)
+  Future<ApiResponse> deleteAllFavorites();
 }

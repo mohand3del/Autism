@@ -44,8 +44,13 @@ class _FavoriteVideosBlocBuilderState extends State<FavoriteVideosBlocBuilder> {
           setState(() {
             _isLoading = false;
             _hasError = false;
-            if (state.data.fullData != null) {
-              _favoriteVideos.add(state.data.fullData);
+
+            // Add all videos from the response to the list
+            if (state.data.fullData.videos.isNotEmpty) {
+              _favoriteVideos.addAll(state.data.fullData.videos.map((video) =>
+                  FullData(
+                      videos: [video],
+                      channels: state.data.fullData.channels)));
             }
           });
         } else if (state is Error) {

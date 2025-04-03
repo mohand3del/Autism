@@ -49,7 +49,7 @@ class ApiConstants {
   static const String aboutApp = "portfolio/aboutApp";
   static const String uploadImage = "portfolio/imageUpload";
   static const String favoriteVideo = "home/favorite/show";
- 
-
-
+  static const String addToFavorite = "home/favorite/add";
+  static const String deleteFavorite = "home/favorite/delete";
+  static const String deleteAllFavorites = "home/favorite/deleteAll";
 }

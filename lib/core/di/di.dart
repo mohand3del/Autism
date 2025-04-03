@@ -26,7 +26,9 @@ import 'package:autism/features/home/data/repo/video_repo.dart';
 import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_by_id_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
+import 'package:autism/features/home/viewModel/favorateCubit/cubit/add_to_favorite_cubit.dart';
 import 'package:autism/features/home/viewModel/favorateCubit/cubit/favorite_cubit.dart';
+import 'package:autism/features/home/viewModel/favorateCubit/cubit/remove_from_favorite_cubit.dart';
 import 'package:autism/features/home/viewModel/historyCubit/history_cubit.dart';
 import 'package:autism/features/privacy/data/repositories/legal_info_repository.dart';
 import 'package:autism/features/privacy/presentation/viewmodel/privacy_cubit.dart';
@@ -149,10 +151,17 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<AboutCubit>(() => AboutCubit(getIt()));
 
   //legle
-   getIt.registerLazySingleton<LegalInfoRepository>(() => LegalInfoRepository());  
-   getIt.registerFactory<PrivacyCubit>(() => PrivacyCubit());
-   //favorite
-    getIt.registerLazySingleton<FavoriteVideoRepo>(() => FavoriteVideoRepo(getIt()));
-    getIt.registerFactory<FavoriteCubit>(() => FavoriteCubit(getIt()));
+  getIt.registerLazySingleton<LegalInfoRepository>(() => LegalInfoRepository());
+  getIt.registerFactory<PrivacyCubit>(() => PrivacyCubit());
+  //favorite
+  getIt.registerLazySingleton<FavoriteVideoRepo>(
+      () => FavoriteVideoRepo(getIt()));
+  getIt.registerFactory<FavoriteCubit>(() => FavoriteCubit(getIt()));
+  // add to favorite
+//
+  getIt.registerFactory<AddToFavoriteCubit>(() => AddToFavoriteCubit(getIt()));
+  // remove from favorite
 
+  getIt.registerFactory<RemoveFromFavoriteCubit>(
+      () => RemoveFromFavoriteCubit(getIt()));
 }

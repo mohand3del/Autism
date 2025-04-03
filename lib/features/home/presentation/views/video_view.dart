@@ -33,7 +33,7 @@ class _VideoViewState extends State<VideoView> {
 
 
 
-    log('id from video view: ${widget.videoId}');
+    //log('id from video view: ${widget.videoId}');
     _videoFuture = context.read<VideoByIdCubit>().getVideoById(videoId: widget.videoId);
   }
 
