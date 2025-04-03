@@ -7,7 +7,7 @@
 
 import 'package:autism/core/network/api_service.dart';
 import 'package:autism/features/profile/data/repo/profile_repo.dart';
-import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
+import 'package:autism/features/profile/viewModel/profileCubit/profile_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

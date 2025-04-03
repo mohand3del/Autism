@@ -1,4 +1,5 @@
 import 'package:autism/core/di/di.dart';
+import 'package:autism/features/about/viewModel/about_cubit.dart';
 import 'package:autism/features/auth/forgetPass/presentation/views/forget_view.dart';
 import 'package:autism/features/auth/login/presentation/view/login_view.dart';
 import 'package:autism/features/auth/login/view%20model/login_cubit.dart';
@@ -15,22 +16,27 @@ import 'package:autism/features/community/viewModel/show_all_post_cubit.dart';
 import 'package:autism/features/home/presentation/views/channel_info_view.dart';
 import 'package:autism/features/home/presentation/views/channel_view.dart';
 import 'package:autism/features/home/presentation/views/explore_view.dart';
+import 'package:autism/features/home/presentation/views/favorite_view.dart';
 import 'package:autism/features/home/presentation/views/history_view.dart';
 import 'package:autism/features/home/presentation/views/home_view.dart';
 import 'package:autism/features/home/presentation/views/video_view.dart';
 import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_by_id_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
+import 'package:autism/features/home/viewModel/favorateCubit/cubit/favorite_cubit.dart';
 import 'package:autism/features/home/viewModel/historyCubit/history_cubit.dart';
 import 'package:autism/features/layout/view/layout_view.dart';
 import 'package:autism/features/layout/viewModel/layout_cubit.dart';
 import 'package:autism/features/onboarding/presentation/view/on_boarding_view.dart';
+import 'package:autism/features/privacy/presentation/view/privacy_view.dart';
+import 'package:autism/features/privacy/presentation/viewmodel/privacy_cubit.dart';
 import 'package:autism/features/profile/presentation/view/contact_view.dart';
 import 'package:autism/features/profile/presentation/view/edit_profile_view.dart';
+import 'package:autism/features/profile/presentation/view/fqas_view.dart';
 import 'package:autism/features/profile/presentation/view/profile_view.dart';
 import 'package:autism/features/profile/viewModel/contactCubit/cubit/contact_info_cubit.dart';
-import 'package:autism/features/profile/viewModel/cubit/cubit/edit_profile_cubit.dart';
-import 'package:autism/features/profile/viewModel/cubit/profile_cubit.dart';
+import 'package:autism/features/profile/viewModel/profileCubit/editCubit/edit_profile_cubit.dart';
+import 'package:autism/features/profile/viewModel/profileCubit/profile_cubit.dart';
 import 'package:autism/features/resource/presentation/view/resource_view.dart';
 import 'package:autism/features/resource/viewModel/resource_cubit.dart';
 import 'package:autism/features/test/presentation/view/autism_result_view.dart';
@@ -50,6 +56,7 @@ import '../../features/auth/forgetPass/view model/forget_cubit.dart';
 import '../../features/auth/newPassword/viewModel/new_password_cubit.dart';
 import '../../features/auth/verifyCode/view model/verify_cubit.dart';
 import '../../features/splash/presentation/view/splash_screen.dart';
+import 'package:autism/features/about/presentation/view/about_view.dart';
 
 class AppRouter {
   static const splash = '/';
@@ -82,10 +89,11 @@ class AppRouter {
   static const String setting = "/setting";
   static const String about = "/about";
   static const String privacy = "/privacy";
-  static const String faqs = "/faqs";
   static const String verifyCertificate = "/verifyCertificate";
   static const String contactInformation = "/contactInformation";
   static const String editProfile = "/editProfile";
+  static const String fqas = "/fqas";
+  static const String favorite = "/favorite";
 
   static final GoRouter router = GoRouter(
     routes: <RouteBase>[
@@ -360,6 +368,40 @@ class AppRouter {
           );
         },
       ),
+      GoRoute(
+        path: fqas,
+        builder: (context, state) {
+          return FqasView();
+        },
+      ),
+      GoRoute(
+        path: about,
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => AboutCubit(getIt()),
+            child: const AboutView(),
+          );
+        },
+      ),
+      GoRoute(
+        path: privacy,
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => PrivacyCubit()..loadLegalInfo(),
+            child: PrivacyView(),
+          );
+        },
+      ),
+      GoRoute(
+        path: favorite,
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) =>
+                FavoriteCubit(getIt())..getFavoriteVideos(skipVideo: 0),
+            child: FavoriteView(),
+          );
+        },
+      )
     ],
   );
 }
