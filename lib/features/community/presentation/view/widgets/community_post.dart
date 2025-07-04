@@ -155,6 +155,39 @@ class _CommunityPostState extends State<CommunityPost> {
                     style: const TextStyle(fontSize: 14),
                   ),
                 ),
+                // Display images under post text if images are not null or empty
+                if (widget.data?.post.images != null &&
+                    widget.data!.post.images.isNotEmpty)
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3, // 3 images per row
+                        crossAxisSpacing: 6,
+                        mainAxisSpacing: 6,
+                        childAspectRatio: 1,
+                      ),
+                      itemCount: widget.data!.post.images.length,
+                      itemBuilder: (context, index) {
+                        final imageUrl =
+                            widget.data!.post.images[index].toString();
+                        if (imageUrl.isEmpty) return const SizedBox.shrink();
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            imageUrl,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const SizedBox.shrink(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 verticalSpace(context.height * 10 / 851),
 
                 // Reaction row
@@ -222,21 +255,20 @@ class _CommunityPostState extends State<CommunityPost> {
                       text: 'Comment',
                       onTap: () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) =>
-                                  getIt<ShowPostCommentsCubit>()
-                                    ..getPostComments(widget.postId ?? ''),
-                              child: CommentView(
-                                postId: widget.postId ?? '',
-                                post: widget.post, // Add this
-                                user: widget.user, // Add this
-                                data: widget.data,
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (context) =>
+                                    getIt<ShowPostCommentsCubit>()
+                                      ..getPostComments(widget.postId ?? ''),
+                                child: CommentView(
+                                  postId: widget.postId ?? '',
+                                  post: widget.post, // Add this
+                                  user: widget.user, // Add this
+                                  data: widget.data,
+                                ),
                               ),
-                            ),
-                          ),
-                        );
+                            ));
                       },
                     ),
                     PostActionButton(

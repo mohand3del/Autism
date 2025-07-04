@@ -152,7 +152,7 @@ class _ImageMethodSectionState extends State<ImageMethodSection>
     if (widget.currentImageStep < widget.selectedMethods.length) {
       widget.onNextStep();
     } else {
-      GoRouter.of(context).go('/resultTest');
+      GoRouter.of(context).go('/testResult');
     }
   }
 }
