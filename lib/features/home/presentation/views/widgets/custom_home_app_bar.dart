@@ -13,7 +13,14 @@ import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class CustomHomeAppBar extends StatelessWidget {
-  const CustomHomeAppBar({super.key});
+  final bool showWelcome;
+  final VoidCallback? onIconPressed;
+ final String? assetPath ;
+  const CustomHomeAppBar({
+    super.key,
+    this.showWelcome = false,
+    this.onIconPressed, this.assetPath,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +51,6 @@ class CustomHomeAppBar extends StatelessWidget {
                           backgroundImage: userData?.user.image.isNotEmpty ==
                                   true
                               ? NetworkImage(userData!.user.image)
-                                  as ImageProvider
                               : const AssetImage('assets/images/userImage.png'),
                         ),
                       ),
@@ -53,13 +59,14 @@ class CustomHomeAppBar extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Hello, Welcome!',
-                          style: AppStyles.regular16(context).copyWith(
-                            fontFamily: "Poppins",
-                            color: const Color(0xff989898),
+                        if (showWelcome)
+                          Text(
+                            'Hello, Welcome!',
+                            style: AppStyles.regular16(context).copyWith(
+                              fontFamily: "Poppins",
+                              color: const Color(0xff989898),
+                            ),
                           ),
-                        ),
                         Text(
                           userData?.user.name.isNotEmpty == true
                               ? userData!.user.name
@@ -72,15 +79,10 @@ class CustomHomeAppBar extends StatelessWidget {
                       ],
                     ),
                     const Spacer(),
-                    IconButton(
-                      icon: Center(
-                        child: SvgPicture.asset(
-                            "assets/images/fav_video_icon.svg"),
-                      ),
-                      color: AppColors.black,
-                      onPressed: () {
-                        GoRouter.of(context).push('/favorite');
-                      },
+                    HomeAppBarIconButton(
+                      assetPath: assetPath ?? "assets/images/fav_video_icon.svg" ,
+                      onPressed: onIconPressed ??
+                          () => GoRouter.of(context).push('/favorite'),
                     ),
                   ],
                 ),
@@ -89,6 +91,28 @@ class CustomHomeAppBar extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+class HomeAppBarIconButton extends StatelessWidget {
+  final String assetPath;
+  final VoidCallback onPressed;
+
+  const HomeAppBarIconButton({
+    super.key,
+    required this.assetPath,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Center(
+        child: SvgPicture.asset(assetPath),
+      ),
+      color: AppColors.black,
+      onPressed: onPressed,
     );
   }
 }

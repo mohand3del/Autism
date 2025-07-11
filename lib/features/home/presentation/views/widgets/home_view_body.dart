@@ -28,7 +28,10 @@ class HomeViewBody extends StatelessWidget {
           child: Column(
             children: [
               verticalSpace(context.height * 15 / 852),
-              const CustomHomeAppBar(),
+              const CustomHomeAppBar(
+                showWelcome: true,
+                assetPath: "assets/images/fav_video_icon.svg",
+              ),
               verticalSpace(context.height * 10 / 852),
               const Divider(),
               verticalSpace(context.height * 20 / 852),

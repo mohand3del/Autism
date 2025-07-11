@@ -3,6 +3,7 @@ import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/core/widgets/custom_bottom.dart';
+import 'package:autism/features/home/presentation/views/widgets/custom_home_app_bar.dart';
 import 'package:autism/features/test/presentation/view/tell_us_about_view.dart';
 import 'package:flutter/material.dart';
 
@@ -14,10 +15,15 @@ class MethodSelectionPage extends StatefulWidget {
 }
 
 class _MethodSelectionPageState extends State<MethodSelectionPage> {
-  final List<String> _methods = ['Form', 'Picture', 'Drawing', 'Coloring', 'Hand Right'];
+  final List<String> _methods = [
+    'Form',
+    'Picture',
+    'Drawing',
+    'Coloring',
+    'Hand Right'
+  ];
 
   final List<String> _selectedMethods = [];
-
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +33,13 @@ class _MethodSelectionPageState extends State<MethodSelectionPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            CustomHomeAppBar(
+              showWelcome: false,
+              assetPath: 'assets/images/test_history_icon.svg',
+              onIconPressed: () {
+                Navigator.pushNamed(context, '/testHistory');
+              },
+            ),
             verticalSpace(context.height * 0.013),
             const Divider(),
             verticalSpace(context.height * 20 / 852),
@@ -47,7 +60,8 @@ class _MethodSelectionPageState extends State<MethodSelectionPage> {
                 itemCount: _methods.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8, horizontal: 16.0),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
@@ -106,33 +120,28 @@ class _MethodSelectionPageState extends State<MethodSelectionPage> {
             ),
             verticalSpace(context.height * 85 / 852),
             Center(
-              child: CustomBottom(text: "Continue", onPressed: () {
-
-                if (_selectedMethods.isEmpty) {
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Please select at least one method!'),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
-                } else {
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TellUsAboutView(
-                        totalFormQuestions: 10,
-                        selectedMethods: _selectedMethods,
-                      ),
-                    ),
-                  );
-                }
-
-
-
-
-              }),
+              child: CustomBottom(
+                  text: "Continue",
+                  onPressed: () {
+                    if (_selectedMethods.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please select at least one method!'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TellUsAboutView(
+                            totalFormQuestions: 10,
+                            selectedMethods: _selectedMethods,
+                          ),
+                        ),
+                      );
+                    }
+                  }),
             )
           ],
         ),
@@ -140,6 +149,3 @@ class _MethodSelectionPageState extends State<MethodSelectionPage> {
     );
   }
 }
-
-
-

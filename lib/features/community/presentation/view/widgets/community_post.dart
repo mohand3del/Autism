@@ -17,12 +17,18 @@ import 'reactionIconWidget.dart';
 
 class CommunityPost extends StatefulWidget {
   const CommunityPost(
-      {super.key, this.user, this.post, this.data, this.postId});
+      {super.key,
+      this.user,
+      this.post,
+      this.data,
+      this.postId,
+      this.showDivider = true});
 
   final User? user;
   final Post? post;
   final Datum? data;
   final String? postId;
+  final bool showDivider; // Add this line
 
   @override
   _CommunityPostState createState() => _CommunityPostState();
@@ -78,10 +84,11 @@ class _CommunityPostState extends State<CommunityPost> {
       onTap: _hideReactions,
       child: Column(
         children: [
-          const Divider(
-            thickness: 4,
-            color: AppColors.dotGray,
-          ),
+          if (widget.showDivider)
+            const Divider(
+              thickness: 4,
+              color: AppColors.dotGray,
+            ),
           Container(
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -171,11 +178,14 @@ class _CommunityPostState extends State<CommunityPost> {
                         mainAxisSpacing: 6,
                         childAspectRatio: 1,
                       ),
-                      itemCount: widget.data!.post.images.length,
+                      itemCount: widget.data!.post.images
+                          .where((img) => img.toString().startsWith('http'))
+                          .length,
                       itemBuilder: (context, index) {
-                        final imageUrl =
-                            widget.data!.post.images[index].toString();
-                        if (imageUrl.isEmpty) return const SizedBox.shrink();
+                        final validImages = widget.data!.post.images
+                            .where((img) => img.toString().startsWith('http'))
+                            .toList();
+                        final imageUrl = validImages[index].toString();
                         return ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(

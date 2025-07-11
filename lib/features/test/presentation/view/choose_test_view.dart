@@ -1,5 +1,6 @@
 
 import 'package:autism/core/constant/app_colors.dart';
+import 'package:autism/features/home/presentation/views/widgets/custom_home_app_bar.dart';
 import 'package:autism/features/test/presentation/view/widget/choose_test_method_body.dart';
 import 'package:flutter/material.dart';
 
@@ -10,9 +11,9 @@ class ChooseTestView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       backgroundColor: AppColors.white,
-      appBar: CustomAppBar(title:"Mohand",),
+     
       body: MethodSelectionPage(),
     );
   }

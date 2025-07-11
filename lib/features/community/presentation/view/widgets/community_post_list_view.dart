@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'community_post.dart';
 
-
 class CommunityPostListView extends StatelessWidget {
   const CommunityPostListView({super.key, this.data});
   final List<Datum>? data;
@@ -27,6 +26,7 @@ class CommunityPostListView extends StatelessWidget {
             return CommunityPost(
               postId: data?[index].post.id,
               data: data?[index],
+              showDivider: true,
             );
           },
         ),

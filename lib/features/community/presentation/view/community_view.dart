@@ -24,7 +24,7 @@ class CommunityView extends StatelessWidget {
 
       child: const Scaffold(
         backgroundColor: AppColors.white,
-        appBar: CommunityAppBar(),
+      //  appBar: CommunityAppBar(),
         body: CommunityViewBody(),
       ),
     );
