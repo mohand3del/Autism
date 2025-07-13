@@ -1,5 +1,4 @@
 import 'package:autism/features/community/data/model/add_reaction_request_body.dart';
-import 'package:autism/features/community/data/model/add_reaction_response.dart';
 import 'package:autism/features/community/data/repo/add_reaction_repo.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

@@ -2,7 +2,7 @@ import 'package:autism/features/home/presentation/views/widgets/favorite/favorit
 import 'package:flutter/material.dart';
 
 class FavoriteViewBody extends StatelessWidget {
-  const FavoriteViewBody({Key? key}) : super(key: key);
+  const FavoriteViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {

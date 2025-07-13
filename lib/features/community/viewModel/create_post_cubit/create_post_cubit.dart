@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:autism/core/network/api_error_handler.dart';
 import 'package:autism/features/community/data/repo/create_post_repo.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';

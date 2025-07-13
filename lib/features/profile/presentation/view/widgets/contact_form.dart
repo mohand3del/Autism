@@ -5,17 +5,14 @@ import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/core/widgets/custom_bottom.dart';
 import 'package:autism/features/profile/data/model/contact_info_model.dart';
-import 'package:autism/features/profile/data/model/edit_contact_info_model.dart';
 import 'package:autism/features/profile/data/model/profile_user_data_response.dart';
 import 'package:autism/features/profile/presentation/view/widgets/contact_profile_fileds.dart';
 import 'package:autism/features/profile/viewModel/contactCubit/cubit/contact_info_cubit.dart';
-import 'package:autism/features/profile/viewModel/profileCubit/editCubit/edit_profile_cubit.dart';
 import 'package:autism/features/profile/viewModel/profileCubit/profile_cubit.dart';
 import 'package:autism/features/profile/viewModel/uploadImageCubit/cubit/upload_image_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'profile_form.dart';
 import 'profile_header.dart';
 
 class ContactForm extends StatefulWidget {
@@ -230,19 +227,16 @@ class ContactFormState extends State<ContactForm> {
   void _initializeProfileControllers(ProfileUserDataResponse userData) {}
 
   void _initializeContactControllers(ContactInfoModel contactInfo) {
-    if (contactInfo.user.address != null &&
-        contactInfo.user.address.isNotEmpty) {
+    if (contactInfo.user.address.isNotEmpty) {
       _addressController.text = contactInfo.user.address;
     }
-    if (contactInfo.user.phone != null && contactInfo.user.phone.isNotEmpty) {
+    if (contactInfo.user.phone.isNotEmpty) {
       _phoneController.text = contactInfo.user.phone;
     }
-    if (contactInfo.user.facebookLink != null &&
-        contactInfo.user.facebookLink.isNotEmpty) {
+    if (contactInfo.user.facebookLink.isNotEmpty) {
       _facebookController.text = contactInfo.user.facebookLink;
     }
-    if (contactInfo.user.linkedinLink != null &&
-        contactInfo.user.linkedinLink.isNotEmpty) {
+    if (contactInfo.user.linkedinLink.isNotEmpty) {
       _linkedInController.text = contactInfo.user.linkedinLink;
     }
   }

@@ -10,9 +10,8 @@ import 'package:quickalert/quickalert.dart';
 
 class ImageUploadService {
   final Dio _dio = Dio();
-  static const String baseUrl =
-      'https://autism-app.onrender.com/api/v1/testing';
-
+ // static const String baseUrl = 'https://autism-app.onrender.com/api/v1/testing';
+ static const String baseUrl = 'https://06161ea29384.ngrok-free.app/api/v1/testing';
   final Map<String, String> methodApiMap = {
     'Picture': '$baseUrl/childFace',
     'Drawing': '$baseUrl/drawing',
@@ -95,7 +94,7 @@ class ImageUploadService {
         );
       } else {
         log('Error: $e');
-        _showErrorAlert(context, 'An unexpected error occurred: ${e}');
+        _showErrorAlert(context, 'An unexpected error occurred: $e');
       }
       return false;
     }

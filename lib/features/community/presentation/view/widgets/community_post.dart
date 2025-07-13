@@ -1,6 +1,5 @@
 import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/di/di.dart';
-import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/features/community/data/model/add_reaction_request_body.dart';
@@ -11,6 +10,8 @@ import 'package:autism/features/community/viewModel/delete_reaction_cubit/delete
 import 'package:autism/features/community/viewModel/show_post_comments/cubit/show_post_comments_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'post_action_button.dart';
 import 'reactionIconWidget.dart';
@@ -78,6 +79,59 @@ class _CommunityPostState extends State<CommunityPost> {
     });
   }
 
+  void _sharePost() async {
+    try {
+      final String postContent = widget.data?.post.text ?? "";
+      final String userName = widget.data?.user.name ?? "User";
+      
+      String shareText = "Post from $userName: \n\n$postContent";
+      
+      // Add hashtag
+      shareText += "\n\n#AutismCommunity";
+      
+      // Check if there are images to share
+      if (widget.data?.post.images != null && widget.data!.post.images.isNotEmpty) {
+        shareText += "\n\nImages available in original post.";
+      }
+      
+      // Share the post content with await to catch any potential errors
+      await Share.share(shareText);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Could not share post: $e"))
+      );
+    }
+  }
+
+  // Function to format timestamp like Facebook
+  String _formatTimeAgo(String? timestamp) {
+    if (timestamp == null) return '2 hours ago';
+
+    try {
+      final DateTime postTime = DateTime.parse(timestamp);
+      final DateTime now = DateTime.now();
+      final difference = now.difference(postTime);
+
+      if (difference.inSeconds < 60) {
+        return 'Just now';
+      } else if (difference.inMinutes < 60) {
+        return '${difference.inMinutes} ${difference.inMinutes == 1 ? 'minute' : 'minutes'} ago';
+      } else if (difference.inHours < 24) {
+        return '${difference.inHours} ${difference.inHours == 1 ? 'hour' : 'hours'} ago';
+      } else if (difference.inDays < 7) {
+        return '${difference.inDays} ${difference.inDays == 1 ? 'day' : 'days'} ago';
+      } else if (difference.inDays < 30) {
+        return '${(difference.inDays / 7).floor()} ${(difference.inDays / 7).floor() == 1 ? 'week' : 'weeks'} ago';
+      } else if (difference.inDays < 365) {
+        return DateFormat('MMMM d').format(postTime);
+      } else {
+        return DateFormat('MMMM d, y').format(postTime);
+      }
+    } catch (e) {
+      return '2 hours ago';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -125,14 +179,15 @@ class _CommunityPostState extends State<CommunityPost> {
                               horizontalSpace(context.width * 4 / 393),
                               const Icon(
                                 Icons.verified,
-                                color: Colors.blue,
+                                color: AppColors.primaryColor,
                                 size: 16,
                               ),
                             ],
                           ),
-                          const Text(
-                            '15h',
-                            style: TextStyle(
+                          Text(
+                            _formatTimeAgo(
+                                widget.data?.post.createdAt.toString()),
+                            style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,
                             ),
@@ -291,9 +346,7 @@ class _CommunityPostState extends State<CommunityPost> {
                     PostActionButton(
                       icon: const AssetImage('assets/images/shareIcone.png'),
                       text: 'Share',
-                      onTap: () {
-                        // Handle Share
-                      },
+                      onTap: _sharePost,
                     ),
                   ],
                 ),

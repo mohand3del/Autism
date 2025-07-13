@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:autism/core/constant/app_colors.dart';
 
 class CommentShimmer extends StatelessWidget {
   final bool isReply;

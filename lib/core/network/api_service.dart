@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:autism/core/network/api_constant.dart';
 import 'package:autism/core/network/response_model.dart';
@@ -38,7 +37,6 @@ import 'package:retrofit/http.dart';
 import '../../features/auth/forgetPass/data/model/forget_request_body.dart';
 import '../../features/auth/forgetPass/data/model/forget_response_body.dart';
 import '../../features/auth/login/data/model/login_request_body.dart';
-import 'package:logger/logger.dart';
 
 part 'api_service.g.dart';
 

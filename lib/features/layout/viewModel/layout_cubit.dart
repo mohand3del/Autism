@@ -74,7 +74,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
     const ChooseTestView(),
     const CommunityView(),    // Placeholder, will be replaced later
     const ResourceView(),
-    Column(),         // Placeholder for future implementation
+    const Column(),         // Placeholder for future implementation
        // Placeholder for future implementation
   ];
 

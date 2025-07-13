@@ -16,7 +16,7 @@ class CommunityViewBody extends StatelessWidget {
       child: Column(
         children: [
           // CommunityPostListView()
-          CustomHomeAppBar(
+          const CustomHomeAppBar(
             showWelcome: false,
             assetPath: 'assets/images/bello.svg',
             onIconPressed: null, // No action defined for the icon
@@ -80,7 +80,7 @@ class CommunityViewBody extends StatelessWidget {
               ],
             ),
           ),
-          ShowAllPostsBlocBuilder(),
+          const ShowAllPostsBlocBuilder(),
         ],
       ),
     );

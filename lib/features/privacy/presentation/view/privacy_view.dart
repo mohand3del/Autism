@@ -6,24 +6,26 @@ import 'package:autism/features/privacy/presentation/viewmodel/privacy_cubit.dar
 import 'package:autism/features/privacy/data/models/legal_info_model.dart';
 
 class PrivacyView extends StatelessWidget {
+  const PrivacyView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Legal Information'),
+        title: const Text('Legal Information'),
       ),
       body: BlocBuilder<PrivacyCubit, PrivacyState>(
         builder: (context, state) {
           switch (state.status) {
             case PrivacyStatus.loading:
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             case PrivacyStatus.loaded:
               return _buildLegalInfoList(state.legalInfo);
             case PrivacyStatus.error:
               return Center(
                   child: Text(state.errorMessage ?? 'Error loading data'));
             default:
-              return Center(
+              return const Center(
                   child: Text('Welcome to the Legal Information Page'));
           }
         },
@@ -32,7 +34,7 @@ class PrivacyView extends StatelessWidget {
   }
 
   Widget _buildLegalInfoList(LegalInfoModel? legalInfo) {
-    if (legalInfo == null) return SizedBox();
+    if (legalInfo == null) return const SizedBox();
     return ListView.builder(
       itemCount: legalInfo.items.length,
       itemBuilder: (context, index) {

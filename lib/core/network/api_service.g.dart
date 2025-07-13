@@ -14,7 +14,7 @@ class _ApiService implements ApiService {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= 'https://autism-app.onrender.com/api/v1/';
+    baseUrl ??= 'https://06161ea29384.ngrok-free.app/api/v1/';
   }
 
   final Dio _dio;

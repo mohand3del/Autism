@@ -8,7 +8,7 @@ class CreatePostAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String postButtonText;
   final Color postButtonColor;
 
-  CreatePostAppBar({
+  const CreatePostAppBar({super.key, 
     required this.title,
     this.onBackPressed,
     this.onPostPressed,

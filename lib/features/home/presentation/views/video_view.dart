@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:autism/core/constant/app_colors.dart';
 

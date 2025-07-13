@@ -17,8 +17,10 @@ class ApiErrors {
 }
 
 class ApiConstants {
-  static const String apiBaseUrl = "https://autism-app.onrender.com/api/v1/";
+  //static const String apiBaseUrl = "https://autism-app.onrender.com/api/v1/";
 
+   static const String apiBaseUrl = "https://06161ea29384.ngrok-free.app/api/v1/";
+   
   static const String login = "auth/signIn";
   static const String signup = "auth/signUp";
   static const String forgetPassword = "auth/sendPassEmail";

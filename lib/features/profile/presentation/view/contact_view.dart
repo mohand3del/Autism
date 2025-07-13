@@ -1,6 +1,5 @@
 import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/di/di.dart';
-import 'package:autism/features/profile/viewModel/contactCubit/cubit/contact_info_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

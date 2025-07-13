@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'widgets/favorite/favorite_view_body.dart';
 
 class FavoriteView extends StatelessWidget {
-  const FavoriteView({Key? key}) : super(key: key);
+  const FavoriteView({super.key});
 
   @override
   Widget build(BuildContext context) {

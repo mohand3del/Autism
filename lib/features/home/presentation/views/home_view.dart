@@ -16,7 +16,7 @@ class HomeView extends StatelessWidget {
         body: BlocBuilder<InternetCubit, InternetState>(
           builder: (context, state) {
             if (state is InternetConnected) {
-              return HomeViewBody();
+              return const HomeViewBody();
             } else if (state is InternetDisconnected) {
               return Center(
                 child: Lottie.asset('assets/images/wifi.json'),

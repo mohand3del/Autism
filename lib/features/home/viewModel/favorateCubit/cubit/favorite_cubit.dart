@@ -8,7 +8,7 @@ part 'favorite_state.dart';
 part 'favorite_cubit.freezed.dart';
 
 class FavoriteCubit extends Cubit<FavoriteState> {
-  FavoriteCubit(this._favoriteVideoRepo) : super(FavoriteState.initial());
+  FavoriteCubit(this._favoriteVideoRepo) : super(const FavoriteState.initial());
 
   final FavoriteVideoRepo _favoriteVideoRepo;
   final List<FullData?> _favoriteVideos = [];

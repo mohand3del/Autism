@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'widgets/edit_profile_view_body.dart';
-import 'widgets/edit_profile_view_body_old.dart';
 
 class EditProfileView extends StatelessWidget {
   const EditProfileView({super.key});
@@ -24,7 +23,7 @@ class EditProfileView extends StatelessWidget {
             create: (context) => getIt<UploadImageCubit>(),
           ),
         ],
-        child: EditProfileViewBody(),
+        child: const EditProfileViewBody(),
       ),
     );
   }

@@ -20,7 +20,7 @@ class _MethodSelectionPageState extends State<MethodSelectionPage> {
     'Picture',
     'Drawing',
     'Coloring',
-    'Hand Right'
+    'Hand write'
   ];
 
   final List<String> _selectedMethods = [];
