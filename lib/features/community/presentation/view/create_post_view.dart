@@ -1,14 +1,10 @@
-import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:autism/core/di/di.dart';
 import 'package:autism/features/community/presentation/view/widgets/create_post_app_bar.dart';
 import 'package:autism/features/community/presentation/view/widgets/create_post_bloc_listener.dart';
 import 'package:autism/features/community/presentation/view/widgets/create_post_view_body.dart';
 import 'package:autism/features/community/viewModel/create_post_cubit/create_post_cubit.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreatePostView extends StatelessWidget {

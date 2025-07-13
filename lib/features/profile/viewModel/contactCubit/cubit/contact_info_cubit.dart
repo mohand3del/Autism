@@ -1,4 +1,3 @@
-import 'package:autism/core/network/api_error_model.dart';
 import 'package:autism/features/profile/data/model/contact_info_model.dart';
 import 'package:autism/features/profile/data/repo/contact_info_repo.dart';
 import 'package:bloc/bloc.dart';

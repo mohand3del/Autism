@@ -1,9 +1,7 @@
-import 'package:autism/core/network/api_result.dart';
 import 'package:autism/features/community/data/model/show_post_comments_response.dart';
 import 'package:autism/features/community/data/repo/show_post_comments_repo.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:meta/meta.dart';
 
 part 'show_post_comments_state.dart';
 part 'show_post_comments_cubit.freezed.dart';

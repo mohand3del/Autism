@@ -8,13 +8,13 @@ class EditableTextField extends StatefulWidget {
   final String? Function(String?)? validator;
 
   const EditableTextField({
-    Key? key,
+    super.key,
     required this.label,
     this.initialValue = '',
     this.controller,
     Icon? suffixIcon,
     this.validator,
-  }) : super(key: key);
+  });
 
   @override
   _EditableTextFieldState createState() => _EditableTextFieldState();

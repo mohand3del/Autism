@@ -9,7 +9,6 @@ import 'package:autism/features/community/viewModel/show_all_post_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'widgets/community_app_bar.dart';
 
 class CommunityView extends StatelessWidget {
   const CommunityView({super.key});
@@ -24,7 +23,7 @@ class CommunityView extends StatelessWidget {
 
       child: const Scaffold(
         backgroundColor: AppColors.white,
-        appBar: CommunityAppBar(),
+      //  appBar: CommunityAppBar(),
         body: CommunityViewBody(),
       ),
     );

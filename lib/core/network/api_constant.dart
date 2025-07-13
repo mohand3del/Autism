@@ -17,8 +17,10 @@ class ApiErrors {
 }
 
 class ApiConstants {
-  static const String apiBaseUrl = "https://autism-app.onrender.com/api/v1/";
+  //static const String apiBaseUrl = "https://autism-app.onrender.com/api/v1/";
 
+   static const String apiBaseUrl = "https://06161ea29384.ngrok-free.app/api/v1/";
+   
   static const String login = "auth/signIn";
   static const String signup = "auth/signUp";
   static const String forgetPassword = "auth/sendPassEmail";
@@ -49,7 +51,7 @@ class ApiConstants {
   static const String aboutApp = "portfolio/aboutApp";
   static const String uploadImage = "portfolio/imageUpload";
   static const String favoriteVideo = "home/favorite/show";
- 
-
-
+  static const String addToFavorite = "home/favorite/add";
+  static const String deleteFavorite = "home/favorite/delete";
+  static const String deleteAllFavorites = "home/favorite/deleteAll";
 }

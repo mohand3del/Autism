@@ -1,5 +1,4 @@
 import 'package:autism/core/constant/app_colors.dart';
-import 'package:autism/core/utils/app_styles.dart';
 
 import 'package:autism/features/auth/signUp/view%20model/sign_up_cubit.dart';
 import 'package:flutter/material.dart';

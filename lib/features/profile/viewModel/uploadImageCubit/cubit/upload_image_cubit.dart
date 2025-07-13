@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:autism/core/network/api_error_handler.dart';
-import 'package:autism/core/network/api_error_model.dart';
 import 'package:autism/features/profile/data/repo/upload_image_repo.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -11,7 +10,7 @@ part 'upload_image_state.dart';
 part 'upload_image_cubit.freezed.dart';
 
 class UploadImageCubit extends Cubit<UploadImageState> {
-  UploadImageCubit(this._uploadImageRepo) : super(UploadImageState.initial());
+  UploadImageCubit(this._uploadImageRepo) : super(const UploadImageState.initial());
 
   final UploadImageRepo _uploadImageRepo;
   final ImagePicker _picker = ImagePicker();
@@ -32,7 +31,7 @@ class UploadImageCubit extends Cubit<UploadImageState> {
     final File image = File(pickedFile.path);
     _selectedImage = image; // Store the new image locally
 
-    emit(UploadImageState.loading());
+    emit(const UploadImageState.loading());
 
     try {
       await _uploadImageRepo.uploadImage(image);

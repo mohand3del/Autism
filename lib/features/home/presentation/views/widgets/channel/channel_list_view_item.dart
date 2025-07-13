@@ -6,7 +6,6 @@ import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/features/home/data/model/channel_response_body.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class ChannelListViewItem extends StatelessWidget {
   final int? itemIndex;
@@ -35,14 +34,14 @@ class ChannelListViewItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(
                   25.0), // Same radius as the CircleAvatar
               child: CachedNetworkImage(
-                placeholder: (context, url) => CircularProgressIndicator(
+                placeholder: (context, url) => const CircularProgressIndicator(
                   valueColor:
                       AlwaysStoppedAnimation<Color>(AppColors.primaryColor),
                 ),
                 imageUrl: channels!.thumbnails.medium.url,
 
-                errorWidget: (context, url, error) => Icon(Icons.error),
-                fadeInDuration: Duration(milliseconds: 500),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                fadeInDuration: const Duration(milliseconds: 500),
                 fit: BoxFit.cover,
                 height: context.height * 70 / 932,
                 width: context.width * 70 / 430, // Adjust fit as needed

@@ -14,7 +14,6 @@ import 'core/helper/contants.dart';
 import 'core/routing/router.dart';
 import 'features/resource/viewModel/resource_cubit.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupGetIt();
@@ -57,7 +56,8 @@ class Autism extends StatelessWidget {
           create: (BuildContext context) =>
               getIt<InternetCubit>(), // Add InternetCubit
         ),
-        BlocProvider(create: (BuildContext context) => PrivacyCubit()..loadLegalInfo()),
+        BlocProvider(
+            create: (BuildContext context) => PrivacyCubit()..loadLegalInfo()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
@@ -65,7 +65,6 @@ class Autism extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
           useMaterial3: true,
-          
         ),
         routerConfig: AppRouter.router,
         builder: DevicePreview.appBuilder,

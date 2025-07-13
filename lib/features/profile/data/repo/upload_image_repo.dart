@@ -15,9 +15,6 @@ class UploadImageRepo {
   Future<ApiResult<ApiResponse>> uploadImage(File image) async {
     try {
     
-      if (image == null) {
-        throw ArgumentError('Image file cannot be null');
-      }
       if (!image.existsSync()) {
         throw Exception('Image file does not exist');
       }

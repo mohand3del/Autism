@@ -1,6 +1,5 @@
 import 'package:autism/core/constant/app_colors.dart';
 import 'package:autism/core/di/di.dart';
-import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
 import 'package:autism/features/community/data/model/add_reaction_request_body.dart';
@@ -11,18 +10,26 @@ import 'package:autism/features/community/viewModel/delete_reaction_cubit/delete
 import 'package:autism/features/community/viewModel/show_post_comments/cubit/show_post_comments_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'post_action_button.dart';
 import 'reactionIconWidget.dart';
 
 class CommunityPost extends StatefulWidget {
   const CommunityPost(
-      {super.key, this.user, this.post, this.data, this.postId});
+      {super.key,
+      this.user,
+      this.post,
+      this.data,
+      this.postId,
+      this.showDivider = true});
 
   final User? user;
   final Post? post;
   final Datum? data;
   final String? postId;
+  final bool showDivider; // Add this line
 
   @override
   _CommunityPostState createState() => _CommunityPostState();
@@ -72,16 +79,70 @@ class _CommunityPostState extends State<CommunityPost> {
     });
   }
 
+  void _sharePost() async {
+    try {
+      final String postContent = widget.data?.post.text ?? "";
+      final String userName = widget.data?.user.name ?? "User";
+      
+      String shareText = "Post from $userName: \n\n$postContent";
+      
+      // Add hashtag
+      shareText += "\n\n#AutismCommunity";
+      
+      // Check if there are images to share
+      if (widget.data?.post.images != null && widget.data!.post.images.isNotEmpty) {
+        shareText += "\n\nImages available in original post.";
+      }
+      
+      // Share the post content with await to catch any potential errors
+      await Share.share(shareText);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Could not share post: $e"))
+      );
+    }
+  }
+
+  // Function to format timestamp like Facebook
+  String _formatTimeAgo(String? timestamp) {
+    if (timestamp == null) return '2 hours ago';
+
+    try {
+      final DateTime postTime = DateTime.parse(timestamp);
+      final DateTime now = DateTime.now();
+      final difference = now.difference(postTime);
+
+      if (difference.inSeconds < 60) {
+        return 'Just now';
+      } else if (difference.inMinutes < 60) {
+        return '${difference.inMinutes} ${difference.inMinutes == 1 ? 'minute' : 'minutes'} ago';
+      } else if (difference.inHours < 24) {
+        return '${difference.inHours} ${difference.inHours == 1 ? 'hour' : 'hours'} ago';
+      } else if (difference.inDays < 7) {
+        return '${difference.inDays} ${difference.inDays == 1 ? 'day' : 'days'} ago';
+      } else if (difference.inDays < 30) {
+        return '${(difference.inDays / 7).floor()} ${(difference.inDays / 7).floor() == 1 ? 'week' : 'weeks'} ago';
+      } else if (difference.inDays < 365) {
+        return DateFormat('MMMM d').format(postTime);
+      } else {
+        return DateFormat('MMMM d, y').format(postTime);
+      }
+    } catch (e) {
+      return '2 hours ago';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: _hideReactions,
       child: Column(
         children: [
-          const Divider(
-            thickness: 4,
-            color: AppColors.dotGray,
-          ),
+          if (widget.showDivider)
+            const Divider(
+              thickness: 4,
+              color: AppColors.dotGray,
+            ),
           Container(
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -118,14 +179,15 @@ class _CommunityPostState extends State<CommunityPost> {
                               horizontalSpace(context.width * 4 / 393),
                               const Icon(
                                 Icons.verified,
-                                color: Colors.blue,
+                                color: AppColors.primaryColor,
                                 size: 16,
                               ),
                             ],
                           ),
-                          const Text(
-                            '15h',
-                            style: TextStyle(
+                          Text(
+                            _formatTimeAgo(
+                                widget.data?.post.createdAt.toString()),
+                            style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,
                             ),
@@ -155,6 +217,42 @@ class _CommunityPostState extends State<CommunityPost> {
                     style: const TextStyle(fontSize: 14),
                   ),
                 ),
+                // Display images under post text if images are not null or empty
+                if (widget.data?.post.images != null &&
+                    widget.data!.post.images.isNotEmpty)
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3, // 3 images per row
+                        crossAxisSpacing: 6,
+                        mainAxisSpacing: 6,
+                        childAspectRatio: 1,
+                      ),
+                      itemCount: widget.data!.post.images
+                          .where((img) => img.toString().startsWith('http'))
+                          .length,
+                      itemBuilder: (context, index) {
+                        final validImages = widget.data!.post.images
+                            .where((img) => img.toString().startsWith('http'))
+                            .toList();
+                        final imageUrl = validImages[index].toString();
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            imageUrl,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const SizedBox.shrink(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 verticalSpace(context.height * 10 / 851),
 
                 // Reaction row
@@ -222,21 +320,20 @@ class _CommunityPostState extends State<CommunityPost> {
                       text: 'Comment',
                       onTap: () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                              create: (context) =>
-                                  getIt<ShowPostCommentsCubit>()
-                                    ..getPostComments(widget.postId ?? ''),
-                              child: CommentView(
-                                postId: widget.postId ?? '',
-                                post: widget.post, // Add this
-                                user: widget.user, // Add this
-                                data: widget.data,
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlocProvider(
+                                create: (context) =>
+                                    getIt<ShowPostCommentsCubit>()
+                                      ..getPostComments(widget.postId ?? ''),
+                                child: CommentView(
+                                  postId: widget.postId ?? '',
+                                  post: widget.post, // Add this
+                                  user: widget.user, // Add this
+                                  data: widget.data,
+                                ),
                               ),
-                            ),
-                          ),
-                        );
+                            ));
                       },
                     ),
                     PostActionButton(
@@ -249,9 +346,7 @@ class _CommunityPostState extends State<CommunityPost> {
                     PostActionButton(
                       icon: const AssetImage('assets/images/shareIcone.png'),
                       text: 'Share',
-                      onTap: () {
-                        // Handle Share
-                      },
+                      onTap: _sharePost,
                     ),
                   ],
                 ),

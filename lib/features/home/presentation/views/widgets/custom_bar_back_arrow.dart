@@ -13,7 +13,8 @@ class CustomBarBackArrow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adjust spacing between children
+      mainAxisAlignment:
+          MainAxisAlignment.spaceBetween, // Adjust spacing between children
       children: [
         // Back Arrow Icon
         Padding(
@@ -23,7 +24,13 @@ class CustomBarBackArrow extends StatelessWidget {
           ),
           child: InkWell(
             onTap: () {
-              GoRouter.of(context).pop();
+              final router = GoRouter.of(context);
+              if (router.canPop()) {
+                router.pop();
+              } else {
+                // Navigate to home if can't go back
+                router.go('/layout');
+              }
             },
             child: const Icon(Icons.arrow_back_ios),
           ),
@@ -34,7 +41,9 @@ class CustomBarBackArrow extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(
               top: context.height * 33 / 852,
-              left: context.width * 10 / 393, // Adjust left padding here for title
+              left: context.width *
+                  10 /
+                  393, // Adjust left padding here for title
             ),
             child: Align(
               alignment: Alignment.center, // Align the title to center
@@ -50,7 +59,8 @@ class CustomBarBackArrow extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(
             top: context.height * 33 / 852,
-            right: context.width * 20 / 393, // Adjust right padding for the icon
+            right:
+                context.width * 20 / 393, // Adjust right padding for the icon
           ),
           child: GestureDetector(
             onTap: onTap,

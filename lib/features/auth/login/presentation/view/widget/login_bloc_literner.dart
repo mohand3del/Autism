@@ -1,5 +1,4 @@
 import 'package:autism/core/constant/app_colors.dart';
-import 'package:autism/core/utils/app_styles.dart';
 
 import 'package:autism/features/auth/login/view%20model/login_cubit.dart';
 import 'package:autism/features/auth/login/view%20model/login_state.dart';

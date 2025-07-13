@@ -174,7 +174,6 @@ class ProfileViewBody extends StatelessWidget {
               },
             ),
             CupertinoDialogAction(
-              child:   Text('Log out'),
               isDestructiveAction: true,
               onPressed: () async {
                 // Clear authentication token
@@ -182,6 +181,7 @@ class ProfileViewBody extends StatelessWidget {
                 Navigator.of(context).pop();
                 context.go('/login');
               },
+              child:   const Text('Log out'),
             ),
           ],
         );

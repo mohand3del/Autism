@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'package:autism/core/constant/app_colors.dart';
-import 'package:autism/core/di/di.dart';
 import 'package:autism/core/utils/app_styles.dart';
 import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/core/utils/spacing.dart';
@@ -100,7 +98,7 @@ class CreatePostViewBody extends StatelessWidget {
                             height: 200, // Adjust as needed
                             fit: BoxFit.cover,
                           )
-                              : SizedBox.shrink(),
+                              : const SizedBox.shrink(),
                         ),
                       ),
                     ],

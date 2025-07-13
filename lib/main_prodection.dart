@@ -4,8 +4,6 @@ import 'package:autism/core/utils/extentions.dart';
 import 'package:autism/features/privacy/presentation/viewmodel/privacy_cubit.dart';
 import 'package:autism/features/profile/viewModel/profileCubit/profile_cubit.dart';
 import 'package:autism/features/test/viewModel/tell_about_cubit/tell_about_cubit.dart';
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/cubit/internet_connection_cubit.dart';
@@ -14,7 +12,6 @@ import 'core/helper/contants.dart';
 import 'core/routing/router.dart';
 import 'features/resource/viewModel/resource_cubit.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupGetIt();
@@ -22,11 +19,8 @@ void main() async {
   final profileCubit = getIt<ProfileCubit>();
   await profileCubit.getProfileData();
   runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (_) => Autism(
-        profileCubit: profileCubit,
-      ),
+    Autism(
+      profileCubit: profileCubit,
     ),
   );
 }
@@ -57,18 +51,18 @@ class Autism extends StatelessWidget {
           create: (BuildContext context) =>
               getIt<InternetCubit>(), // Add InternetCubit
         ),
-        BlocProvider(create: (BuildContext context) => PrivacyCubit()..loadLegalInfo()),
+        BlocProvider(
+            create: (BuildContext context) => PrivacyCubit()..loadLegalInfo()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
-        title: 'Autism',
+        title: 'Autism', 
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
           useMaterial3: true,
-          
         ),
         routerConfig: AppRouter.router,
-        builder: DevicePreview.appBuilder,
+       // builder: DevicePreview.appBuilder,
       ),
     );
   }

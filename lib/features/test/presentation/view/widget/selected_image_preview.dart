@@ -49,6 +49,7 @@ class SelectedImagePreview extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: CustomBottomLoadingHandler(
+                  onPressed: onSubmitPressed,
                   child: isLoading
                       ? Center(
                           child: SpinKitFadingCube(
@@ -64,7 +65,6 @@ class SelectedImagePreview extends StatelessWidget {
                             fontFamily: "Poppins",
                           ),
                         ),
-                  onPressed: onSubmitPressed,
                 ),
               ),
             ),

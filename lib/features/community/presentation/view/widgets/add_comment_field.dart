@@ -6,7 +6,7 @@ class AddCommentField extends StatefulWidget {
   final String? userImage;
   final String? userName;
 
-  AddCommentField({
+  const AddCommentField({super.key, 
     required this.onCommentSubmit, 
     required this.hintText,
     this.userImage,
@@ -18,7 +18,7 @@ class AddCommentField extends StatefulWidget {
 }
 
 class _AddCommentFieldState extends State<AddCommentField> {
-  TextEditingController _commentController = TextEditingController();
+  final TextEditingController _commentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class _AddCommentFieldState extends State<AddCommentField> {
                 controller: _commentController,
                 decoration: InputDecoration(
                   hintText: widget.hintText,
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: const TextStyle(color: Colors.grey),
                   border: InputBorder.none,
                 ),
               ),
@@ -66,12 +66,12 @@ class _AddCommentFieldState extends State<AddCommentField> {
               }
             },
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.blue, // Button color
                 shape: BoxShape.circle,
               ),
               padding: const EdgeInsets.all(10.0),
-              child: Icon(
+              child: const Icon(
                 Icons.send, // Send icon
                 color: Colors.white,
               ),

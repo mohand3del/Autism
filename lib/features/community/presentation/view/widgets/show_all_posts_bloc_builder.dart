@@ -4,7 +4,6 @@
 
 
 import 'package:autism/core/utils/app_styles.dart';
-import 'package:autism/features/community/data/model/show_post_response.dart';
 import 'package:autism/features/community/presentation/view/widgets/community_post_list_view.dart';
 import 'package:autism/features/community/presentation/view/widgets/community_post_shimmer_loading.dart';
 import 'package:autism/features/community/viewModel/show_all_post_cubit.dart';

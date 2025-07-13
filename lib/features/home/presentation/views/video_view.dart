@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:autism/core/constant/app_colors.dart';
 
@@ -33,7 +32,7 @@ class _VideoViewState extends State<VideoView> {
 
 
 
-    log('id from video view: ${widget.videoId}');
+    //log('id from video view: ${widget.videoId}');
     _videoFuture = context.read<VideoByIdCubit>().getVideoById(videoId: widget.videoId);
   }
 

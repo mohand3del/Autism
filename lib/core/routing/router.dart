@@ -11,7 +11,6 @@ import 'package:autism/features/community/presentation/view/comment_view.dart';
 import 'package:autism/features/community/presentation/view/community_view.dart';
 import 'package:autism/features/community/presentation/view/create_post_view.dart';
 import 'package:autism/features/community/presentation/view/search_view.dart';
-import 'package:autism/features/community/viewModel/create_post_cubit/create_post_cubit.dart';
 import 'package:autism/features/community/viewModel/show_all_post_cubit.dart';
 import 'package:autism/features/home/presentation/views/channel_info_view.dart';
 import 'package:autism/features/home/presentation/views/channel_view.dart';
@@ -23,7 +22,9 @@ import 'package:autism/features/home/presentation/views/video_view.dart';
 import 'package:autism/features/home/viewModel/channelCubit/channel_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_by_id_cubit.dart';
 import 'package:autism/features/home/viewModel/exploreVideoCubit/video_cubit.dart';
+import 'package:autism/features/home/viewModel/favorateCubit/cubit/add_to_favorite_cubit.dart';
 import 'package:autism/features/home/viewModel/favorateCubit/cubit/favorite_cubit.dart';
+import 'package:autism/features/home/viewModel/favorateCubit/cubit/remove_from_favorite_cubit.dart';
 import 'package:autism/features/home/viewModel/historyCubit/history_cubit.dart';
 import 'package:autism/features/layout/view/layout_view.dart';
 import 'package:autism/features/layout/viewModel/layout_cubit.dart';
@@ -96,6 +97,7 @@ class AppRouter {
   static const String favorite = "/favorite";
 
   static final GoRouter router = GoRouter(
+    observers: [routeObserver], // Add the route observer here
     routes: <RouteBase>[
       GoRoute(
         path: splash,
@@ -215,6 +217,16 @@ class AppRouter {
           if (videoId != null) {
             return MultiBlocProvider(
               providers: [
+                BlocProvider(
+                  create: (BuildContext context) => getIt<AddToFavoriteCubit>(),
+                ),
+                BlocProvider(
+                  create: (BuildContext context) =>
+                      getIt<RemoveFromFavoriteCubit>(),
+                ),
+                BlocProvider(
+                  create: (BuildContext context) => getIt<FavoriteCubit>(),
+                ),
                 BlocProvider(
                   create: (BuildContext context) => getIt<VideoByIdCubit>(),
                 ),
@@ -364,14 +376,14 @@ class AppRouter {
                 create: (BuildContext context) => getIt<ContactInfoCubit>(),
               ),
             ],
-            child: ContactView(),
+            child: const ContactView(),
           );
         },
       ),
       GoRoute(
         path: fqas,
         builder: (context, state) {
-          return FqasView();
+          return const FqasView();
         },
       ),
       GoRoute(
@@ -388,7 +400,7 @@ class AppRouter {
         builder: (context, state) {
           return BlocProvider(
             create: (context) => PrivacyCubit()..loadLegalInfo(),
-            child: PrivacyView(),
+            child: const PrivacyView(),
           );
         },
       ),
@@ -397,8 +409,8 @@ class AppRouter {
         builder: (context, state) {
           return BlocProvider(
             create: (context) =>
-                FavoriteCubit(getIt())..getFavoriteVideos(skipVideo: 0),
-            child: FavoriteView(),
+                FavoriteCubit(getIt())..getFavoriteVideos(skipVideo: 10),
+            child: const FavoriteView(),
           );
         },
       )

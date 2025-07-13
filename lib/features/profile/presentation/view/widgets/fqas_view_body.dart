@@ -19,13 +19,13 @@ class FqasViewBody extends StatelessWidget {
       children: [
         Row(
           children: [
-            CustomBackArrow(),
+            const CustomBackArrow(),
             Padding(
               padding: EdgeInsets.only(
                 top: context.height * 0.095,
                 left: context.width * 0.063,
               ),
-              child: Text(
+              child: const Text(
                 'Frequently Asked Questions',
                 style: TextStyle(
                   fontSize: 20,
@@ -51,17 +51,17 @@ class FqasViewBody extends StatelessWidget {
                       fontFamily: 'Poppins',
                     )),
                 // Customize the arrow icon here
-                trailing: Icon(
+                trailing: const Icon(
                   Icons.keyboard_arrow_down_rounded,
                   color: AppColors.grey,
                 ),
                 iconColor: AppColors.black,
                 collapsedIconColor: AppColors.grey,
                 // Remove borders when expanded
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                   side: BorderSide.none,
                 ),
-                collapsedShape: RoundedRectangleBorder(
+                collapsedShape: const RoundedRectangleBorder(
                   side: BorderSide.none,
                 ),
                 children: [
